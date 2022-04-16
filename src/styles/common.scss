@@ -1,0 +1,132 @@
+/*
+* 定义全局样式
+*/
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+
+  height: 40px;
+  padding: 0 10px;
+
+  font-size: 14px;
+  color: white;
+
+  cursor: pointer;
+  background-color: $primary-color;
+  border: none;
+  border-radius: 999px;
+  outline: none;
+
+  transition: 0.2s;
+
+  &:active {
+    background-color: #036eb8;
+    transform: scale(0.98);
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.avatar-small {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.test {
+  border: 3px solid darkred;
+}
+
+.clearfix::after {
+  display: block;
+  clear: both;
+  content: ' ';
+}
+
+.noMore {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.markdown-body {
+  color: inherit;
+
+  img {
+    display: block;
+  }
+}
+
+a:-webkit-any-link {
+  color: inherit;
+}
+
+// css3 自定义滚动条 https://www.jianshu.com/p/c2addb233acd
+// 自定义滚动条介绍 https://www.cnblogs.com/ranyonsue/p/9487599.html
+::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  background-color: skyblue;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+
+// element-ui 全局样式微调
+.el-menu-item {
+  padding: 0 15px;
+  font-size: 16px;
+  text-align: center;
+  transition: none;
+}
+
+.el-menu.el-menu--horizontal {
+  border-bottom: none;
+
+  .is-active {
+    font-weight: bold;
+    border: none !important;
+  }
+}
+
+.el-menu--popup {
+  min-width: 100px;
+}
+
+.el-tabs__item {
+  color: inherit;
+}
+
+.el-tabs__item.is-active {
+  color: inherit;
+}
+
+.el-tabs__nav-scroll {
+  margin-left: 20px;
+}

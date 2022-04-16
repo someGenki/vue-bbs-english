@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Marked in the browser</title>
+  <style>
+    .box {
+      width: 64px;
+      height: 64px;
+      border-radius: 50px;
+      border: 1px solid #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <img height="64" width="64" id="box1" alt="" src="">
+</div>
+</body>
+<script>
+  const box = document.getElementById("box1")
+  const svg = `
+<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+  <text font-size="12" fill='red' x="2" y="24" >
+    中文内
+  </text>
+</svg>
+  `
+  box.src = 'data:image/svg+xml;utf8,' + svg
+  console.log(box.src)
+</script>
+</html>

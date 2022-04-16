@@ -1,0 +1,52 @@
+{
+  "name": "vue-bbs",
+  "private": true,
+  "version": "0.0.1",
+  "homepage": "http://fanyibar.top/bbs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "preinstall": "node ./scripts/preinstall.js",
+    "prttier:all": "prettier --write .",
+    "lint:css": "stylelint **/*.{vue,css,sass,scss} --fix"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^1.1.4",
+    "@vueuse/core": "^8.2.6",
+    "axios": "^0.26.1",
+    "dayjs": "^1.11.1",
+    "element-plus": "^2.1.9",
+    "js-cookie": "^3.0.1",
+    "marked": "^4.0.14",
+    "mavon-editor": "3.0.0-beta",
+    "pinia": "^2.0.13",
+    "vue": "^3.2.33",
+    "vue-cropperjs": "^5.0.0",
+    "vue-router": "^4.0.14"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "@vue/compiler-sfc": "^3.2.33",
+    "husky": "^7.0.4",
+    "postcss-html": "^1.4.1",
+    "prettier": "^2.6.2",
+    "sass": "^1.50.0",
+    "stylelint": "^14.7.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "vite": "^2.9.5"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
+  },
+  "package-manager": {
+    "yarn": ">=1.10.0"
+  }
+}

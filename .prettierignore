@@ -1,0 +1,8 @@
+public
+**/assets
+node_modules
+
+**/*.svg
+yarn.lock
+index.html
+

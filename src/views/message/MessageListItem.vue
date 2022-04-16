@@ -1,0 +1,121 @@
+<template>
+  <div class="message-board-list-item">
+    <div class="user">
+      <img :src="model.avatar" class="avatar" v-default-img="model.nickname" />
+      <span class="nickname">{{ model.nickname }}</span>
+      <el-tag effect="dark" :type="isUser ? '' : 'success'" size="small">
+        {{ isUser ? '用户' : '游客' }}
+      </el-tag>
+      <span class="os">{{ model.os }}</span>
+      <span class="browser">{{ model.browser }}</span>
+    </div>
+    <div class="content">
+      <span class="aite" v-if="model.toName">@{{ model.toName }}:</span>
+      <span v-html="content"></span>
+    </div>
+    <div class="footer">
+      <span class="reply-btn">回复TA</span>
+      <span class="time">{{ model.gmtCreate }}</span>
+      <span class="reply-count" v-if="model.childrenCount > 0">
+        共{{ model.childrenCount }}条回复
+      </span>
+    </div>
+    <div class="children" v-if="parent">
+      <MessageListItem
+        v-for="item in model.children"
+        :model="item"
+        :key="item.id"
+        :parent="false"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue'
+import { useProcessEmotion } from '/src/hooks/emotion/useEmotions'
+
+const props = defineProps({
+  model: { type: Object, required: true },
+  parent: { type: Boolean, default: false },
+})
+const isUser = computed(() => props.model.userId > 0)
+const content = useProcessEmotion(props.model.content)
+</script>
+
+<style lang="scss" scoped>
+.message-board-list-item {
+  position: relative;
+  min-height: 90px;
+  margin-top: 10px;
+}
+
+.user {
+  display: flex;
+  overflow: hidden;
+  font-size: 0.9rem;
+  white-space: nowrap; /*强制span不换行*/
+
+  > * {
+    margin-right: 10px;
+    font-size: 12px;
+  }
+
+  .nickname {
+    margin-left: 10px;
+    font-size: 14px;
+  }
+}
+
+.content {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  margin-left: 60px; /* img 40px margin total 20px 8*/
+
+  > .aite {
+    margin-right: 5px;
+    color: #4949fc;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.footer {
+  height: 30px;
+  margin-left: 60px;
+  line-height: 30px;
+
+  > * {
+    margin-right: 10px;
+    font-size: 12px;
+  }
+
+  > .reply-btn {
+    padding: 3px;
+
+    &:hover {
+      color: gray;
+      cursor: pointer;
+      background-color: #cecee0;
+      border-radius: 5px;
+    }
+  }
+
+  > .reply-count {
+    float: right;
+    // color: blueviolet;
+    margin-right: 10px;
+  }
+}
+
+.children {
+  margin-top: 10px;
+  margin-left: 60px;
+  border-bottom: 1px solid #d1d1d1;
+  transition: 0.5s;
+}
+</style>
