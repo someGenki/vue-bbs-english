@@ -1,16 +1,13 @@
 <template>
   <div :data-id="data.id" class="post-card">
-    <div class="post-card-box">
-      <a :data-uid="data.uid" @click="$router.push('/profile/' + data.id)">
-        <!--TODO 头像为默认首名字-->
-        <img
-          :src="data.avatar"
-          class="card-avatar"
-          v-default-img="data.nickname"
-          alt=""
-        />
-      </a>
-      <img v-if="content.firstImg" :src="content.firstImg" class="card-image" />
+    <router-link :to="`/post/${data.id}`" class="post-card-box">
+      <app-avatar v-bind="data" />
+      <img
+        v-if="content.firstImg"
+        :src="content.firstImg"
+        v-default-img="null"
+        class="card-image"
+      />
       <div class="card-content">
         <div class="card-info">
           <span :style="{ color: nameColor }" class="nickname">{{
@@ -20,7 +17,7 @@
         <div class="card-title">{{ data.title }}</div>
         <div class="post-content">{{ content.rawText }}</div>
       </div>
-    </div>
+    </router-link>
     <div class="post-card-footer">
       <div class="item thumbs-up"><i />{{ data.likes }}</div>
       <div class="item view"><i />{{ data.pv }}</div>
@@ -63,8 +60,7 @@ const content = getMarkdownData(props.data.content)
   position: relative;
   padding: 12px 16px;
   margin-bottom: 10px;
-
-  cursor: pointer;
+  height: 140px;
   background-color: #ffffff;
   border-radius: 3px;
   transition: all 0.15s;
@@ -78,6 +74,7 @@ const content = getMarkdownData(props.data.content)
     top: 6px;
     right: 6px;
     visibility: hidden;
+    cursor: pointer;
   }
 
   &:hover > .post-card-more {
@@ -87,19 +84,7 @@ const content = getMarkdownData(props.data.content)
 
 .post-card-box {
   height: 100px;
-
-  // 左侧头像
-  .card-avatar {
-    display: block;
-    float: left;
-    width: 36px;
-    height: 36px;
-
-    overflow: hidden;
-    vertical-align: middle;
-    background: #dadada;
-    border-radius: 50%;
-  }
+  cursor: pointer;
 
   // 右侧首图
   .card-image {
@@ -152,6 +137,8 @@ const content = getMarkdownData(props.data.content)
   display: flex;
   align-items: center;
   margin-left: 45px;
+  position: absolute;
+  bottom: 10px;
 
   color: #4e5969;
   user-select: none;

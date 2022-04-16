@@ -21,6 +21,11 @@ const baseRoutes = [
     children: [
       ...navs,
       {
+        path: '/post/:pid',
+        name: 'Post',
+        component: () => import('/src/views/post/index.vue'),
+      },
+      {
         path: '/login',
         name: 'Login',
         component: () => import('/src/views/sys/login/index.vue'),

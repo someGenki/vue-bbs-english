@@ -18,6 +18,7 @@
     "axios": "^0.26.1",
     "dayjs": "^1.11.1",
     "element-plus": "^2.1.9",
+    "highlight.js": "^11.5.1",
     "js-cookie": "^3.0.1",
     "marked": "^4.0.14",
     "mavon-editor": "3.0.0-beta",

@@ -51,6 +51,8 @@ export default async function defaultImg(el, binding) {
       el.setAttribute('src', defaultAvatar)
     } else if (param === 'background') {
       el.setAttribute('src', defaultBackground)
+    } else if (param === null) {
+      el.remove()
     } else {
       el.setAttribute('src', genSvgImg(param, getStrColor(param)))
     }

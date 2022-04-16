@@ -15,19 +15,19 @@ export default [
     path: '/tutorial',
     name: 'Tutorial',
     component: () => import('/src/views/message/index.vue'),
-    meta: { title: '教程 - 二元论坛', navName: '教程' },
+    meta: { title: '教程 - 二元论坛(🚧)', navName: '教程' },
   },
   {
     path: '/rank',
     name: 'Rank',
     component: () => import('/src/views/message/index.vue'),
-    meta: { title: '排行 - 二元论坛', navName: '排行' },
+    meta: { title: '排行 - 二元论坛(🚧)', navName: '排行' },
   },
   {
     path: '/rank',
     name: 'Rank',
     component: () => import('/src/views/message/index.vue'),
-    meta: { title: '活动 - 二元论坛', navName: '活动', disabled: true },
+    meta: { title: '活动 - 二元论坛(🚧)', navName: '活动', disabled: true },
   },
   {
     path: '/message',

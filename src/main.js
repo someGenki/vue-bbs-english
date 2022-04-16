@@ -8,10 +8,11 @@ import * as ElIcons from '@element-plus/icons-vue'
 import { globalRegister } from './utils/compRegister'
 import AppIcon from '/src/components/AppIcon/index.vue'
 import AppLink from '/src/components/AppLink/index.vue'
+import AppAvatar from '/src/components/AppAvatar/index.vue'
 import defaultImg from '/src/directives/default-img'
 import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 const app = createApp({ render: () => h(RouterView) })
 
@@ -25,5 +26,6 @@ app.directive('default-img', defaultImg)
 
 app.component('app-icon', AppIcon)
 app.component('app-link', AppLink)
+app.component('app-avatar', AppAvatar)
 
 app.mount('#app')

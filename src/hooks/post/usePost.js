@@ -33,7 +33,10 @@ export function getPostList(num, size, models, loaded, category) {
     models.current = res.data.current
     if (num === 1) {
       models.records = []
-      loaded.value = true
+      // 体现我用了骨架屏
+      setTimeout(() => {
+        loaded.value = true
+      }, 400)
     }
     for (const item of res.data.records) {
       models.records.push(item)

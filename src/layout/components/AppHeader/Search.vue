@@ -15,21 +15,27 @@ $primary-color: #09a8db;
   margin-right: 1.6rem;
 
   > input {
-    width: 100%;
+    width: calc(100% - 16px);
     height: 35px;
     padding: 0 20px 0 10px;
 
     border: none;
     border-radius: 40px;
     outline: 1px solid #cfcfcf;
+    transition: 0.3s;
     &:focus {
-      outline: 1px dashed $primary-color;
+      outline: 1px solid $primary-color;
+      width: 100%;
+    }
+    &:focus+button{
+      transform: rotate(90deg);
+      right: 0;
     }
   }
 
   > button {
     position: absolute;
-    right: 0;
+    right: 16px;
 
     display: inline-flex;
     align-items: center;
@@ -49,6 +55,7 @@ $primary-color: #09a8db;
 
     &:hover {
       background: linear-gradient($primary-color, #036eb8);
+
     }
   }
 }
