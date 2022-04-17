@@ -1,14 +1,8 @@
 <template>
   <div class="publish-area">
     <div class="publish-title">评论</div>
-    <div class="publish-wrapper">
-      <app-avatar
-        v-if="user.hadLogin"
-        :uid="user.uid"
-        :avatar="user.avatar"
-        :nickname="user.nickname"
-      />
-      <app-icon v-else color="gray" size="36" icon="el-icon-avatar" />
+    <div class="publish-content">
+      <app-avatar v-bind="user" myself />
       <textarea v-model="inputText" :placeholder="placeText" />
     </div>
     <div class="publish-toolbar">
@@ -23,19 +17,17 @@ import { computed } from 'vue'
 import { useUserStore } from '/src/store/user'
 import AppEmotion from '/src/components/AppEmotion/index.vue'
 
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue: { type: String },
   placeText: { type: String },
 })
-const emit = defineEmits(['update:modelValue'])
 
 const user = useUserStore()
-
 const inputText = computed({
   get: () => props.modelValue,
   set: (val) => emit('update:modelValue', val),
 })
-
 const canReply = computed(() => {
   return user.hadLogin && props.modelValue
 })
@@ -43,25 +35,38 @@ const canReply = computed(() => {
 
 <style lang="scss" scoped>
 .publish-area {
-  height: 160px;
   padding: 16px 28px;
   margin-bottom: 12px;
   background-color: white;
   border: 1px solid #e0e0e0;
 
-  > .publish-title {
+  & > .publish-title {
     width: 40px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
   }
 
-  > .publish-wrapper {
+  & > .publish-content {
     display: flex;
     align-items: center;
+    min-height: 50px;
   }
 
-  > .publish-toolbar {
+  & > .publish-content > textarea {
+    width: calc(98% - 60px);
+    height: 48px;
+    padding: 1%;
+    margin-left: 22px;
+    font-size: 14px;
+    resize: none;
+    border: none;
+    border-radius: 4px;
+    //overflow-y: hidden;
+    outline: none;
+  }
+
+  & > .publish-toolbar {
     display: flex;
     align-items: center;
 
@@ -84,19 +89,6 @@ const canReply = computed(() => {
         background-color: #bbbbbb;
       }
     }
-  }
-
-  > .publish-wrapper > textarea {
-    width: calc(98% - 60px);
-    height: 48px;
-    padding: 1%;
-    margin-left: 22px;
-    font-size: 14px;
-    resize: none;
-    border: none;
-    border-radius: 4px;
-    //overflow-y: hidden;
-    outline: none;
   }
 }
 </style>

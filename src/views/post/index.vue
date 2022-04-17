@@ -4,9 +4,9 @@
       <el-skeleton :loading="!loaded" :throttle="400">
         <article v-if="loaded" class="article-area">
           <h1 class="article-title">{{ post.title }}</h1>
-          <meta-info :article="post" :get-info="getUserInfoDigest" />
+          <meta-info :article="post" />
           <div class="markdown-body" v-html="marked(post.content)" />
-          <!--<div> TODO 相关附件:参考掘金的被收录于专栏： </div>-->
+          <!--TODO <div>相关附件:参考掘金的被收录于专栏： </div> -->
         </article>
         <content-publish :place-text="placeText" v-model="inputText" />
       </el-skeleton>
@@ -23,10 +23,8 @@ import { ref, computed } from 'vue'
 import { marked } from 'marked'
 import { useRoute } from 'vue-router'
 import { getPostDetail } from '/src/api/post'
-import { getUserInfoDigest } from '/src/api/user'
 import { useUserStore } from '/src/store/user'
 import MetaInfo from './MetaInfo.vue'
-import AppEmotion from '/src/components/AppEmotion/index.vue'
 import ContentPublish from './ContentPublish.vue'
 
 const pid = useRoute().params.pid
@@ -38,14 +36,6 @@ const user = useUserStore()
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
 )
-const canReply = computed(() => {
-  return user.hadLogin && inputText.value
-})
-
-function handleSubmit() {
-  if (!canReply.value) return
-  console.log(inputText.value)
-}
 
 getPostDetail(pid).then((res) => {
   loaded.value = true
@@ -58,7 +48,6 @@ getPostDetail(pid).then((res) => {
   position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 500px;
   margin: 0 auto;
 }
 
@@ -66,12 +55,10 @@ getPostDetail(pid).then((res) => {
   position: relative;
   width: 870px;
   max-width: 100%;
-  height: 800px;
 }
 
 .article-area {
-  height: 500px;
-  padding: 32px;
+  padding: 24px 30px;
   margin-bottom: 12px;
   background: #fff;
   border: 1px solid #e0e0e0;

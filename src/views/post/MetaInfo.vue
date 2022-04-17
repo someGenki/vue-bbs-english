@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded" class="meta-info-box">
-    <app-avatar size="40" v-bind="info" />
+    <app-avatar size="40px" v-bind="info" />
     <div class="info-box">
       <div class="nickname">{{ info.nickname }}</div>
       <div class="meta-box">
@@ -16,15 +16,16 @@
 
 <script setup>
 import { ref } from 'vue'
+import { getUserInfoDigest as getInfo } from '/src/api/user'
 
 const props = defineProps({
   article: { type: Object, required: true },
-  getInfo: { type: Function, required: true },
 })
+
 const loaded = ref(false)
 const info = ref(null)
 
-props.getInfo(props.article.uid).then((res) => {
+getInfo(props.article.uid).then((res) => {
   loaded.value = true
   info.value = res.data
 })
@@ -68,7 +69,7 @@ function test() {
       width: 36px;
       height: 36px;
       cursor: pointer;
-      background-image: url('/src/assets/images/like.png');
+      background-image: url('/src/icons/like.png');
       background-size: 100%;
       transition: all 180ms ease-out;
 
@@ -77,7 +78,7 @@ function test() {
       }
 
       &.active {
-        background-image: url('/src/assets/images/like-blue.png');
+        background-image: url('/src/icons/like-blue.png');
         animation: none;
       }
     }
