@@ -68,8 +68,8 @@ function test() {
       width: 36px;
       height: 36px;
       cursor: pointer;
-      background-size: 100%;
       background-image: url('/src/assets/images/like.png');
+      background-size: 100%;
       transition: all 180ms ease-out;
 
       &:hover {
@@ -77,8 +77,8 @@ function test() {
       }
 
       &.active {
-        animation: none;
         background-image: url('/src/assets/images/like-blue.png');
+        animation: none;
       }
     }
   }

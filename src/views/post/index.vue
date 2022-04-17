@@ -8,17 +8,7 @@
           <div class="markdown-body" v-html="marked(post.content)" />
           <!--<div> TODO 相关附件:参考掘金的被收录于专栏： </div>-->
         </article>
-        <div class="publish-area">
-          <div class="publish-title">评论</div>
-          <app-avatar
-            v-if="user.hadLogin"
-            :uid="user.uid"
-            :avatar="user.avatar"
-            :nickname="user.nickname"
-          />
-          <span v-else>X</span>
-          <textarea placeholder="发一条友善的评论" />
-        </div>
+        <content-publish :place-text="placeText" v-model="inputText" />
       </el-skeleton>
     </div>
     <div class="aside-area">
@@ -29,18 +19,33 @@
 
 <script setup>
 import '/src/styles/markdown-theme.scss'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { marked } from 'marked'
 import { useRoute } from 'vue-router'
 import { getPostDetail } from '/src/api/post'
 import { getUserInfoDigest } from '/src/api/user'
+import { useUserStore } from '/src/store/user'
 import MetaInfo from './MetaInfo.vue'
-import { useUserStore } from '../../store/user'
+import AppEmotion from '/src/components/AppEmotion/index.vue'
+import ContentPublish from './ContentPublish.vue'
 
 const pid = useRoute().params.pid
 const post = ref(null)
 const loaded = ref(false)
+const inputText = ref(null)
 const user = useUserStore()
+
+const placeText = computed(() =>
+  user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
+)
+const canReply = computed(() => {
+  return user.hadLogin && inputText.value
+})
+
+function handleSubmit() {
+  if (!canReply.value) return
+  console.log(inputText.value)
+}
 
 getPostDetail(pid).then((res) => {
   loaded.value = true
@@ -67,10 +72,10 @@ getPostDetail(pid).then((res) => {
 .article-area {
   height: 500px;
   padding: 32px;
-  background: #fff;
-  border-radius: 4px;
-  border: 1px solid #e0e0e0;
   margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
 
   > .article-title {
     margin: 0 0 20px;
@@ -78,37 +83,6 @@ getPostDetail(pid).then((res) => {
     font-weight: 600;
     line-height: 1.31;
     color: #252933;
-  }
-}
-
-.publish-area {
-  height: 140px;
-  padding: 16px 28px;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-
-  > .publish-title {
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 12px;
-    width: 40px;
-  }
-
-  > textarea {
-    font-size: 14px;
-    margin-left:22px;
-    width:calc(98% - 60px);
-    padding: 1%;
-    height: 48px;
-    resize: none;
-    //overflow-y: hidden;
-    outline: none;
-    border: none;
-    border-radius: 4px;
-
-    &:focus {
-      outline: 1px solid #1e80ff;
-    }
   }
 }
 
@@ -120,11 +94,11 @@ getPostDetail(pid).then((res) => {
   height: 600px;
 
   > .aside-box {
-    border: 1px solid #e0e0e0;
     min-height: 150px;
-    border-radius: 4px;
     margin-bottom: 12px;
     background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
   }
 }
 </style>

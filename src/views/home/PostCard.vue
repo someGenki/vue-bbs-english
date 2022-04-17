@@ -48,7 +48,6 @@ import { getStrColor, getMarkdownData } from '/src/utils/process'
 import dayjs from 'dayjs'
 
 const props = defineProps({ data: { type: Object } })
-
 const timeStr = dayjs().to(dayjs(props.data.gmtCreate))
 const nameColor = getStrColor(props.data.nickname)
 const tagColor = getStrColor(props.data.tags)
@@ -58,9 +57,9 @@ const content = getMarkdownData(props.data.content)
 <style lang="scss" scoped>
 .post-card {
   position: relative;
-  height: 140px;
+  height: 150px;
   padding: 12px 16px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   background-color: #ffffff;
   border-radius: 3px;
   transition: all 0.15s;
@@ -83,7 +82,7 @@ const content = getMarkdownData(props.data.content)
 }
 
 .post-card-box {
-  height: 100px;
+  height: 110px;
   cursor: pointer;
 
   // 右侧首图
@@ -112,7 +111,7 @@ const content = getMarkdownData(props.data.content)
     // 标题部分
     .card-title {
       padding-right: 4px;
-      margin: 4px 0;
+      margin: 8px 0;
       overflow: hidden;
       font-size: 18px;
       font-weight: bolder;
@@ -135,7 +134,7 @@ const content = getMarkdownData(props.data.content)
 
 .post-card-footer {
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
   display: flex;
   align-items: center;
   margin-left: 45px;
