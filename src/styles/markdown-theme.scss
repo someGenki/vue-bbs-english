@@ -84,7 +84,9 @@ $bgColor: #fff9f9;
 
   // 图片
   img {
-    max-width: 230px;
+    display: block;
+    margin: auto;
+    max-width: 280px;
   }
 
   // 分割线
