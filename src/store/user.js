@@ -10,7 +10,7 @@ import { ElMessage } from 'element-plus'
 export const useUserStore = defineStore('user', {
   state: () => ({
     token: getToken(),
-    uid: '',
+    uid: -1,
     point: '',
     avatar: '',
     nickname: '',

@@ -36,7 +36,7 @@
     </div>
     <app-icon
       class="post-card-more"
-      size="14"
+      size="12"
       color="#717171"
       icon="el-icon-arrow-down"
     />
@@ -71,8 +71,8 @@ const content = getMarkdownData(props.data.content)
 
   .post-card-more {
     position: absolute;
-    top: 6px;
-    right: 6px;
+    top: 8px;
+    right: 8px;
     cursor: pointer;
     visibility: hidden;
   }

@@ -1,0 +1,96 @@
+<template>
+  <div v-if="loaded" class="meta-info-box">
+    <app-avatar size="40" v-bind="info" />
+    <div class="info-box">
+      <div class="nickname">{{ info.nickname }}</div>
+      <div class="meta-box">
+        <span class="time">{{ article.gmtCreate }}</span>
+        <span class="views">阅览次数&nbsp;{{ article.pv }}</span>
+      </div>
+      <div class="right-slot">
+        <div @click="test" :class="{ active }" class="like-btn" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const props = defineProps({
+  article: { type: Object, required: true },
+  getInfo: { type: Function, required: true },
+})
+const loaded = ref(false)
+const info = ref(null)
+
+props.getInfo(props.article.uid).then((res) => {
+  loaded.value = true
+  info.value = res.data
+})
+
+const active = ref(false)
+
+function test() {
+  active.value = !active.value
+}
+</script>
+
+<style lang="scss" scoped>
+.meta-info-box {
+  height: 45px;
+}
+
+.meta-info-box > .info-box {
+  position: relative;
+  padding-left: 12px;
+  overflow: hidden;
+
+  > .meta-box {
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #8a919f;
+
+    & > .time::after {
+      margin: 0 8px;
+      color: #868b91;
+      content: '·';
+    }
+  }
+
+  > .right-slot {
+    position: absolute;
+    top: 0;
+    right: 24px;
+
+    & > .like-btn {
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      background-size: 100%;
+      background-image: url('/src/assets/images/like.png');
+      transition: all 180ms ease-out;
+
+      &:hover {
+        animation: shake 400ms linear infinite alternate;
+      }
+
+      &.active {
+        animation: none;
+        background-image: url('/src/assets/images/like-blue.png');
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  from {
+    transform: rotate(-3deg);
+    transform-origin: 60% 60%;
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+</style>

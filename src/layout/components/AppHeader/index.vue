@@ -68,8 +68,8 @@ import navs from '/src/router/nav'
 .app-header.fixed {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   z-index: 100;
 
   & + :deep(.app-main) {

@@ -22,12 +22,12 @@ defineProps({
 .nav-list-item {
   position: relative;
   max-height: 4rem;
+  font-size: 16px;
   line-height: 4rem;
   color: #575767;
   white-space: nowrap;
-  cursor: pointer;
-  font-size: 16px;
   list-style: none;
+  cursor: pointer;
 
   &.active {
     color: #1e80ff;

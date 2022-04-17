@@ -18,11 +18,11 @@ $primary-color: #09a8db;
     width: calc(100% - 16px);
     height: 35px;
     padding: 0 20px 0 10px;
+    background-color: #f5f5f5;
 
     border: 0;
     border-radius: 40px;
     outline: 1px solid #cfcfcf;
-    background-color: #f5f5f5;
     transition: 0.3s;
 
     &::placeholder {
