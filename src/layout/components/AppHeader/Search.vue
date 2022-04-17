@@ -14,26 +14,33 @@ $primary-color: #09a8db;
   width: 160px;
   margin-right: 1.6rem;
 
-  > input {
+  & > input {
     width: calc(100% - 16px);
     height: 35px;
     padding: 0 20px 0 10px;
 
-    border: none;
+    border: 0;
     border-radius: 40px;
     outline: 1px solid #cfcfcf;
+    background-color: #f5f5f5;
     transition: 0.3s;
-    &:focus {
-      outline: 1px solid $primary-color;
-      width: 100%;
+
+    &::placeholder {
+      color: #999;
     }
-    &:focus+button{
-      transform: rotate(90deg);
+
+    &:focus {
+      width: 100%;
+      outline: 1px solid $primary-color;
+    }
+
+    &:focus + button {
       right: 0;
+      transform: rotate(90deg);
     }
   }
 
-  > button {
+  & > button {
     position: absolute;
     right: 16px;
 
@@ -55,7 +62,6 @@ $primary-color: #09a8db;
 
     &:hover {
       background: linear-gradient($primary-color, #036eb8);
-
     }
   }
 }

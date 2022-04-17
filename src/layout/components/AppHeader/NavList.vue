@@ -13,7 +13,8 @@
 
 <script setup>
 import NavListItem from './NavListItem.vue'
-import navs from '/src/router/nav'
+
+defineProps({ navs: { type: Array, required: true } })
 </script>
 
 <style lang="scss" scoped>
@@ -26,9 +27,5 @@ import navs from '/src/router/nav'
   height: 100%;
   padding-left: 0;
   margin-right: 2rem;
-
-  font-size: 15px;
-  list-style: none;
-  border-bottom: none;
 }
 </style>

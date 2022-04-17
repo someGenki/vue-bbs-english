@@ -1,10 +1,7 @@
 <template>
   <div class="right-nav">
     <Search />
-    <div class="publish-content">
-      <app-icon size="20" icon="el-icon-edit" />
-      <span>发布内容</span>
-    </div>
+    <Publish />
     <template v-if="user.hadLogin">
       <button class="read-chat">
         <app-icon size="20" icon="el-icon-bell-filled" />
@@ -12,7 +9,7 @@
       <button class="read-message">
         <app-icon size="20" icon="el-icon-message" />
       </button>
-      <avatar-menu :items="items" />
+      <avatar-menu :avatar="user.avatar" :items="items" />
     </template>
     <div class="login" @click="goLogin" v-else>登录</div>
   </div>
@@ -21,6 +18,7 @@
 <script setup>
 import Search from './Search.vue'
 import AvatarMenu from './AvatarMenu.vue'
+import Publish from './Publish.vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '/src/store/user'
 
@@ -84,19 +82,6 @@ $primary-color: #09a8db;
   &:hover {
     color: $primary-color;
   }
-}
-// 发布内容 按钮
-.right-nav > .publish-content {
-  display: flex;
-  align-items: center;
-  height: 38px;
-  padding: 4px 14px;
-  margin-right: 1rem;
-  font-size: 14px;
-  color: #fff;
-  white-space: nowrap;
-  background: $primary-color;
-  border-radius: 4px;
 }
 
 // 登录 按钮

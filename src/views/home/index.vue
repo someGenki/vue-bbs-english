@@ -42,30 +42,30 @@ const category = computed(() => route.params.category || 'default')
   border-radius: 4px;
 
   & > .tabs-wrap {
-    color: #999;
-    font-weight: bold;
-    font-size: 20px;
     margin-bottom: 20px;
-    margin-left: 10px;
+    margin-left: 18px;
+    font-size: 18px;
+    //font-weight: bold;
+    color: #999;
   }
 
   & > .tabs-wrap > span {
-    cursor: pointer;
-    margin-right: 24px;
     position: relative;
+    margin-right: 24px;
+    cursor: pointer;
 
     &.selected {
       color: #569cf8;
     }
 
     &.selected::after {
-      content: '';
       position: absolute;
-      background-color: #569cf8;
-      left: calc(50%);
       bottom: -8px;
+      left: calc(50%);
       width: 24px;
       height: 4px;
+      content: '';
+      background-color: #569cf8;
       border-radius: 8px;
       transform: translateX(-50%);
     }

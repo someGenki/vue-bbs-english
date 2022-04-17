@@ -1,7 +1,7 @@
 <template>
   <el-dropdown trigger="click">
     <!--位于header显示的头像-->
-    <img class="dropdown-avatar" :src="user.avatar" alt="" />
+    <img class="dropdown-avatar" :src="avatar" alt="" />
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item
@@ -22,11 +22,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from '/src/store/user'
-
-defineProps({ items: { type: Array } })
-
-const user = useUserStore()
+defineProps({ items: { type: Array }, avatar: { type: String } })
 
 const tryCall = (fn, ...args) => {
   if (typeof fn === 'function') {

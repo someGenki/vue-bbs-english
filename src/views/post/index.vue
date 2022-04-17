@@ -52,25 +52,25 @@ getPostDetail(pid).then((res) => {
 <style lang="scss" scoped>
 .post-view {
   position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
-  border: 1px solid pink;
+  max-width: 1200px;
   height: 500px;
+  margin: 0 auto;
+  border: 1px solid pink;
 }
 
 .main-area {
   position: relative;
   width: 870px;
-  height: 800px;
   max-width: 100%;
+  height: 800px;
   border: 1px solid red;
 }
 
 .article-area {
-  background: #fff;
   height: 500px;
   padding: 32px;
+  background: #fff;
   border-radius: 4px;
 
   > .article-title {
@@ -86,14 +86,14 @@ getPostDetail(pid).then((res) => {
   }
 
   > .article-author > .info-box {
-    overflow: hidden;
     padding-left: 12px;
+    overflow: hidden;
 
     .meta-box {
-      font-size: 14px;
-      color: #8a919f;
       margin-top: 2px;
+      font-size: 14px;
       line-height: 22px;
+      color: #8a919f;
     }
 
     .meta-box > .time::after {

@@ -58,9 +58,9 @@ const content = getMarkdownData(props.data.content)
 <style lang="scss" scoped>
 .post-card {
   position: relative;
+  height: 140px;
   padding: 12px 16px;
   margin-bottom: 10px;
-  height: 140px;
   background-color: #ffffff;
   border-radius: 3px;
   transition: all 0.15s;
@@ -73,8 +73,8 @@ const content = getMarkdownData(props.data.content)
     position: absolute;
     top: 6px;
     right: 6px;
-    visibility: hidden;
     cursor: pointer;
+    visibility: hidden;
   }
 
   &:hover > .post-card-more {
@@ -134,11 +134,11 @@ const content = getMarkdownData(props.data.content)
 }
 
 .post-card-footer {
+  position: absolute;
+  bottom: 10px;
   display: flex;
   align-items: center;
   margin-left: 45px;
-  position: absolute;
-  bottom: 10px;
 
   color: #4e5969;
   user-select: none;
