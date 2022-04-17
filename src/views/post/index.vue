@@ -2,6 +2,7 @@
   <div class="post-view">
     <div class="main-area">
       <el-skeleton :loading="!loaded" :throttle="400">
+        <!--主体内容展示[Markdown]-->
         <article v-if="loaded" class="article-area">
           <h1 class="article-title">{{ post.title }}</h1>
           <meta-info :article="post" />

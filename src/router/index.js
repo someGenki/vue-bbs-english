@@ -26,6 +26,17 @@ const baseRoutes = [
         component: () => import('/src/views/post/index.vue'),
       },
       {
+        path: '/article/:aid',
+        name: 'Article',
+        component: () => import('/src/views/article/index.vue'),
+      },
+      {
+        path: '/notice',
+        name: 'Notice',
+        component: () => import('/src/views/notice/index.vue'),
+      },
+      // 搜索、空间、内容发表
+      {
         path: '/login',
         name: 'Login',
         component: () => import('/src/views/sys/login/index.vue'),
