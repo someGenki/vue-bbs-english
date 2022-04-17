@@ -30,12 +30,13 @@ export default {
     size: { default: 16 },
   },
   setup(props) {
-    const { icon, color, size } = props
+    const { icon, color } = props
+    const size = parseInt(props.size)
     let iconType, iconName, iconProp
     if (icon.startsWith('el-icon-') || icon.startsWith('elIcon')) {
       iconType = 'ElIcon'
       iconName = icon
-      iconProp = { color, size: Number(size) }
+      iconProp = { color, size }
     } else {
       // 根据名字生成id使用svg>symbol里的svg标签(已提前注入到index.html中body下的svg标签)
       iconType = 'Custom'

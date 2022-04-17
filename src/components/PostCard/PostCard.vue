@@ -11,8 +11,8 @@
       <div class="card-content">
         <div class="card-info">
           <span :style="{ color: nameColor }" class="nickname">{{
-            data.nickname
-          }}</span>
+              data.nickname
+            }}</span>
         </div>
         <div class="card-title">{{ data.title }}</div>
         <div class="post-content">{{ content.rawText }}</div>
@@ -36,16 +36,16 @@
     </div>
     <app-icon
       class="post-card-more"
+      icon="el-icon-arrow-down"
       size="12"
       color="#717171"
-      icon="el-icon-arrow-down"
     />
   </div>
 </template>
 
 <script setup>
-import { getStrColor, getMarkdownData } from '/src/utils/process'
 import dayjs from 'dayjs'
+import { getStrColor, getMarkdownData } from '/src/utils/process'
 
 const props = defineProps({ data: { type: Object } })
 const timeStr = dayjs().to(dayjs(props.data.gmtCreate))
@@ -166,15 +166,15 @@ const content = getMarkdownData(props.data.content)
     }
 
     &.thumbs-up > i {
-      background-image: url('/src/assets/images/thumbs-up.png');
+      background-image: url('/src/icons/thumbs-up.png');
     }
 
     &.view > i {
-      background-image: url('/src/assets/images/view.png');
+      background-image: url('/src/icons/view.png');
     }
 
     &.messenger > i {
-      background-image: url('/src/assets/images/messenger.png');
+      background-image: url('/src/icons/messenger.png');
     }
   }
 

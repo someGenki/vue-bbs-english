@@ -14,9 +14,11 @@
 <script setup>
 import { computed, reactive, ref, watchEffect } from 'vue'
 import { getPostList } from '/src/hooks/post/usePost'
-import PostCard from './PostCard.vue'
+import PostCard from '/src/components/PostCard/PostCard.vue'
 
-const props = defineProps({ category: { type: String, default: 'default' } })
+const props = defineProps({
+  category: { type: String, default: 'default' },
+})
 const loaded = ref(false)
 const models = reactive({})
 const disabled = computed(() => models.current >= models.pages)
