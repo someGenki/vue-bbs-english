@@ -36,7 +36,7 @@ let iconType, iconName, iconProp
 if (/^el-?/i.test(icon)) {
   iconType = 'el'
   iconName = icon
-  iconProp = { color, size }
+  iconProp = { color, size: parseInt(size) }
 } else {
   // 否则使用svg sprites图标
   iconType = 'custom'

@@ -74,7 +74,7 @@ function test() {
       transition: all 180ms ease-out;
 
       &:hover {
-        animation: shake 400ms linear infinite alternate;
+        animation: shake 300ms linear infinite alternate;
       }
 
       &.active {
@@ -87,11 +87,11 @@ function test() {
 
 @keyframes shake {
   from {
-    transform: rotate(-3deg);
-    transform-origin: 60% 60%;
+    transform: rotate(-1deg);
+    //transform-origin: 40% 40%;
   }
   to {
-    transform: rotate(3deg);
+    transform: rotate(3deg) scale(1.03);
   }
 }
 </style>

@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { postCategory } from '/src/hooks/post/usePost'
+import { postCategory } from '/src/hooks/content/usePost'
 
 defineProps({
   category: { type: String, required: true },

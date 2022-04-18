@@ -2,7 +2,7 @@
   <div class="home-container">
     <div class="posts-container">
       <home-tab :category="category" />
-      <post-list :category="category" />
+      <post-card-list :category="category" />
     </div>
     <home-aside />
   </div>
@@ -13,7 +13,7 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import HomeAside from './HomeAside.vue'
 import HomeTab from './HomeTab.vue'
-import PostList from '/src/components/PostCard/index.vue'
+import PostCardList from '/src/components/PostCardList/index.vue'
 
 const route = useRoute()
 const category = computed(() => route.params.category || 'default')

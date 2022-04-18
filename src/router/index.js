@@ -21,7 +21,7 @@ const baseRoutes = [
     children: [
       ...navs,
       {
-        path: '/post/:pid',
+        path: '/content/:pid',
         name: 'Post',
         component: () => import('/src/views/post/index.vue'),
       },
@@ -88,9 +88,9 @@ router.afterEach((to) => {
         component: () => import('@/views/chat'),
       },
       {
-        path: '/post/:pid',
-        name: 'post',
-        component: () => import('@/views/post'),
+        path: '/content/:pid',
+        name: 'content',
+        component: () => import('@/views/content'),
       },
       {
         path: '/article/:aid',
