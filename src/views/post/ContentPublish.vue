@@ -75,9 +75,9 @@ const canReply = computed(() => {
       text-align: center;
       cursor: pointer;
       background: #40a9ff;
-      outline: 0;
       border: none;
       border-radius: 4px;
+      outline: 0;
 
       &:disabled {
         cursor: not-allowed;

@@ -21,11 +21,11 @@
 <style lang="scss" scoped>
 .app-emotion {
   display: flex;
-  align-items: center;
   flex-wrap: nowrap;
-  color: #7f7f7f;
+  align-items: center;
   margin-right: 14px;
   font-size: 14px;
+  color: #7f7f7f;
   cursor: pointer;
 
   & > svg {

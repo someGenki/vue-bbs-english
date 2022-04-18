@@ -26,7 +26,7 @@ const user = useUserStore()
 const router = useRouter()
 
 const items = [
-  { title: '个人中心', path: '/profile', icon: 'el-icon-user' },
+  { title: '个人中心', path: '/userinfo', icon: 'el-icon-user' },
   { title: '测试页面', path: '/test', icon: 'el-icon-warning' },
   {
     title: '项目地址',
