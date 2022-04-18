@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="true"
+    v-if="loaded"
     v-infinite-scroll="loadMore"
     :infinite-scroll-disabled="disabled"
     class="message-board-list"
@@ -12,50 +12,21 @@
       :key="item.id"
       :parent="true"
     />
-    <p v-if="true" class="noMore">没有更多了👋</p>
+    <p v-show="disabled" class="noMore">没有更多了👋</p>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
 import { getMessage } from '/src/api/message'
+import { useGetPage } from '/src/hooks/content/useGetPage'
 import MessageListItem from './MessageListItem.vue'
 
-const loaded = ref(false)
-const models = reactive({})
-const disabled = computed(() => models.current >= models.pages)
+const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
+  1,
+  10,
+  getMessage,
+  null
+)
 
-const loadMore = () => {
-  loadMessage((models.current || 1) + 1, 5, models)
-}
-
-loadMessage(1, 5, models, loaded)
-
-function loadMessage(num, size, models, loaded) {
-  getMessage(num, size, models).then((res) => {
-    // 总数据条数
-    models.total = res.data.total
-    // 总页码数量
-    models.pages = res.data.pages
-    // 当前页码
-    models.current = res.data.current
-    // 具体留言数据
-    if (num === 1) {
-      models.records = []
-      loaded.value = true
-    }
-    for (const item of res.data.records) {
-      models.records.push(item)
-    }
-  })
-}
+getPaging(1, 5)
 </script>
-
-<style lang="scss" scoped>
-.noMore {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #5c5c5c;
-  text-align: center;
-}
-</style>

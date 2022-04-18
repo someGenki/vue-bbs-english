@@ -26,13 +26,13 @@ const props = defineProps({
 const color = computed(() => {
   switch (props.data.difficulty) {
     case 1:
-      return '#06D6A0'
+      return '#48dfb4'
     case 2:
-      return '#FFD166'
+      return '#eec053'
     case 3:
-      return '#FF6F59'
+      return '#00A6ED'
     case 4:
-      return '#26547C'
+      return '#FF6F59'
   }
 })
 
@@ -53,42 +53,43 @@ const difficultyText = computed(() => {
 <style lang="scss" scoped>
 .read-card {
   display: block;
-  color: #6d757d;
   height: 170px;
-  cursor: pointer;
-  border-radius: 4px;
   padding: 10px;
+  margin-bottom: 12px;
+  color: #6d757d;
+  cursor: pointer;
   background-color: #ffffff;
+  border-radius: 4px;
   transition: transform 200ms;
 
   &:hover {
-    transform: translateY(-3px);
     box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.05);
+    transform: translateY(-3px);
   }
 }
 
 .first-pic {
   float: left;
-  margin-right: 12px;
   width: 200px;
   height: 150px;
+  margin-right: 12px;
   border-radius: 6px;
 }
 
 .card-introduce {
   display: flex;
   flex-direction: column;
-  padding-left: 6px;
   height: 145px;
+  padding-left: 6px;
 
   & > .title {
-    color: #222222;
     margin-top: 2px;
+    color: #222222;
   }
 
   & > .description {
-    color: #6d757d;
     flex: 1;
+    color: #6d757d;
   }
 
   & > .infos {
@@ -107,11 +108,11 @@ const difficultyText = computed(() => {
       margin-right: 28px;
 
       & > i {
-        height: 14px;
         width: 14px;
+        height: 14px;
         margin-right: 4px;
-        background-size: 100%;
         background-image: url('/src/icons/view.png');
+        background-size: 100%;
       }
     }
   }

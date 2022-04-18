@@ -2,16 +2,18 @@
 * 定义全局样式
 */
 
+html {
+  background-color: #F5F5F5;
+}
+
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
-
 .clearfix::after {
   display: block;
   clear: both;
@@ -19,7 +21,9 @@ a {
 }
 
 .noMore {
-  margin-top: 10px;
+  margin: 12px auto;
+  font-size: 14px;
+  color: #5c5c5c;
   text-align: center;
 }
 
