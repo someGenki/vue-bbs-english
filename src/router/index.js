@@ -23,7 +23,7 @@ const baseRoutes = [
       ...navs,
       ...user,
       {
-        path: '/content/:pid',
+        path: '/post/:pid',
         name: 'Post',
         component: () => import('/src/views/post/index.vue'),
       },

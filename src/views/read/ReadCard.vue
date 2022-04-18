@@ -5,8 +5,8 @@
       <h3 class="title">{{ data.title }}</h3>
       <div class="description">{{ data.description }}</div>
       <div class="infos">
-        <span class="difficulty" :style="{ color }">
-          {{ difficultyText }}
+        <span class="difficulty" :style="{ color:difColor }">
+          {{ difText }}
         </span>
         <span class="time">{{ data.gmtCreate }}</span>
         <span class="view"><i />{{ data.pv }}</span>
@@ -16,38 +16,13 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import {getDifficulty} from "/src/hooks/content/useArticle";
 
 const props = defineProps({
   // [id, firstPic, title, description, difficulty, pv, gmtCreate]
   data: { type: Object, required: true },
 })
-
-const color = computed(() => {
-  switch (props.data.difficulty) {
-    case 1:
-      return '#48dfb4'
-    case 2:
-      return '#eec053'
-    case 3:
-      return '#00A6ED'
-    case 4:
-      return '#FF6F59'
-  }
-})
-
-const difficultyText = computed(() => {
-  switch (props.data.difficulty) {
-    case 1:
-      return '小学水平'
-    case 2:
-      return '中学水平'
-    case 3:
-      return '大学水平'
-    case 4:
-      return '商务水平'
-  }
-})
+const { difColor, difText } = getDifficulty(props.data.difficulty)
 </script>
 
 <style lang="scss" scoped>
