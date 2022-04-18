@@ -23,7 +23,6 @@
 import NavList from './NavList.vue'
 import RightNav from './RightNav.vue'
 import navs from '/src/router/nav'
-
 </script>
 
 <style lang="scss" scoped>

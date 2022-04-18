@@ -1,14 +1,13 @@
 // https://github.com/mancuoj/juejin-markdown-theme-Chinese-red
 
-$baseColor: #f33b1f;        // 极光红
-$strongColor: #ee3f4d;      // 茶花红
-$darkBaseColor: #ac1f18;    // 覆盆子红
-$blockquoteColor: #f07c82;  // 香叶红
-$codeColor: #ee2746;        // 淡曙红
-$codeBgColor: #f9f1db;      // 蚌肉白
-$aColor: #1781b5;           // 釉蓝
+$baseColor: #f33b1f; // 极光红
+$strongColor: #ee3f4d; // 茶花红
+$darkBaseColor: #ac1f18; // 覆盆子红
+$blockquoteColor: #f07c82; // 香叶红
+$codeColor: #ee2746; // 淡曙红
+$codeBgColor: #f9f1db; // 蚌肉白
+$aColor: #1781b5; // 釉蓝
 $bgColor: #fff9f9;
-
 
 .markdown-body {
   overflow-x: hidden;
@@ -17,7 +16,6 @@ $bgColor: #fff9f9;
   line-height: 2;
   color: #212121;
   word-break: break-word;
-
 
   // 粗体
   strong {
@@ -117,7 +115,7 @@ $bgColor: #fff9f9;
     overflow: auto;
     line-height: 1.75;
 
-    >code {
+    > code {
       display: block;
 
       padding: 16px 12px;
@@ -158,7 +156,7 @@ $bgColor: #fff9f9;
       content: '';
     }
 
-    &>p {
+    & > p {
       margin: 6px 0;
     }
   }
@@ -185,7 +183,6 @@ $bgColor: #fff9f9;
     ol {
       margin-top: 6px;
     }
-
   }
 
   ol li {
@@ -204,7 +201,7 @@ $bgColor: #fff9f9;
   .task-list-item {
     list-style: none;
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       position: relative;
 
       &::before {
@@ -215,7 +212,7 @@ $bgColor: #fff9f9;
         left: 0;
         z-index: 1;
         box-sizing: border-box;
-        content: "";
+        content: '';
         background: white;
         border: 1px solid $blockquoteColor;
         border-radius: 3px;
@@ -234,11 +231,10 @@ $bgColor: #fff9f9;
           font-size: 16px;
           font-weight: bold;
           color: $baseColor;
-          content: "\2713";
+          content: '\2713';
         }
       }
     }
-
   }
 
   // 表格
@@ -277,12 +273,7 @@ $bgColor: #fff9f9;
     td {
       min-width: 120px;
     }
-
   }
-
-
-
-
 
   @media (max-width: 720px) {
     h1 {

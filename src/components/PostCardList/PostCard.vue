@@ -10,14 +10,15 @@
       />
       <div class="card-content">
         <div class="card-info">
-          <span :style="{ color: nameColor }" class="nickname">{{
-              data.nickname
-            }}</span>
+          <span :style="{ color: nameColor }" class="nickname">
+            {{ data.nickname }}
+          </span>
         </div>
         <div class="card-title">{{ data.title }}</div>
         <div class="post-content">{{ content.rawText }}</div>
       </div>
     </router-link>
+    <!--待抽离-->
     <div class="post-card-footer">
       <span class="item thumbs-up"><i />{{ data.likes }}</span>
       <span class="item view"><i />{{ data.pv }}</span>

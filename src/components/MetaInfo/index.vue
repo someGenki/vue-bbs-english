@@ -50,8 +50,8 @@ function test() {
   overflow: hidden;
 
   > .nickname {
-    color: #515767;
     line-height: 1.5;
+    color: #515767;
   }
 
   > .meta-box {

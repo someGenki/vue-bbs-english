@@ -4,7 +4,7 @@ import {
   createWebHistory,
 } from 'vue-router'
 import Layout from '/src/layout/index.vue'
-import TestView from '/src/views/test/index.vue'
+import TestView from '/src/views/sys/test/index.vue'
 import navs from './nav.js'
 import { redirectRoute } from './helper'
 

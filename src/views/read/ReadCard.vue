@@ -5,7 +5,7 @@
       <h3 class="title">{{ data.title }}</h3>
       <div class="description">{{ data.description }}</div>
       <div class="infos">
-        <span class="difficulty" :style="{ color:difColor }">
+        <span class="difficulty" :style="{ color: difColor }">
           {{ difText }}
         </span>
         <span class="time">{{ data.gmtCreate }}</span>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import {getDifficulty} from "/src/hooks/content/useArticle";
+import { getDifficulty } from '/src/hooks/content/useArticle'
 
 const props = defineProps({
   // [id, firstPic, title, description, difficulty, pv, gmtCreate]

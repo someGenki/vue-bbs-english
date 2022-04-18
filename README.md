@@ -2,11 +2,10 @@
 
 nice try!
 
-
 ## 技术
 
 ## 功能
 
 ## 待办
 
-去除highlight.js依赖
+去除 highlight.js 依赖
