@@ -68,5 +68,4 @@ defineProps({
 .nav-list-item > .newest-tip {
   background: #f74f4f;
 }
-
 </style>

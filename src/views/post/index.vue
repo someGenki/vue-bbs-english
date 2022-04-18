@@ -9,24 +9,35 @@
           <div class="markdown-body" v-html="marked(post.content)" />
           <!--TODO <div>相关附件:参考掘金的被收录于专栏： </div> -->
         </article>
-        <content-publish :place-text="placeText" v-model="inputText" />
+        <content-publish
+          title="评论"
+          :place-text="placeText"
+          v-model="inputText"
+        />
       </el-skeleton>
+      <div class="comment-area">
+        <div class="comment-title">全部评论</div>
+        <comment-card :data="data" />
+      </div>
     </div>
     <div class="aside-area">
-      <div class="aside-box" v-for="i in 4"></div>
+      <div class="aside-box" v-for="i in 2">
+        <el-empty description="description" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, provide } from 'vue'
 import { marked } from 'marked'
 import '/src/styles/markdown-theme.scss'
 import { useRoute } from 'vue-router'
 import { getPostDetail } from '/src/api/post'
 import { useUserStore } from '/src/store/user'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
-import ContentPublish from './ContentPublish.vue'
+import ContentPublish from '/src/components/ContentPublish/index.vue'
+import CommentCard from '/src/components/CommentCard/index.vue'
 
 const pid = useRoute().params.pid
 const post = ref(null)
@@ -37,6 +48,61 @@ const user = useUserStore()
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
 )
+
+provide('only-reply', ref(null))
+
+const data = {
+  id: 2,
+  parentId: 0,
+  itemId: 1,
+  itemType: 4,
+  fromId: 1,
+  fromName: 'jojo',
+  toId: null,
+  toName: null,
+  likes: 0,
+  content: 'haha',
+  status: 1,
+  gmtCreate: '2020-09-23 22:07:15',
+  children: [
+    {
+      id: 2,
+      parentId: 0,
+      itemId: 1,
+      itemType: 4,
+      fromId: 1,
+      fromName: 'jojo',
+      toId: null,
+      toName: null,
+      likes: 0,
+      content: 'haha',
+      status: 1,
+      gmtCreate: '2020-09-23 22:07:15',
+      children: [],
+      childrenCount: 0,
+      fromAvatar: 'http://res7.fanyibar.top/1612353510311-shy.jpg',
+    },
+    {
+      id: 2,
+      parentId: 1,
+      itemId: 1,
+      itemType: 4,
+      fromId: 1,
+      fromName: 'jojo',
+      toId: null,
+      toName: null,
+      likes: 0,
+      content: 'haha',
+      status: 1,
+      gmtCreate: '2020-09-23 22:07:15',
+      children: [],
+      childrenCount: 0,
+      fromAvatar: 'http://res7.fanyibar.top/1612353510311-shy.jpg',
+    },
+  ],
+  childrenCount: 0,
+  fromAvatar: 'http://res7.fanyibar.top/1612353510311-shy.jpg',
+}
 
 getPostDetail(pid).then((res) => {
   loaded.value = true
@@ -58,6 +124,20 @@ getPostDetail(pid).then((res) => {
   max-width: 100%;
 }
 
+// 评论区
+.comment-area {
+  padding: 12px 28px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+
+  > .comment-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+// 正文展示
 .article-area {
   padding: 24px 30px;
   margin-bottom: 12px;
@@ -74,6 +154,7 @@ getPostDetail(pid).then((res) => {
   }
 }
 
+// 侧边栏
 .aside-area {
   position: absolute;
   top: 0;

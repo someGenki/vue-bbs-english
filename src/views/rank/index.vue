@@ -1,11 +1,5 @@
-<template>
-排行榜
-</template>
+<template> 排行榜 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

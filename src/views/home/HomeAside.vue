@@ -173,7 +173,7 @@ const greeting = ref(getGreeting(hour) + '好!')
   }
 
   // 宣传海报
-  > .poster{
+  > .poster {
     .attach-tag {
       position: absolute;
       right: 12px;

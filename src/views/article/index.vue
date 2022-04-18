@@ -17,10 +17,14 @@
           <el-tag :color="dif.difColor" effect="dark">{{ dif.difText }}</el-tag>
         </div>
         <meta-info
-          style="background: #f5f5f5; padding-top: 8px"
+          style="padding-top: 8px; background: #f5f5f5"
           :article="article"
         />
-        <div class="markdown-body" @dblclick.capture="getWord($event)" v-html="marked(article.content)" />
+        <div
+          class="markdown-body"
+          @dblclick.capture="getWord"
+          v-html="marked(article.content)"
+        />
       </article>
     </el-skeleton>
   </div>
@@ -29,12 +33,13 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { getArticle } from '/src/api/article'
+import { getArticle, translate } from '/src/api/article'
 import { marked } from 'marked'
 import { getStrColor } from '/src/utils/process'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import '/src/styles/markdown-theme.scss'
 import { getDifficulty } from '/src/hooks/content/useArticle'
+import { ElNotification } from 'element-plus'
 
 // [id,uid,tags,difficulty,content]
 const article = ref(null)
@@ -48,7 +53,6 @@ const splitTags = (tags) => {
   return tags.split('-').map((x) => ({ name: x, color: getStrColor(x) }))
 }
 
-
 // https://github.com/someGenki/vue_learn_english/blob/master/src/components/common/SourceText.vue
 
 getArticle(aid).then((res) => {
@@ -58,18 +62,26 @@ getArticle(aid).then((res) => {
   const { difColor, difText } = getDifficulty(res.data.difficulty)
   dif.difColor = difColor
   dif.difText = difText
-  document.title = res.data.title +' - 二元'
+  document.title = res.data.title + ' - 二元'
 })
 
-const getWord = (event)=>{
-  var sText =
+const getWord = () => {
+  let sText =
     document.selection === undefined
       ? document.getSelection().toString()
       : document.selection.createRange().text
   sText = sText.trim()
   if (sText !== '') {
     if (sText.length > 20) sText = sText.substring(0, 20)
-    // 发送请求、利用ElNotify创建提示  res.data.trans_result[0].dst
+    translate(sText).then((res) => {
+      const { src, dst } = res.data
+      ElNotification({
+        duration: 0,
+        type: 'success',
+        title: '翻译结果',
+        message: src + ': ' + dst,
+      })
+    })
   }
 }
 </script>
@@ -79,19 +91,19 @@ const getWord = (event)=>{
   position: relative;
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto 18px;
-  padding: 12px 18px;
   min-height: 400px;
-  border-radius: 4px;
+  padding: 12px 18px;
+  margin: 0 auto 18px;
   background-color: #ffffff;
+  border-radius: 4px;
 }
 
 .article-tags {
   margin-bottom: 14px;
 
   & > .el-tag {
-    margin-right: 12px;
     padding: 12px;
+    margin-right: 12px;
     border: none;
 
     &:last-child {

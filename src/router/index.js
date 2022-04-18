@@ -4,9 +4,8 @@ import {
   createWebHistory,
 } from 'vue-router'
 import Layout from '/src/layout/index.vue'
-import TestView from '/src/views/test/index.vue'
-import navs from './nav'
-import user from './user'
+import TestView from '/src/views/sys/test/index.vue'
+import navs from './nav.js'
 import { redirectRoute } from './helper'
 
 const title = import.meta.env.VITE_DEFAULT_TITLE
@@ -21,7 +20,6 @@ const baseRoutes = [
     component: Layout,
     children: [
       ...navs,
-      ...user,
       {
         path: '/post/:pid',
         name: 'Post',

@@ -16,7 +16,6 @@ import AppIcon from '/src/components/AppIcon/index.vue'
 import AppLink from '/src/components/AppLink/index.vue'
 import AppAvatar from '/src/components/AppAvatar/index.vue'
 
-
 const app = createApp({ render: () => h(RouterView) })
 
 globalRegister(app, ElIcons, { prefix: 'elIcon' })

@@ -26,7 +26,7 @@
 <script>
 /**
  * @example  <app-avatar size="40px" v-bind="info" />
- * 浮动注意
+ * 浮动注意 size:36px; 时右侧组件 margin-left: 46px;
  */
 export default {
   inheritAttrs: false,
@@ -46,6 +46,7 @@ export default {
 <style lang="scss" scoped>
 .app-avatar {
   float: left;
+  user-select: none;
 }
 
 .rounded {
