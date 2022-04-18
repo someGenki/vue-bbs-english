@@ -19,13 +19,13 @@
 </template>
 
 <script setup>
-import '/src/styles/markdown-theme.scss'
 import { ref, computed } from 'vue'
 import { marked } from 'marked'
+import '/src/styles/markdown-theme.scss'
 import { useRoute } from 'vue-router'
 import { getPostDetail } from '/src/api/post'
 import { useUserStore } from '/src/store/user'
-import MetaInfo from './MetaInfo.vue'
+import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from './ContentPublish.vue'
 
 const pid = useRoute().params.pid

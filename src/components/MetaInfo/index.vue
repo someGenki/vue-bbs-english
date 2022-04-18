@@ -39,13 +39,20 @@ function test() {
 
 <style lang="scss" scoped>
 .meta-info-box {
-  height: 45px;
+  min-height: 50px;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .meta-info-box > .info-box {
   position: relative;
   padding-left: 12px;
   overflow: hidden;
+
+  > .nickname {
+    color: #515767;
+    line-height: 1.5;
+  }
 
   > .meta-box {
     margin-top: 2px;
@@ -63,7 +70,7 @@ function test() {
   > .right-slot {
     position: absolute;
     top: 0;
-    right: 24px;
+    right: 20px;
 
     & > .like-btn {
       width: 36px;
