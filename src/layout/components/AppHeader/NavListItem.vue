@@ -58,7 +58,7 @@ defineProps({
   user-select: none;
   border: 1px solid #fff;
   border-radius: 50px;
-  transform: scale(0.65);
+  transform: scale(0.6);
 }
 
 .nav-list-item > .disabled-tip {
@@ -66,7 +66,7 @@ defineProps({
 }
 
 .nav-list-item > .newest-tip {
-  background: #f64242;
+  background: #f74f4f;
 }
 
 </style>

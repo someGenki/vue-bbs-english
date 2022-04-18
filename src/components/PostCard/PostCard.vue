@@ -19,9 +19,9 @@
       </div>
     </router-link>
     <div class="post-card-footer">
-      <div class="item thumbs-up"><i />{{ data.likes }}</div>
-      <div class="item view"><i />{{ data.pv }}</div>
-      <div class="item messenger"><i />{{ data.comments }}</div>
+      <span class="item thumbs-up"><i />{{ data.likes }}</span>
+      <span class="item view"><i />{{ data.pv }}</span>
+      <span class="item messenger"><i />{{ data.comments }}</span>
       <span class="divide">|</span>
       <span class="item">{{ timeStr }}</span>
       <el-tag
@@ -47,8 +47,10 @@
 import dayjs from 'dayjs'
 import { getStrColor, getMarkdownData } from '/src/utils/process'
 
+// [id,uid,avatar,nickname,content,gmtCreate,likes,pv,comments[,tags]]
 const props = defineProps({ data: { type: Object } })
-const timeStr = dayjs().to(dayjs(props.data.gmtCreate))
+
+const timeStr = dayjs().to(props.data.gmtCreate)
 const nameColor = getStrColor(props.data.nickname)
 const tagColor = getStrColor(props.data.tags)
 const content = getMarkdownData(props.data.content)
