@@ -1,19 +1,18 @@
 import { defineStore } from 'pinia'
-import { getToken, removeToken, setToken } from '/src/utils/storage'
+import { getToken, removeToken, setToken, get, set } from '/src/utils/storage'
 import {
   login as _login,
   register as _register,
   getNewestInfo,
 } from '/src/api/user'
-import { ElMessage } from 'element-plus'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     token: getToken(),
-    uid: -1,
-    point: '',
-    avatar: '',
-    nickname: '',
+    uid: get('uid'),
+    avatar: get('avatar'),
+    nickname: get('nickname'),
+    point: -1,
     username: '',
   }),
   getters: {
@@ -53,6 +52,7 @@ export const useUserStore = defineStore('user', {
     saveUserInfo(info) {
       for (let key in info) {
         this[key] = info[key]
+        set(key, info[key])
       }
       if (info.token) setToken(info.token)
     },

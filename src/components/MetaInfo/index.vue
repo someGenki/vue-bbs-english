@@ -1,6 +1,6 @@
 <template>
   <div v-if="loaded" class="meta-info-box">
-    <app-avatar size="40" v-bind="info" />
+    <app-avatar size="40px" v-bind="info" />
     <div class="info-box">
       <div class="nickname">{{ info.nickname }}</div>
       <div class="meta-box">
@@ -16,15 +16,16 @@
 
 <script setup>
 import { ref } from 'vue'
+import { getUserInfoDigest as getInfo } from '/src/api/user'
 
 const props = defineProps({
   article: { type: Object, required: true },
-  getInfo: { type: Function, required: true },
 })
+
 const loaded = ref(false)
 const info = ref(null)
 
-props.getInfo(props.article.uid).then((res) => {
+getInfo(props.article.uid).then((res) => {
   loaded.value = true
   info.value = res.data
 })
@@ -38,13 +39,20 @@ function test() {
 
 <style lang="scss" scoped>
 .meta-info-box {
-  height: 45px;
+  min-height: 50px;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .meta-info-box > .info-box {
   position: relative;
   padding-left: 12px;
   overflow: hidden;
+
+  > .nickname {
+    line-height: 1.5;
+    color: #515767;
+  }
 
   > .meta-box {
     margin-top: 2px;
@@ -62,22 +70,22 @@ function test() {
   > .right-slot {
     position: absolute;
     top: 0;
-    right: 24px;
+    right: 20px;
 
     & > .like-btn {
       width: 36px;
       height: 36px;
       cursor: pointer;
-      background-image: url('/src/assets/images/like.png');
+      background-image: url('/src/icons/like.png');
       background-size: 100%;
       transition: all 180ms ease-out;
 
       &:hover {
-        animation: shake 400ms linear infinite alternate;
+        animation: shake 300ms linear infinite alternate;
       }
 
       &.active {
-        background-image: url('/src/assets/images/like-blue.png');
+        background-image: url('/src/icons/like-blue.png');
         animation: none;
       }
     }
@@ -86,11 +94,11 @@ function test() {
 
 @keyframes shake {
   from {
-    transform: rotate(-3deg);
-    transform-origin: 60% 60%;
+    transform: rotate(-1deg);
+    //transform-origin: 40% 40%;
   }
   to {
-    transform: rotate(3deg);
+    transform: rotate(3deg) scale(1.03);
   }
 }
 </style>

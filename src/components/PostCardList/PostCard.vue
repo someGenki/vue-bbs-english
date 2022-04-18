@@ -10,18 +10,19 @@
       />
       <div class="card-content">
         <div class="card-info">
-          <span :style="{ color: nameColor }" class="nickname">{{
-            data.nickname
-          }}</span>
+          <span :style="{ color: nameColor }" class="nickname">
+            {{ data.nickname }}
+          </span>
         </div>
         <div class="card-title">{{ data.title }}</div>
         <div class="post-content">{{ content.rawText }}</div>
       </div>
     </router-link>
+    <!--待抽离-->
     <div class="post-card-footer">
-      <div class="item thumbs-up"><i />{{ data.likes }}</div>
-      <div class="item view"><i />{{ data.pv }}</div>
-      <div class="item messenger"><i />{{ data.comments }}</div>
+      <span class="item thumbs-up"><i />{{ data.likes }}</span>
+      <span class="item view"><i />{{ data.pv }}</span>
+      <span class="item messenger"><i />{{ data.comments }}</span>
       <span class="divide">|</span>
       <span class="item">{{ timeStr }}</span>
       <el-tag
@@ -36,19 +37,21 @@
     </div>
     <app-icon
       class="post-card-more"
+      icon="el-icon-arrow-down"
       size="12"
       color="#717171"
-      icon="el-icon-arrow-down"
     />
   </div>
 </template>
 
 <script setup>
-import { getStrColor, getMarkdownData } from '/src/utils/process'
 import dayjs from 'dayjs'
+import { getStrColor, getMarkdownData } from '/src/utils/process'
 
+// [id,uid,avatar,nickname,content,gmtCreate,likes,pv,comments[,tags]]
 const props = defineProps({ data: { type: Object } })
-const timeStr = dayjs().to(dayjs(props.data.gmtCreate))
+
+const timeStr = dayjs().to(props.data.gmtCreate)
 const nameColor = getStrColor(props.data.nickname)
 const tagColor = getStrColor(props.data.tags)
 const content = getMarkdownData(props.data.content)
@@ -166,15 +169,15 @@ const content = getMarkdownData(props.data.content)
     }
 
     &.thumbs-up > i {
-      background-image: url('/src/assets/images/thumbs-up.png');
+      background-image: url('/src/icons/thumbs-up.png');
     }
 
     &.view > i {
-      background-image: url('/src/assets/images/view.png');
+      background-image: url('/src/icons/view.png');
     }
 
     &.messenger > i {
-      background-image: url('/src/assets/images/messenger.png');
+      background-image: url('/src/icons/messenger.png');
     }
   }
 

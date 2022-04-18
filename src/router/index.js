@@ -4,7 +4,7 @@ import {
   createWebHistory,
 } from 'vue-router'
 import Layout from '/src/layout/index.vue'
-import TestView from '/src/views/test/index.vue'
+import TestView from '/src/views/sys/test/index.vue'
 import navs from './nav'
 import user from './user'
 import { redirectRoute } from './helper'
@@ -27,6 +27,17 @@ const baseRoutes = [
         name: 'Post',
         component: () => import('/src/views/post/index.vue'),
       },
+      {
+        path: '/article/:aid',
+        name: 'Article',
+        component: () => import('/src/views/article/index.vue'),
+      },
+      {
+        path: '/notice',
+        name: 'Notice',
+        component: () => import('/src/views/notice/index.vue'),
+      },
+      // 搜索、空间、内容发表
       {
         path: '/login',
         name: 'Login',
