@@ -1,10 +1,10 @@
 <template>
   <div class="tabs-wrap">
     <span
-      v-for="cs in postCategory"
-      :class="{ selected: category === cs.value }"
-      @click="$router.replace({ params: { category: cs.value } })"
-      >{{ cs.name }}
+      v-for="item in postCategory"
+      :class="{ selected: category === item.value }"
+      @click="$router.replace({ params: { category: item.value } })"
+      >{{ item.name }}
     </span>
   </div>
 </template>
@@ -13,12 +13,12 @@
 import { postCategory } from '/src/hooks/post/usePost'
 
 defineProps({
-  category: { type: Object, required: true },
+  category: { type: String, required: true },
 })
 </script>
 
 <style lang="scss" scoped>
- .tabs-wrap {
+.tabs-wrap {
   margin-bottom: 20px;
   margin-left: 18px;
   font-size: 18px;

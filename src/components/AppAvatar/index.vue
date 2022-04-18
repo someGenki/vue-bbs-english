@@ -26,6 +26,7 @@
 <script>
 /**
  * @example  <app-avatar size="40px" v-bind="info" />
+ * 浮动注意
  */
 export default {
   inheritAttrs: false,
@@ -33,6 +34,7 @@ export default {
     uid: { type: [String, Number], required: true },
     avatar: { type: String, required: true },
     nickname: { type: String, required: true },
+    // 等同于 need-login 为true，但未登录时显示默认灰色头像
     myself: { type: Boolean, default: false },
     size: { type: String, default: '36px' },
     rounded: { type: Boolean, default: true },
