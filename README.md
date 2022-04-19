@@ -7,5 +7,3 @@ nice try!
 ## 功能
 
 ## 待办
-
-去除 highlight.js 依赖

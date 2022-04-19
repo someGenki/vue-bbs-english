@@ -3,16 +3,17 @@
     <div v-if="title" class="publish-title">{{ title }}</div>
     <div class="publish-content">
       <app-avatar v-if="showAvatar" v-bind="user" myself />
-      <textarea
-        ref="textarea"
-        v-model.lazy="inputText"
-        :placeholder="placeText"
-      />
+      <textarea ref="textarea" v-model="inputText" :placeholder="placeText" />
     </div>
     <div class="publish-toolbar">
-      <app-emotion />
+      <app-emotion @emotion="handleEmotion" />
       <!--TODO 添加 Ctrl +Enter 按键监听-->
-      <button @click="$emit('reply')" :disabled="!canReply" class="reply-btn">
+      <button
+        @keydown.ctrl.enter="$emit('reply')"
+        @click="$emit('reply')"
+        :disabled="!canReply"
+        class="reply-btn"
+      >
         回&nbsp;复
       </button>
     </div>
@@ -41,12 +42,15 @@ const props = defineProps({
 const user = useUserStore()
 const textarea = ref(null)
 const inputText = computed({
-  get: () => props.modelValue,
+  get: () => props.modelValue || '',
   set: (val) => emit('update:modelValue', val),
 })
 const canReply = computed(() => {
   return user.hadLogin && props.modelValue
 })
+const handleEmotion = (text) => {
+  inputText.value += text
+}
 onMounted(() => {
   if (props.autoFocus) textarea.value.focus()
 })
@@ -73,13 +77,12 @@ onMounted(() => {
   & > .publish-content > textarea {
     width: calc(98% - 56px);
     height: 48px;
-    padding: 1%;
+    padding: 4px;
     margin-left: 18px;
-    font-size: 14px;
+    font-size: 15px;
     resize: none;
     border: none;
     border-radius: 4px;
-    //overflow-y: hidden;
     outline: none;
 
     &:focus {

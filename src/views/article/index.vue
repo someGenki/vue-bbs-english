@@ -76,7 +76,7 @@ const getWord = () => {
     translate(sText).then((res) => {
       const { src, dst } = res.data
       ElNotification({
-        duration: 0,
+        duration: 10000,
         type: 'success',
         title: '翻译结果',
         message: src + ': ' + dst,
