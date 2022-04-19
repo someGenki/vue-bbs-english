@@ -17,7 +17,7 @@
           <el-tag :color="dif.difColor" effect="dark">{{ dif.difText }}</el-tag>
         </div>
         <meta-info
-          style="padding-top: 8px; background: #f5f5f5"
+          style="padding-top: 8px; background: #fbfbfb"
           :article="article"
         />
         <div

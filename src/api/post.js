@@ -1,9 +1,15 @@
 import http from '/src/utils/request'
+import {getCommentList} from "./comment";
 
 export function getPost(num, size, category) {
   if (!category) return http.get(`/post/page?num=${num}&size=${size}`)
   else
     return http.get(`/post/page?category=${category}&num=${num}&size=${size}`)
+}
+
+export function getPostComment(postId,num,size) {
+  if(isNaN(num)||isNaN(size)) return;
+  return getCommentList(4, postId,num,size)
 }
 
 export function getPostDetail(pid) {
