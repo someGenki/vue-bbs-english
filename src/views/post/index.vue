@@ -10,6 +10,7 @@
       </article>
       <content-publish
         title="评论"
+        @reply="handleReply"
         :place-text="placeText"
         v-model="inputText"
       />
@@ -56,7 +57,9 @@ const pid = useRoute().params.pid
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
 )
-
+const handleReply = ()=>{
+  // console.log(inputText.value)
+}
 provide('uniReply', ref(null)) // 兄弟组件间通信
 provide('authorId', authorId) // 注入作者id，为评论组件判断是否为作者
 
