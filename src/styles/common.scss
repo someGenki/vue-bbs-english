@@ -30,6 +30,10 @@ a {
 .time {
   font-size: 14px;
 }
+
+.el-skeleton {
+  --el-skeleton-color: #f4f1f1 !important;
+}
 // <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
 // 弊端 不好改颜色
 .svg-item {

@@ -7,7 +7,7 @@ export function getPost(num, size, category) {
     return http.get(`/post/page?category=${category}&num=${num}&size=${size}`)
 }
 
-export function getPostComment(postId,num,size) {
+export function getPostComments(num, size, postId) {
   if(isNaN(num)||isNaN(size)) return;
   return getCommentList(4, postId,num,size)
 }

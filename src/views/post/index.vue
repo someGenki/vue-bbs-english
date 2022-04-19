@@ -2,24 +2,29 @@
   <div class="post-view">
     <div class="main-area">
       <!--骨架屏包裹 主体内容展示[Markdown] + 回帖输入框 -->
-      <el-skeleton :loading="!loaded" :throttle="400">
-        <article v-if="loaded" class="article-area">
-          <h1 class="article-title">{{ post.title }}</h1>
-          <meta-info :article="post" />
-          <div class="markdown-body" v-html="marked(post.content)" />
-          <!--TODO <div>相关附件:参考掘金的被收录于专栏： </div> -->
-        </article>
-        <content-publish
-          title="评论"
-          :place-text="placeText"
-          v-model="inputText"
-        />
-      </el-skeleton>
+      <article v-if="post" class="article-area">
+        <h1 class="article-title">{{ post.title }}</h1>
+        <meta-info :article="post" />
+        <div class="markdown-body" v-html="marked(post.content)" />
+        <!--TODO <div>相关附件:参考掘金的被收录于专栏： </div> -->
+      </article>
+      <content-publish
+        title="评论"
+        :place-text="placeText"
+        v-model="inputText"
+      />
       <!--评论区 根据post id 获取-->
-      <div v-if="comments" class="comment-area">
-        <div class="comment-title">全部评论</div>
-        <comment-card v-for="item in comments.records" :data="item" />
-      </div>
+      <el-skeleton :loading="!loaded">
+        <div
+          v-if="loaded"
+          v-infinite-scroll="loadMore"
+          :infinite-scroll-disabled="disabled"
+          class="comment-area"
+        >
+          <div class="comment-title">全部评论</div>
+          <comment-card v-for="item in models.records" :data="item" />
+        </div>
+      </el-skeleton>
     </div>
     <!--侧边推广栏-->
     <div class="aside-area">
@@ -35,17 +40,16 @@ import { marked } from 'marked'
 import { useRoute } from 'vue-router'
 import { ref, computed, provide } from 'vue'
 import { useUserStore } from '/src/store/user'
-import { getPostDetail, getPostComment } from '/src/api/post'
+import { getPostDetail, getPostComments } from '/src/api/post'
 import '/src/styles/markdown-theme.scss'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
+import { useGetPage } from '../../hooks/content/useGetPage'
 
 const user = useUserStore()
 const post = ref(null)
-const loaded = ref(false)
 const authorId = ref(null)
-const comments = ref(null)
 const inputText = ref(null)
 const pid = useRoute().params.pid
 
@@ -57,15 +61,19 @@ provide('uniReply', ref(null)) // 兄弟组件间通信
 provide('authorId', authorId) // 注入作者id，为评论组件判断是否为作者
 
 getPostDetail(pid).then((res) => {
-  loaded.value = true
   post.value = res.data
   authorId.value = res.data.uid
 })
 
-getPostComment(16, 1, 5).then((res) => {
-  console.log(res.data.records)
-  comments.value = res.data
-})
+const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
+  1,
+  2,
+  getPostComments,
+  { delay: 380 },
+  16
+)
+// TODO 将16换成pid
+getPaging(1, 2, 16)
 </script>
 
 <style lang="scss" scoped>
@@ -89,12 +97,13 @@ getPostComment(16, 1, 5).then((res) => {
 // 评论区
 .comment-area {
   padding: 12px 28px;
+  margin-bottom: 24px;
   background: #ffffff;
   border: 1px solid #e0e0e0;
 
   > .comment-title {
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
   }
 }

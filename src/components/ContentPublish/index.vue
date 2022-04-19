@@ -11,6 +11,7 @@
     </div>
     <div class="publish-toolbar">
       <app-emotion />
+      <!--TODO 添加 Ctrl +Enter 按键监听-->
       <button @click="$emit('reply')" :disabled="!canReply" class="reply-btn">
         回&nbsp;复
       </button>

@@ -102,6 +102,10 @@ const handleReply = () => {
   min-height: 40px;
   padding: 12px 2px;
   border-bottom: 1px solid #f0f0f0;
+
+  &:last-of-type {
+    border-bottom: 0;
+  }
 }
 
 .comment-wrapper {
