@@ -10,9 +10,9 @@
 </template>
 
 <script setup>
-import ReadCard from './ReadCard.vue'
-import { useGetPage } from '/src/hooks/content/useGetPage'
 import { getArticleList } from '/src/api/article'
+import { useGetPage } from '/src/hooks/content/useGetPage'
+import ReadCard from '/src/components/ReadCard/index.vue'
 
 const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
   1,

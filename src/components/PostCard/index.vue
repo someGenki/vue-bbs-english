@@ -20,9 +20,9 @@
     </router-link>
     <!--待抽离-->
     <div class="post-card-footer">
-      <span class="item thumbs-up"><i />{{ data.likes }}</span>
-      <span class="item view"><i />{{ data.pv }}</span>
-      <span class="item messenger"><i />{{ data.comments }}</span>
+      <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
+      <span class="svg-item view"><i />{{ data.pv }}</span>
+      <span class="svg-item messenger"><i />{{ data.comments }}</span>
       <span class="divide">|</span>
       <span class="item">{{ timeStr }}</span>
       <el-tag
@@ -152,33 +152,9 @@ const content = getMarkdownData(props.data.content)
     color: #999;
   }
 
-  // 图标和内容
-  .item {
-    display: flex;
-    align-items: center;
-    margin-right: 14px;
-    font-size: 13px;
-    line-height: 20px;
-
-    i {
-      display: block;
-      width: 16px;
-      height: 16px;
-      margin-right: 6px;
-      background-size: 100%;
-    }
-
-    &.thumbs-up > i {
-      background-image: url('/src/icons/thumbs-up.png');
-    }
-
-    &.view > i {
-      background-image: url('/src/icons/view.png');
-    }
-
-    &.messenger > i {
-      background-image: url('/src/icons/messenger.png');
-    }
+  // 重置svg的光标样式
+  .svg-item > i {
+    cursor: default;
   }
 
   // 卡片标签

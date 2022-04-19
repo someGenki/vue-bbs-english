@@ -1,8 +1,8 @@
 <template>
   <div class="post-view">
     <div class="main-area">
+      <!--骨架屏包裹 主体内容展示[Markdown] + 回帖输入框 -->
       <el-skeleton :loading="!loaded" :throttle="400">
-        <!--主体内容展示[Markdown]-->
         <article v-if="loaded" class="article-area">
           <h1 class="article-title">{{ post.title }}</h1>
           <meta-info :article="post" />
@@ -15,11 +15,13 @@
           v-model="inputText"
         />
       </el-skeleton>
-      <div class="comment-area">
+      <!--评论区 根据post id 获取-->
+      <div v-if="comments" class="comment-area">
         <div class="comment-title">全部评论</div>
-        <comment-card :data="data" />
+        <comment-card v-for="item in comments.records" :data="item" />
       </div>
     </div>
+    <!--侧边推广栏-->
     <div class="aside-area">
       <div class="aside-box" v-for="i in 2">
         <el-empty description="description" />
@@ -29,84 +31,40 @@
 </template>
 
 <script setup>
-import { ref, computed, provide } from 'vue'
 import { marked } from 'marked'
-import '/src/styles/markdown-theme.scss'
 import { useRoute } from 'vue-router'
-import { getPostDetail } from '/src/api/post'
+import { ref, computed, provide } from 'vue'
 import { useUserStore } from '/src/store/user'
+import { getPostDetail, getPostComment } from '/src/api/post'
+import '/src/styles/markdown-theme.scss'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
 
-const pid = useRoute().params.pid
+const user = useUserStore()
 const post = ref(null)
 const loaded = ref(false)
+const authorId = ref(null)
+const comments = ref(null)
 const inputText = ref(null)
-const user = useUserStore()
+const pid = useRoute().params.pid
 
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
 )
 
-provide('only-reply', ref(null))
-
-const data = {
-  id: 2,
-  parentId: 0,
-  itemId: 1,
-  itemType: 4,
-  fromId: 1,
-  fromName: 'jojo',
-  toId: null,
-  toName: null,
-  likes: 0,
-  content: 'haha',
-  status: 1,
-  gmtCreate: '2020-09-23 22:07:15',
-  children: [
-    {
-      id: 2,
-      parentId: 0,
-      itemId: 1,
-      itemType: 4,
-      fromId: 1,
-      fromName: 'jojo',
-      toId: null,
-      toName: null,
-      likes: 0,
-      content: 'haha',
-      status: 1,
-      gmtCreate: '2020-09-23 22:07:15',
-      children: [],
-      childrenCount: 0,
-      fromAvatar: 'http://res7.fanyibar.top/1612353510311-shy.jpg',
-    },
-    {
-      id: 2,
-      parentId: 1,
-      itemId: 1,
-      itemType: 4,
-      fromId: 1,
-      fromName: 'jojo',
-      toId: null,
-      toName: null,
-      likes: 0,
-      content: 'haha',
-      status: 1,
-      gmtCreate: '2020-09-23 22:07:15',
-      children: [],
-      childrenCount: 0,
-      fromAvatar: 'http://res7.fanyibar.top/1612353510311-shy.jpg',
-    },
-  ],
-  childrenCount: 0,
-  fromAvatar: 'http://res7.fanyibar.top/1612353510311-shy.jpg',
-}
+provide('uniReply', ref(null)) // 兄弟组件间通信
+provide('authorId', authorId) // 注入作者id，为评论组件判断是否为作者
 
 getPostDetail(pid).then((res) => {
   loaded.value = true
   post.value = res.data
+  authorId.value = res.data.uid
+})
+
+getPostComment(16, 1, 5).then((res) => {
+  console.log(res.data.records)
+  comments.value = res.data
 })
 </script>
 
@@ -122,6 +80,10 @@ getPostDetail(pid).then((res) => {
   position: relative;
   width: 870px;
   max-width: 100%;
+
+  > .content-publish {
+    border: 1px solid #e0e0e0;
+  }
 }
 
 // 评论区

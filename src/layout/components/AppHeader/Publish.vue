@@ -1,12 +1,12 @@
 <template>
-  <div class="publish-content">
+  <div class="publish-button">
     <app-icon size="20" icon="el-icon-edit" />
     <span>发布内容</span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.publish-content {
+.publish-button {
   display: flex;
   align-items: center;
   height: 38px;

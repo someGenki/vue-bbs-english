@@ -1,21 +1,25 @@
 <template>
-  <div class="publish-area">
+  <div class="content-publish publish-area" :class="{ compact }">
     <div v-if="title" class="publish-title">{{ title }}</div>
     <div class="publish-content">
       <app-avatar v-if="showAvatar" v-bind="user" myself />
-      <textarea v-model="inputText" :placeholder="placeText" />
+      <textarea
+        ref="textarea"
+        v-model.lazy="inputText"
+        :placeholder="placeText"
+      />
     </div>
     <div class="publish-toolbar">
       <app-emotion />
-      <button @click="$emit('reply')" :disabled="!canReply" class="reply-btn"
-        >回&nbsp;复</button
-      >
+      <button @click="$emit('reply')" :disabled="!canReply" class="reply-btn">
+        回&nbsp;复
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '/src/store/user'
 import AppEmotion from '/src/components/AppEmotion/index.vue'
 
@@ -24,19 +28,26 @@ import AppEmotion from '/src/components/AppEmotion/index.vue'
  */
 const emit = defineEmits(['update:modelValue', 'reply'])
 const props = defineProps({
-  modelValue: { type: String },
-  placeText: { type: String },
-  title: { type: String },
-  showAvatar: { type: Boolean, default: true },
+  title: { type: String }, // 左上文本
+  placeText: { type: String }, // 提示文本
+  modelValue: { type: String }, // 双向绑定
+  unique: { type: Boolean, default: false }, // 唯一展开
+  compact: { type: Boolean, default: false }, // 更加紧凑
+  autoFocus: { type: Boolean, default: false }, // 自动聚焦
+  showAvatar: { type: Boolean, default: true }, // 显示头像
 })
 
 const user = useUserStore()
+const textarea = ref(null)
 const inputText = computed({
   get: () => props.modelValue,
   set: (val) => emit('update:modelValue', val),
 })
 const canReply = computed(() => {
   return user.hadLogin && props.modelValue
+})
+onMounted(() => {
+  if (props.autoFocus) textarea.value.focus()
 })
 </script>
 
@@ -45,7 +56,6 @@ const canReply = computed(() => {
   padding: 16px 28px;
   margin-bottom: 12px;
   background-color: white;
-  border: 1px solid #e0e0e0;
 
   & > .publish-title {
     margin-bottom: 10px;
@@ -60,7 +70,7 @@ const canReply = computed(() => {
   }
 
   & > .publish-content > textarea {
-    width: calc(98% - 60px);
+    width: calc(98% - 56px);
     height: 48px;
     padding: 1%;
     margin-left: 18px;
@@ -70,11 +80,16 @@ const canReply = computed(() => {
     border-radius: 4px;
     //overflow-y: hidden;
     outline: none;
+
+    &:focus {
+      outline: 1px solid #dcdcdc;
+    }
   }
 
   & > .publish-toolbar {
     display: flex;
     align-items: center;
+    padding-top: 4px;
     user-select: none;
 
     & > .reply-btn {
@@ -96,6 +111,20 @@ const canReply = computed(() => {
         background-color: #bbbbbb;
       }
     }
+  }
+}
+
+// 更加紧凑
+.publish-area.compact {
+  margin-bottom: 0;
+
+  .reply-btn {
+    width: 62px;
+    height: 28px;
+  }
+
+  .publish-content > textarea {
+    margin-left: 8px;
   }
 }
 </style>

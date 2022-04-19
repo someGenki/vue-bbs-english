@@ -1,11 +1,12 @@
 <template>
-  <i v-bind="$attrs" class="app-icon">
+  <i v-bind="$attrs" class="app-icon" :class="{ text }">
     <el-icon v-if="iconType === 'el'" v-bind="iconProp">
       <component :is="iconName" />
     </el-icon>
     <svg v-else v-bind="iconProp">
       <use :xlink:href.attr="iconName" />
     </svg>
+    <span v-if="text">{{ text }}</span>
   </i>
 </template>
 
@@ -26,6 +27,7 @@ const props = defineProps({
   icon: { type: String, required: true },
   size: { default: 16 },
   color: { default: 'inherit' },
+  text: { type: [String,Number] },
 })
 
 const { icon, color, size } = props
@@ -54,5 +56,13 @@ if (/^el-?/i.test(icon)) {
 <style>
 .app-icon {
   display: inline-flex;
+}
+
+.app-icon.text {
+  align-items: center;
+  cursor: pointer;
+}
+.app-icon.text:hover {
+  color: #1d7dfa;
 }
 </style>

@@ -14,6 +14,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 .clearfix::after {
   display: block;
   clear: both;
@@ -26,3 +27,39 @@ a {
   color: #5c5c5c;
   text-align: center;
 }
+.time {
+  font-size: 14px;
+}
+// <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
+// 弊端 不好改颜色
+.svg-item {
+  // 设置flex以便上下居中
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 13px;
+  line-height: 20px;
+
+  // 设置块级元素以便调整大小
+  i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    cursor: pointer;
+    background-size: 100%;
+  }
+
+  &.thumbs-up > i {
+    background-image: url('/src/icons/thumbs-up.png');
+  }
+
+  &.view > i {
+    background-image: url('/src/icons/view.png');
+  }
+
+  &.messenger > i {
+    background-image: url('/src/icons/messenger.png');
+  }
+}
+

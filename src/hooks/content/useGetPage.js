@@ -11,17 +11,17 @@ import { computed, reactive, ref } from 'vue'
  * )
  * @param {number} num 从第几页开始加载
  * @param {number} size 每次加载多少条
- * @param {(...args) => Promise} getMethod 加载数据的方法
+ * @param {(...args) => Promise} fetchData 加载数据的方法
  * @param {object | null | undefined } option 额外参数
  * @param args 加载数据的方法除去[num,size]以外的参数(用于loadMore)
  */
-export function useGetPage(num, size, getMethod, option, ...args) {
+export function useGetPage(num, size, fetchData, option, ...args) {
   const loaded = ref(false) // 是否加载完成
   const models = reactive({}) // 存放mybatis-plus返回的分页类型
   const disabled = computed(() => models.current >= models.pages) // 是否还有更多页
 
   const getPaging = (num, size, ...args) => {
-    getMethod(num, size, ...args).then((res) => {
+    fetchData(num, size, ...args).then((res) => {
       // 总数据条数
       models.total = res.data.total
       // 总页码数量
@@ -49,5 +49,6 @@ export function useGetPage(num, size, getMethod, option, ...args) {
     if (isNaN(models.current)) return
     getPaging(models.current + 1, size, ...args)
   }
+
   return { loaded, models, disabled, loadMore, getPaging }
 }

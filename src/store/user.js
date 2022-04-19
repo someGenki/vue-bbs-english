@@ -9,9 +9,9 @@ import {
 export const useUserStore = defineStore('user', {
   state: () => ({
     token: getToken(),
-    uid: get('uid'),
-    avatar: get('avatar'),
-    nickname: get('nickname'),
+    uid: get('uid') || -1,
+    avatar: get('avatar') || '',
+    nickname: get('nickname') || '',
     point: -1,
     username: '',
   }),
