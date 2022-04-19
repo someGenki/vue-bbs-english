@@ -33,14 +33,14 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useProcessEmotion } from '/src/hooks/emotion/useEmotions'
+import { useEmotion } from '/src/hooks/emotion/useEmotions'
 
 const props = defineProps({
   model: { type: Object, required: true },
   parent: { type: Boolean, default: false },
 })
 const isUser = computed(() => props.model.userId > 0)
-const content = useProcessEmotion(props.model.content)
+const content = useEmotion().processWx(props.model.content)
 </script>
 
 <style lang="scss" scoped>

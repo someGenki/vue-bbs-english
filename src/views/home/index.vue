@@ -63,8 +63,4 @@ watchEffect(() => {
   margin-right: 21rem;
   border-radius: 4px;
 }
-
-.el-skeleton {
-  --el-skeleton-color: #f4f1f1 !important;
-}
 </style>

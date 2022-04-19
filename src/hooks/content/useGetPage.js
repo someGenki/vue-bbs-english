@@ -10,7 +10,7 @@ import { computed, reactive, ref } from 'vue'
  *   { delay: 300 }
  * )
  * @param {number} num 从第几页开始加载
- * @param {number} size 每次加载多少条
+ * @param {number} size 每次加载多少条   getPaging的size与这size不相等可能会出问题
  * @param {(...args) => Promise} fetchData 加载数据的方法
  * @param {object | null | undefined } option 额外参数
  * @param args 加载数据的方法除去[num,size]以外的参数(用于loadMore)
