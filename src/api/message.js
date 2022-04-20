@@ -9,3 +9,4 @@ export function postMessage(data) {
 export function getMessage(num, size) {
   return http.get(`/message?num=${num}&size=${size}`)
 }
+
