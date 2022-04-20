@@ -47,16 +47,17 @@
 </template>
 
 <script setup>
-import { ref, inject, isRef } from 'vue'
+import { inject } from 'vue'
 import dayjs from 'dayjs'
 import FromUser from './FromUser.vue'
 import ReplyUserAt from './ReplyUserAt.vue'
 import CommentInfo from './CommentInfo.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
-import { postComment } from '../../api/comment'
 import { ElMessage } from 'element-plus'
+import { postComment } from '/src/api/comment'
 import { useUserStore } from '/src/store/user'
+import { useComment } from '/src/hooks/content/useComment'
 
 // 评论功能也是个难点 包括唯一的输入框，递归展示 <comment-card :data="data" />
 const { data, parent } = defineProps({
@@ -65,27 +66,10 @@ const { data, parent } = defineProps({
   parent: { type: Object, default: null },
 })
 const user = useUserStore()
-const inputText = ref('')
-const showReply = ref(false)
+const { switchShow, showReply, inputText } = useComment()
 const placeText = `回复${data.fromName}...`
 const dayjsFormat = 'YYYY-MM-DD HH:mm:ss'
 const itemType = inject('itemType')
-const uniReply = inject('uniReply') // refImpl!
-
-// 切换回复框的出现
-const switchShow = () => {
-  const another = uniReply.value
-  if (!showReply.value) {
-    if (isRef(another)) {
-      another.value = false // 关闭另一个展开的回复框
-    }
-    showReply.value = true // 打开当前回复框
-    uniReply.value = showReply // 记得当前打开回复框的ref
-  } else {
-    uniReply.value = null
-    showReply.value = false
-  }
-}
 
 // 发送请求并回显评论
 const handleReply = () => {

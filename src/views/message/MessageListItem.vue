@@ -14,12 +14,22 @@
       <span v-html="content"></span>
     </div>
     <div class="footer">
-      <span class="reply-btn">回复TA</span>
+      <span v-if="user.hadLogin" class="reply-btn" @click="switchShow">
+        回复TA
+      </span>
       <span class="time">{{ model.gmtCreate }}</span>
       <span class="reply-count" v-if="model.childrenCount > 0">
         共{{ model.childrenCount }}条回复
       </span>
     </div>
+    <content-publish
+      v-if="showReply"
+      v-model="inputText"
+      :compact="true"
+      :auto-focus="true"
+      place-text="..."
+      @reply="handleReply"
+    />
     <div class="children" v-if="parent">
       <MessageListItem
         v-for="item in model.children"
@@ -34,13 +44,37 @@
 <script setup>
 import { computed } from 'vue'
 import { useEmotion } from '/src/hooks/emotion/useEmotions'
+import { useComment } from '/src/hooks/content/useComment'
+import { postMessage } from '/src/api/message'
+import { useUserStore } from '/src/store/user'
+import ContentPublish from '/src/components/ContentPublish/index.vue'
+import { ElNotification } from 'element-plus'
 
-const props = defineProps({
+const { model, parent } = defineProps({
   model: { type: Object, required: true },
   parent: { type: Boolean, default: false },
 })
-const isUser = computed(() => props.model.userId > 0)
-const content = useEmotion().processWx(props.model.content)
+const isUser = computed(() => model.userId > 0)
+const user = useUserStore()
+const content = useEmotion().processWx(model.content)
+const { switchShow, showReply, inputText } = useComment()
+const handleReply = () => {
+  postMessage({
+    content: inputText.value,
+    nickname: user.nickname,
+    parentId: parent ? model.id : model.parentId,
+  }).then((res) => {
+    ElNotification({
+      duration: 500,
+      type: 'success',
+      message: res.msg,
+    })
+    inputText.value = ''
+    setTimeout(() => {
+      location.reload()
+    }, 520)
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -115,7 +149,7 @@ const content = useEmotion().processWx(props.model.content)
 .children {
   margin-top: 10px;
   margin-left: 60px;
-  border-bottom: 1px solid #d1d1d1;
+  //border-bottom: 1px solid #d1d1d1;
   transition: 0.5s;
 }
 </style>

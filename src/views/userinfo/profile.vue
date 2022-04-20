@@ -77,18 +77,20 @@ const rules = {}
 .profile {
   display: flex;
 }
+
 .el-form {
   width: 560px;
+
   .el-form-item {
     padding: 0 10px;
 
     .sex-wrapper {
       width: 100%;
       padding-left: 10px;
-      background-color: #fafafa;
       border: 1px solid #dcdfe6;
       border-radius: 4px;
     }
+
     .btn-save {
       height: 36px;
       padding: 7px 20px;
@@ -97,17 +99,10 @@ const rules = {}
       background-color: #1d7dfa;
       border: none;
       border-radius: 0;
+
       &:hover {
         background-color: rgba(30, 128, 255, 0.16);
       }
-    }
-    :deep(.el-input__count-inner),
-    :deep(.el-input__count) {
-      background-color: transparent;
-    }
-    :deep(.el-input__inner),
-    :deep(.el-textarea__inner) {
-      background-color: #fafafa;
     }
   }
 }
@@ -119,21 +114,25 @@ const rules = {}
   justify-items: center;
   width: 112px;
   margin-left: 74px;
+
   .avatar-uploader {
     position: relative;
     width: 90px;
     height: 90px;
+
     img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
     }
+
     &:hover {
       .click-cover {
         visibility: visible;
         background-color: rgba(29, 33, 41, 0.5);
       }
     }
+
     .click-cover {
       position: absolute;
       top: 0;
@@ -152,6 +151,7 @@ const rules = {}
       border-radius: 50%;
     }
   }
+
   .title {
     margin-top: 10px;
     margin-bottom: 8px;
@@ -159,6 +159,7 @@ const rules = {}
     font-weight: 500;
     color: #1d2129;
   }
+
   .description {
     font-size: 12px;
     font-weight: 400;
