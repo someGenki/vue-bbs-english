@@ -21,7 +21,7 @@ export function useGetPage(num, size, fetchData, option, ...args) {
   const disabled = computed(() => models.current >= models.pages) // 是否还有更多页
 
   const getPaging = (num, size, ...args) => {
-    fetchData(num, size, ...args).then((res) => {
+    return fetchData(num, size, ...args).then((res) => {
       // 总数据条数
       models.total = res.data.total
       // 总页码数量

@@ -1,7 +1,5 @@
 <template>
-  <div class="emotion-wrapper">
-no use
-  </div>
+  <div class="emotion-wrapper"> no use </div>
 </template>
 
 <script setup>

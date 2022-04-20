@@ -27,7 +27,7 @@ const props = defineProps({
   icon: { type: String, required: true },
   size: { default: 16 },
   color: { default: 'inherit' },
-  text: { type: [String,Number] },
+  text: { type: [String, Number] },
 })
 
 const { icon, color, size } = props

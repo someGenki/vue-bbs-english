@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-card" :class="{ children: !parent }">
+  <div class="comment-card" :class="{ children: parent !== null }">
     <!--后台返回的子评论数据中无头像！以后在改吧-->
     <app-avatar
       :uid="data.fromId"
@@ -12,46 +12,33 @@
       <!--内容展示-->
       <div class="comment-content">
         <reply-user-at
-          v-if="!parent && data.toId"
+          v-if="parent !== null && data.toId"
           :uid="data.toId"
           :nickname="data.toName"
         />
         {{ data.content }}
       </div>
-
-      <!--底部栏: 发布时间、点赞、评论、评论条数-->
-      <div class="comment-info">
-        <span class="time">{{ data.gmtCreate }}</span>
-        <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
-        <span
-          @click="switchShow"
-          :class="{ showReply }"
-          class="svg-item messenger"
-        >
-          <i />{{ showReply ? '收起回复' : '回复' }}
-        </span>
-        <span v-if="parent" class="total-reply">
-          共&nbsp;{{ data.childrenCount }}&nbsp;条回复
-        </span>
-      </div>
-
+      <!--底部信息栏 点赞、回复按钮-->
+      <comment-info
+        :switch-show="switchShow"
+        :show-reply="showReply"
+        :data="data"
+      />
       <!--评论输入框-->
       <content-publish
         v-if="showReply"
         v-model="inputText"
-        style="padding: 2px 4px"
-        :compact="!parent"
+        :compact="true"
         :auto-focus="true"
         :place-text="placeText"
         @reply="handleReply"
       />
-
       <!--只有父评论才显示子评论，避免嵌套过深-->
-      <template v-if="parent && data?.children?.length > 0">
+      <template v-if="!parent && data?.children?.length > 0">
         <CommentCard
           v-for="child in data.children"
           :key="child.id"
-          :parent="false"
+          :parent="data"
           :data="child"
         />
       </template>
@@ -61,22 +48,31 @@
 
 <script setup>
 import { ref, inject, isRef } from 'vue'
+import dayjs from 'dayjs'
 import FromUser from './FromUser.vue'
 import ReplyUserAt from './ReplyUserAt.vue'
-import CommentCard from '/src/components/CommentCard/index.vue' // 不导入自己递归调用时会找不到组件
+import CommentInfo from './CommentInfo.vue'
+import CommentCard from '/src/components/CommentCard/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
+import { postComment } from '../../api/comment'
+import { ElMessage } from 'element-plus'
+import { useUserStore } from '/src/store/user'
 
 // 评论功能也是个难点 包括唯一的输入框，递归展示 <comment-card :data="data" />
-const props = defineProps({
+const { data, parent } = defineProps({
   // id fromUser ...
   data: { type: Object, required: true },
-  parent: { type: Boolean, default: true },
+  parent: { type: Object, default: null },
 })
+const user = useUserStore()
 const inputText = ref('')
 const showReply = ref(false)
-const placeText = `回复${props.data.fromName}...`
+const placeText = `回复${data.fromName}...`
+const dayjsFormat = 'YYYY-MM-DD HH:mm:ss'
+const itemType = inject('itemType')
 const uniReply = inject('uniReply') // refImpl!
 
+// 切换回复框的出现
 const switchShow = () => {
   const another = uniReply.value
   if (!showReply.value) {
@@ -91,9 +87,29 @@ const switchShow = () => {
   }
 }
 
+// 发送请求并回显评论
 const handleReply = () => {
-  // emit 事件
-  console.log(inputText.value, props.data.fromId)
+  const raw = {
+    parentId: parent ? parent.id : data.id,
+    content: inputText.value,
+    fromName: user.nickname,
+    ...itemType,
+  }
+  if (parent) {
+    raw.toId = data.fromId
+    raw.toName = data.fromName
+    // 将当前字评论的children指向 保证评论结构(2层)
+    data.children = parent.children
+  }
+  postComment(raw).then((res) => {
+    ElMessage({ type: 'success', message: res.msg })
+    // 评论后后台技术返回的数据没有日期。先这样
+    res.data.gmtCreate = dayjs().format(dayjsFormat)
+    if (!Array.isArray(data.children)) data.children = []
+    data.children.push({ ...res.data })
+    inputText.value = ''
+    switchShow()
+  })
 }
 </script>
 
@@ -120,31 +136,6 @@ const handleReply = () => {
     word-break: break-word;
     word-wrap: break-word;
     white-space: pre-wrap;
-  }
-
-  > .comment-info {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #949494;
-
-    & > span {
-      margin-right: 12px;
-    }
-
-    & > .showReply {
-      color: #1d7dfa;
-    }
-
-    & > .svg-item:hover {
-      color: #1d7dfa;
-      cursor: pointer;
-    }
-
-    & > .total-reply {
-      margin-right: 16px;
-      margin-left: auto;
-    }
   }
 }
 

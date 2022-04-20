@@ -20,7 +20,7 @@ const authorId = inject('authorId') // refImpl!
 
 <style lang="scss" scoped>
 .from-user {
-  margin-right: 10px;
+  margin-right: 6px;
   font-size: 15px;
   color: #5c5c5c;
 

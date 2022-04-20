@@ -28,23 +28,23 @@ const emotions = {
   emoji: {
     name: '热门😃',
     list: emotionList.emojiList,
-    process: (s) => ({text:s,html:s}),
+    process: (s) => ({ text: s, html: s }),
   },
   kaomoji: {
     name: '颜文字',
     list: emotionList.kaomojiList,
-    process: (s) => ({text:s,html:s}),
+    process: (s) => ({ text: s, html: s }),
   },
 }
 
-function getTabs(emotions){
- return Object.keys(emotions).map(key=>({
-    key:key,
-    name:emotions[key].name,
-    first:emotions[key].process(emotions[key].list[0],0).html
+function getTabs(emotions) {
+  return Object.keys(emotions).map((key) => ({
+    key: key,
+    name: emotions[key].name,
+    first: emotions[key].process(emotions[key].list[0], 0).html,
   }))
 }
 
 export function useEmotion() {
-  return { processWx, emotions,emotionTabs:getTabs(emotions) }
+  return { processWx, emotions, emotionTabs: getTabs(emotions) }
 }
