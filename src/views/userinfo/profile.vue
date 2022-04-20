@@ -40,16 +40,15 @@
 
       <div class="divide"></div>
       <el-form-item>
-        <el-button class="btn-save" type="primary">保存修改</el-button>
+        <el-button @click="handleSave" class="btn-save" type="primary">
+          保存修改
+        </el-button>
       </el-form-item>
     </el-form>
 
     <div class="input-avatar">
       <div class="avatar-uploader">
-        <img
-          src="https://p6-passport.byteacctimg.com/img/user-avatar/a4813d8e94905b25909750f9a8d687a5~300x300.image"
-          alt=""
-        />
+        <img :src="user.avatar" alt="" />
         <div class="click-cover">
           <app-icon icon="el-icon-plus" />
           <div>点击头像修改</div>
@@ -63,6 +62,13 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../../store/user'
+
+const router = useRouter()
+const user = useUserStore()
+
+!user.hadLogin && router.replace('/login')
 
 const form = reactive({
   school: '',
@@ -71,6 +77,10 @@ const form = reactive({
   sex: 0,
 })
 const rules = {}
+
+const handleSave = () => {
+  alert('暂未开放')
+}
 </script>
 
 <style lang="scss" scoped>

@@ -7,15 +7,18 @@ const redirectComponent = {
     const { currentRoute, replace } = useRouter()
     const query = currentRoute.value.query
     const path = currentRoute.value.params.path
-    const _path = '/' + (Array.isArray(path) ? path.join('/') : path)
-    replace({ path: _path, query })
+    replace({ path, query })
     return () => h('div')
   },
 }
 
 export const redirectRoute = {
-  path: '/redirect/:path(.*)',
+  path: '/redirect',
   name: 'Redirect',
   component: redirectComponent,
   meta: { title: '...' },
+  beforeEnter: (to, from) => {
+    to.query = from.query
+    to.params.path = from.fullPath
+  },
 }

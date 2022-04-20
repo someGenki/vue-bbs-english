@@ -80,34 +80,9 @@ router.afterEach((to) => {
     component: Layout,
     children: [
       {
-        path: '/notice',
-        name: 'notice',
-        component: () => import('@/views/notice'),
-      },
-      {
-        path: '/chat',
-        name: 'chat',
-        component: () => import('@/views/chat'),
-      },
-      {
-        path: '/post/:pid',
-        name: 'post',
-        component: () => import('@/views/post'),
-      },
-      {
-        path: '/article/:aid',
-        name: 'article',
-        component: () => import('@/views/article'),
-      },
-      {
         path: '/space/:uid',
         name: 'space',
         component: () => import('@/views/user/space'),
-      },
-      {
-        path: '/profile',
-        name: 'profile',
-        component: () => import('@/views/user/profile'),
       },
     ],
   },

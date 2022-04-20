@@ -71,82 +71,36 @@
           </el-button>
         </el-form>
       </div>
-      <div class="login-footer"> Powered by 禾几元</div>
+      <div class="login-footer">Powered by 禾几元</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '/src/store/user'
-import { ElMessage } from 'element-plus'
+import { ref } from 'vue'
+import { useLogin } from './useLogin'
 
-const router = useRouter()
-const route = router.currentRoute.value
+const { loginFormData, loginRules, loginPassed } = useLogin()
 
 const loading = ref(false)
 const loginFormRef = ref(null)
-const loginFormData = reactive({
-  username: 'jojo2',
-  password: 'jojo2',
-  code: '4396',
-})
-
-// 表单验证规则 https://github.com/yiminghe/async-validator
-const loginRules = {
-  username: [{ required: true, message: '用户名不能为空' }],
-  password: [{ required: true, message: '密码不能为空' }],
-}
-
-// 获取路径中的查询参数并存入对象中
-const getParams = (fullPath) => {
-  let index = -1
-  if ((index = fullPath.indexOf('?')) > -1) {
-    const usp = new URLSearchParams(fullPath.substring(index))
-    return Object.fromEntries(usp.entries())
-  }
-}
-
-// 表单验证通过时，调用store中的登录方法(抽离)
-const formValidPassed = () => {
-  useUserStore()
-    .login(loginFormData)
-    .then(
-      (data) => {
-        router.push({
-          path: route.query.redirect || '/',
-          query: getParams(route.query.redirect),
-        })
-        ElMessage({
-          type: 'success',
-          message: '登录成功,欢迎回来:🎉' + data.nickname,
-        })
-      },
-      (reason) => {
-        ElMessage({
-          type: 'error',
-          message: '登录失败，' + reason,
-        })
-      }
-    )
-    .finally(() => (loading.value = false))
-}
 
 // 登录按钮触发的函数
 const handleLogin = () => {
   loginFormRef.value.validate((valid) => {
     if (valid) {
       loading.value = true
-      formValidPassed()
+      loginPassed().finally(() => (loading.value = false))
     }
   })
 }
+// TODO 注册时多一条 确认密码输入框 把按钮的文改了就行
 </script>
 
 <style lang="scss" scoped>
 $bg-input: #f1f2f3; // 输入框背景颜色
 $sm-width: 768px; // 小屏幕平板尺寸
+$input-height: 44px;
 
 .bbs-login {
   position: relative;
@@ -168,7 +122,17 @@ $sm-width: 768px; // 小屏幕平板尺寸
   max-width: 500px;
   height: 500px;
   background-size: 100%;
+  user-select: none;
   //background-image: url('https://mixkit.imgix.net/art/preview/mixkit-i-love-you-hand-gesture-419-original-large.png?q=80&auto=format%2Ccompress');
+  .login-logo {
+    font-size: 60px;
+    letter-spacing: 12px;
+    background-image: v-bind('randomBg');
+    /* stylelint-disable-next-line */
+    //filter: invert(100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .login-right {
@@ -177,14 +141,45 @@ $sm-width: 768px; // 小屏幕平板尺寸
   width: 50%;
   height: 500px;
 
-  .agreement {
-    font-size: 14px;
-    color: #999;
+  & > .login-form {
+    align-self: center;
+    width: 450px;
+    padding: 0 2rem 3rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 4px 10px 16px rgb(36 37 38 / 13%);
 
-    > a {
-      color: #00a1d6;
-      cursor: pointer;
+    // 同意协议声明
+    & > .agreement {
+      font-size: 14px;
+      color: #999;
+
+      & > a {
+        color: #00a1d6;
+        cursor: pointer;
+      }
     }
+
+    // 输入框样式
+    .login-input {
+      height: $input-height;
+      font-size: 18px;
+      line-height: $input-height;
+      --el-input-bg-color: #f8f5f5;
+    }
+
+    .login-btn {
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 16px;
+    }
+  }
+
+  :deep(.form-captcha .el-form-item__content) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
   }
 }
 
@@ -198,70 +193,16 @@ $sm-width: 768px; // 小屏幕平板尺寸
   -webkit-background-clip: text;
 }
 
-.login-logo {
-  font-size: 60px;
-  letter-spacing: 12px;
-  background-image: v-bind('randomBg');
-  /* stylelint-disable-next-line */
-  //filter: invert(100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.login-form {
-  align-self: center;
-  width: 450px;
-  padding: 0 2rem 3rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 4px 10px 16px rgb(36 37 38 / 13%);
-}
-
-$input-height: 44px;
-
-.login-input {
-  height: $input-height;
-  font-size: 17px;
-  line-height: $input-height;
-
-  :deep(.el-input__inner) {
-    height: $input-height;
-    padding-left: 34px;
-    line-height: $input-height;
-    background: #f5f5f5;
-    border: 0;
-
-    &:focus + .el-input__prefix {
-      color: black;
-    }
-  }
-}
-
-.login-btn {
-  width: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 16px;
-}
-
-:deep(.form-captcha .el-form-item__content) {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 22px;
-}
-
 /*
 @media screen and (max-width: $sm-width) {
   .login-left {
     display: none;
   }
-
   .login-right {
     align-self: flex-start;
     justify-content: center;
     width: 100%;
   }
-
   .login-form {
     padding-right: 1rem;
     padding-left: 1rem;

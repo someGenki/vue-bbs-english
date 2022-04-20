@@ -35,10 +35,10 @@ provide('uniReply', ref(null)) // 兄弟组件间通信
 
 <style lang="scss" scoped>
 .message-board-list {
-  margin:24px 0;
   padding: 4px 24px;
-  border-radius: 4px;
+  margin:24px 0;
   background-color: #FFFFFF;
   border: 1px solid #e0e0e0;
+  border-radius: 4px;
 }
 </style>
