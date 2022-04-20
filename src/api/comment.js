@@ -7,7 +7,10 @@ import http from '/src/utils/request'
  *     POST(4, "帖子");
  */
 
-export function getCommentList(itemType, itemId,num,size) {
+export function getCommentList(itemType, itemId, num, size) {
   return http.get(`/comment/${itemType}/${itemId}?num=${num}&size=${size}`)
 }
 
+export function postComment(data) {
+  return http.post('/comment/make', data)
+}

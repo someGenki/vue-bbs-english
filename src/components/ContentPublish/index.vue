@@ -59,7 +59,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .publish-area {
   padding: 16px 28px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   background-color: white;
 
   & > .publish-title {
@@ -120,15 +120,11 @@ onMounted(() => {
 
 // 更加紧凑
 .publish-area.compact {
+  padding: 2px 4px;
   margin-bottom: 0;
-
   .reply-btn {
     width: 62px;
     height: 28px;
-  }
-
-  .publish-content > textarea {
-    margin-left: 8px;
   }
 }
 </style>

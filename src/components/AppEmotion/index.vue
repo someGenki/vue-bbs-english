@@ -97,19 +97,19 @@ const handleEmotionClick = (arg) => {
 
 // 弹出层卡片样式
 .emotion-box {
+  width: 360px;
+  padding: 0;
   font-size: 14px;
   background-color: #ffffff;
   border: 1px solid #e3e4e5;
-  box-shadow: 0 12px 12px 0 #6e78824c;
   border-radius: 8px;
-  padding: 0;
-  width: 360px;
+  box-shadow: 0 12px 12px 0 #6e78824c;
   // 显示表情集合名
   > .emotion-title {
-    letter-spacing: 1.5px;
-    line-height: 16px;
     margin: 10px 14px 4px;
+    line-height: 16px;
     color: #5a646e;
+    letter-spacing: 1.5px;
   }
 
   // 被el-scroll包裹 所以层次有变
@@ -121,8 +121,8 @@ const handleEmotionClick = (arg) => {
     & .emotion-item {
       display: inline-block;
       padding: 4px;
-      border-radius: 4px;
       cursor: pointer;
+      border-radius: 4px;
 
       &:hover {
         background-color: #e3e5e7;
@@ -139,13 +139,13 @@ const handleEmotionClick = (arg) => {
     border-radius: 0 0 4px 4px;
 
     > a {
-      float: left;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      float: left;
       width: 54px;
       height: 100%;
+      cursor: pointer;
 
       &:hover {
         background-color: #e3e4e5;
@@ -168,8 +168,8 @@ const handleEmotionClick = (arg) => {
   margin: 4px;
 
   > img {
-    height: 32px;
     width: 32px;
+    height: 32px;
   }
 }
 
@@ -177,18 +177,18 @@ const handleEmotionClick = (arg) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  margin: 6px;
-  height: 38px;
   width: 38px;
+  height: 38px;
+  margin: 6px;
+  font-size: 28px;
 }
 
 .emotion-box.kaomoji .emotion-item {
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
   width: auto;
+  height: 28px;
   padding: 2px 4px;
   margin: 6px;
+  font-size: 14px;
+  line-height: 28px;
 }
 </style>

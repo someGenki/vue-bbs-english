@@ -41,42 +41,60 @@ import { marked } from 'marked'
 import { useRoute } from 'vue-router'
 import { ref, computed, provide } from 'vue'
 import { useUserStore } from '/src/store/user'
+import { postComment } from '/src/api/comment'
 import { getPostDetail, getPostComments } from '/src/api/post'
 import '/src/styles/markdown-theme.scss'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
-import { useGetPage } from '../../hooks/content/useGetPage'
+import { useGetPage } from '/src/hooks/content/useGetPage'
+import { ElMessage } from 'element-plus'
 
+const commentSize = 4
 const user = useUserStore()
 const post = ref(null)
 const authorId = ref(null)
 const inputText = ref(null)
 const pid = useRoute().params.pid
+const itemType = { itemType: 4, itemId: pid }
 
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
 )
-const handleReply = ()=>{
-  // console.log(inputText.value)
+
+const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
+  1,
+  commentSize,
+  getPostComments,
+  { delay: 380 },
+  pid
+)
+
+const handleReply = () => {
+  postComment({
+    parentId: 0,
+    content: inputText.value,
+    fromName: user.nickname,
+    ...itemType,
+  }).then((res) => {
+    ElMessage({ type: 'success', message: res.msg })
+    inputText.value = ''
+    getPaging(1, commentSize, pid).then(loadMore)
+  })
 }
+
 provide('uniReply', ref(null)) // 兄弟组件间通信
 provide('authorId', authorId) // 注入作者id，为评论组件判断是否为作者
+provide('itemType', itemType) // 为评论组件提供资源类型
 
+// 根据文章id以获取文章具体内容
 getPostDetail(pid).then((res) => {
   post.value = res.data
   authorId.value = res.data.uid
 })
 
-const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
-  1,
-  2,
-  getPostComments,
-  { delay: 380 },
-  16
-)
-// TODO 将16换成pid
-getPaging(1, 2, 16)
+// 获取文章下的评论列表
+getPaging(1, commentSize, pid)
 </script>
 
 <style lang="scss" scoped>
