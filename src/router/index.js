@@ -5,7 +5,8 @@ import {
 } from 'vue-router'
 import Layout from '/src/layout/index.vue'
 import TestView from '/src/views/sys/test/index.vue'
-import navs from './nav.js'
+import navs from './nav'
+import user from './user'
 import { redirectRoute } from './helper'
 
 const title = import.meta.env.VITE_DEFAULT_TITLE
@@ -20,6 +21,7 @@ const baseRoutes = [
     component: Layout,
     children: [
       ...navs,
+      ...user,
       {
         path: '/post/:pid',
         name: 'Post',
@@ -78,34 +80,9 @@ router.afterEach((to) => {
     component: Layout,
     children: [
       {
-        path: '/notice',
-        name: 'notice',
-        component: () => import('@/views/notice'),
-      },
-      {
-        path: '/chat',
-        name: 'chat',
-        component: () => import('@/views/chat'),
-      },
-      {
-        path: '/content/:pid',
-        name: 'content',
-        component: () => import('@/views/content'),
-      },
-      {
-        path: '/article/:aid',
-        name: 'article',
-        component: () => import('@/views/article'),
-      },
-      {
         path: '/space/:uid',
         name: 'space',
         component: () => import('@/views/user/space'),
-      },
-      {
-        path: '/profile',
-        name: 'profile',
-        component: () => import('@/views/user/profile'),
       },
     ],
   },

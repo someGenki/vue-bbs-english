@@ -49,6 +49,7 @@ import { postMessage } from '/src/api/message'
 import { useUserStore } from '/src/store/user'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
 import { ElNotification } from 'element-plus'
+import { useRouter } from 'vue-router'
 
 const { model, parent } = defineProps({
   model: { type: Object, required: true },
@@ -56,8 +57,10 @@ const { model, parent } = defineProps({
 })
 const isUser = computed(() => model.userId > 0)
 const user = useUserStore()
+const router = useRouter()
 const content = useEmotion().processWx(model.content)
 const { switchShow, showReply, inputText } = useComment()
+
 const handleReply = () => {
   postMessage({
     content: inputText.value,
@@ -65,14 +68,11 @@ const handleReply = () => {
     parentId: parent ? model.id : model.parentId,
   }).then((res) => {
     ElNotification({
-      duration: 500,
+      duration: 2000,
       type: 'success',
       message: res.msg,
     })
-    inputText.value = ''
-    setTimeout(() => {
-      location.reload()
-    }, 520)
+    router.replace('/redirect')
   })
 }
 </script>
