@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia'
 import { getToken, removeToken, setToken, get, set } from '/src/utils/storage'
-import {
-  login as _login,
-  register as _register,
-  getNewestInfo,
-} from '/src/api/user'
+import { login as _login, register, getNewestInfo } from '/src/api/user'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -27,13 +23,17 @@ export const useUserStore = defineStore('user', {
       this.saveUserInfo(data)
       return data
     },
-    async register(payload) {
-      const { code, data, msg } = await _register(payload)
-      if (code !== 200) {
-        throw msg
+    async signup(payload) {
+      try {
+        const { code, data } = await register(payload)
+        if (code === 200) {
+          this.saveUserInfo(data)
+          return data
+        }
+      } catch (e) {
+        // 这里有后端的设计失误。。。
+        throw e.data.msg
       }
-      this.saveUserInfo(data)
-      return data
     },
     async getUserInfo() {
       if (!this.hadLogin) return
