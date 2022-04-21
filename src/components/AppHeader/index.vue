@@ -1,7 +1,7 @@
 <template>
-  <header class="app-header fixed">
+  <header class="app-header">
+    <!--响应式的logo和剩余插槽-->
     <div class="container">
-      <!--响应式选择合适尺寸logo-->
       <router-link to="/">
         <img class="logo" alt="logo" src="/src/assets/images/logo.png" />
         <img
@@ -10,24 +10,13 @@
           src="/src/assets/images/logo-64.png"
         />
       </router-link>
-      <!--主导航栏 和 右侧导航-->
-      <nav class="app-nav">
-        <nav-list :navs="navs" />
-        <right-nav />
-      </nav>
+      <slot></slot>
     </div>
   </header>
 </template>
 
-<script setup>
-import NavList from './NavList.vue'
-import RightNav from './RightNav.vue'
-import navs from '/src/router/nav'
-</script>
-
 <style lang="scss" scoped>
 .app-header {
-  min-width: 1200px;
   height: 4rem;
   margin-bottom: 1rem;
   color: #909090;
@@ -52,14 +41,6 @@ import navs from '/src/router/nav'
 
     .logo-mobile {
       display: none;
-    }
-
-    & > .app-nav {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
     }
   }
 }

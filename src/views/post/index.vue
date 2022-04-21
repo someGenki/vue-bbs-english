@@ -95,6 +95,8 @@ getPostDetail(pid).then((res) => {
 
 // 获取文章下的评论列表
 getPaging(1, commentSize, pid)
+
+// https://www.jianshu.com/p/0b06128a6117 关于生产锚点
 </script>
 
 <style lang="scss" scoped>

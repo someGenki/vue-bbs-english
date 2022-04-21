@@ -1,7 +1,12 @@
 <template>
   <el-dropdown trigger="click">
     <!--位于header显示的头像-->
-    <img class="dropdown-avatar" v-default-img="user.nickname" :src="avatar" alt="" />
+    <img
+      class="dropdown-avatar"
+      v-default-img="user.nickname"
+      :src="avatar"
+      alt=""
+    />
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item
@@ -22,7 +27,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from '../../../store/user'
+import { useUserStore } from '/src/store/user'
 
 defineProps({ items: { type: Array }, avatar: { type: String } })
 
@@ -41,6 +46,7 @@ const tryCall = (fn, ...args) => {
   margin-top: 1px;
   margin-left: 4px;
   color: #4e5969;
+  cursor: pointer;
   border-radius: 4px;
 }
 </style>

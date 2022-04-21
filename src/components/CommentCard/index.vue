@@ -16,7 +16,7 @@
           :uid="data.toId"
           :nickname="data.toName"
         />
-        {{ data.content }}
+        <span v-html="processWx(data.content)" />
       </div>
       <!--底部信息栏 点赞、回复按钮-->
       <comment-info
@@ -54,6 +54,7 @@ import ReplyUserAt from './ReplyUserAt.vue'
 import CommentInfo from './CommentInfo.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
+import { processWx } from '/src/hooks/emotion/useEmotions'
 import { ElMessage } from 'element-plus'
 import { postComment } from '/src/api/comment'
 import { useUserStore } from '/src/store/user'

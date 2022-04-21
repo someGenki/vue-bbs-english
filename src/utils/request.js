@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { getToken } from './storage.js'
-import { ElMessage } from 'element-plus'
 
-const BASEURL = String(import.meta.env.VITE_BASE_URL)
+export const BASEURL = String(import.meta.env.VITE_BASE_URL)
 
 axios.defaults.timeout = 5000 // 响应超时时间
 axios.defaults.baseURL = BASEURL // 请求的根路径

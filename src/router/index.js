@@ -53,6 +53,12 @@ const baseRoutes = [
     ],
   },
   {
+    path: '/editor',
+    name: 'Editor',
+    component: () => import('/src/views/editor/index.vue'),
+    meta: { title: '发表 - 二元' },
+  },
+  {
     path: '/test',
     name: 'Test',
     component: TestView,
