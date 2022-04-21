@@ -17,10 +17,10 @@
 
 <script setup>
 import Search from './Search.vue'
-import AvatarMenu from './AvatarMenu.vue'
 import Publish from './Publish.vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '/src/store/user'
+import AvatarMenu from '/src/components/AvatarMenu/index.vue'
 
 const user = useUserStore()
 const router = useRouter()
@@ -47,8 +47,6 @@ function goLogin() {
   if (route.path.includes('/login')) return
   router.push({ path: '/login', query: { redirect: route.fullPath } })
 }
-
-user.getUserInfo()
 </script>
 
 <style lang="scss" scoped>

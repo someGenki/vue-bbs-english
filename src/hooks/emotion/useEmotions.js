@@ -1,8 +1,8 @@
 import emotionList from './emotion-list'
 
-const wxReg = /\[wx_([\u4E00-\u9FA5]{1,3})]/
+const wxReg = /\[wx_([\u4E00-\u9FA5]{1,3})]/g
 
-function processWx(str, klass = 'wx-emoji') {
+export function processWx(str, klass = 'wx-emoji') {
   return str.replace(wxReg, (_, word) => {
     const index = emotionList.weChatList.indexOf(word)
     return index !== -1

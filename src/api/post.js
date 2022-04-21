@@ -16,4 +16,8 @@ export function getPostDetail(pid) {
   return http.get('/post/' + pid)
 }
 
+export function pubPost(form) {
+  return http.post('/post/commit', form)
+}
+
 // 发布-编辑帖子 http://47.100.95.40:8080/api/doc.html#/default/%E5%B8%96%E5%AD%90%E6%A8%A1%E5%9D%97/publishUsingPOST_1

@@ -1,5 +1,5 @@
 <template>
-  <div class="publish-button">
+  <div @click="$router.push('/editor')" class="publish-button">
     <app-icon size="20" icon="el-icon-edit" />
     <span>发布内容</span>
   </div>
