@@ -73,15 +73,20 @@ const getWord = () => {
   sText = sText.trim()
   if (sText !== '') {
     if (sText.length > 20) sText = sText.substring(0, 20)
-    translate(sText).then((res) => {
-      const { src, dst } = res.data
-      ElNotification({
-        duration: 10000,
-        type: 'success',
-        title: '翻译结果',
-        message: src + ': ' + dst,
-      })
-    })
+    translate(sText).then(
+      (res) => {
+        const { src, dst } = res.data
+        ElNotification({
+          duration: 10000,
+          type: 'success',
+          title: '翻译结果',
+          message: src + ': ' + dst,
+        })
+      },
+      (err) => {
+        console.log(err.data)
+      }
+    )
   }
 }
 </script>

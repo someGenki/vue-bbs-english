@@ -36,8 +36,8 @@ provide('uniReply', ref(null)) // 兄弟组件间通信
 <style lang="scss" scoped>
 .message-board-list {
   padding: 4px 24px;
-  margin:24px 0;
-  background-color: #FFFFFF;
+  margin: 24px 0;
+  background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
 }

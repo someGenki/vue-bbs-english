@@ -7,17 +7,21 @@
       </div>
       <div class="login-right">
         <el-form
-          :model="loginFormData"
+          :model="loginForm"
           :rules="loginRules"
           ref="loginFormRef"
           class="login-form"
+          @keydown.enter="handleLogin"
+          :class="isLogin ? 'login' : 'signup'"
         >
-          <h1 style="margin-left: 4px; text-align: left">登录</h1>
+          <div @click="isLogin = !isLogin" class="login-title">
+            <span class="login-text">登录</span>
+            <span style="margin: 8px">|</span>
+            <span class="signup-text">注册</span>
+          </div>
 
           <p class="agreement">
-            登录或注册即代表你同意<a href="">用户协议</a>和<a href=""
-              >隐私政策
-            </a>
+            登录或注册即代表你同意<a>用户协议</a>和<a>隐私政策</a>
           </p>
 
           <el-form-item required prop="username">
@@ -26,8 +30,8 @@
               name="username"
               class="login-input"
               prefix-icon="el-icon-user"
-              v-model="loginFormData.username"
-              placeholder="用户名/邮箱"
+              v-model="loginForm.username"
+              placeholder="用户名"
             />
           </el-form-item>
 
@@ -38,12 +42,24 @@
               class="login-input"
               show-password
               prefix-icon="el-icon-lock"
-              v-model="loginFormData.password"
+              v-model="loginForm.password"
               placeholder="请输入密码"
             />
           </el-form-item>
-
-          <el-form-item class="form-captcha">
+          <transition name="from-left">
+            <el-form-item v-if="!isLogin" required prop="confirm">
+              <el-input
+                required
+                name="confirm"
+                class="login-input"
+                show-password
+                prefix-icon="el-icon-select"
+                v-model="loginForm.confirm"
+                placeholder="请确认密码"
+              />
+            </el-form-item>
+          </transition>
+          <el-form-item prop="code" class="form-captcha">
             <el-input
               placeholder="验证码"
               name="code"
@@ -51,11 +67,11 @@
               class="login-input"
               style="width: 60%; height: 44px; margin-right: 10px"
               type="text"
-              v-model="loginFormData.code"
+              v-model="loginForm.code"
             />
             <img
               style="width: 120px; height: 42px"
-              src="http://www.webxml.com.cn/WebServices/ValidateCodeWebService.asmx/cnValidateImage?byString=4396"
+              :src="captchaSrc"
               alt="验证码"
               title="验证码"
             />
@@ -67,7 +83,7 @@
             class="login-btn"
             type="primary"
             size="large"
-            >登录
+            >{{ isLogin ? '登录' : '注册' }}
           </el-button>
         </el-form>
       </div>
@@ -80,12 +96,11 @@
 import { ref } from 'vue'
 import { useLogin } from './useLogin'
 
-const { loginFormData, loginRules, loginPassed } = useLogin()
-
 const loading = ref(false)
 const loginFormRef = ref(null)
+const { isLogin, loginForm, loginRules, code, loginPassed } = useLogin()
+const captchaSrc = `http://www.webxml.com.cn/WebServices/ValidateCodeWebService.asmx/cnValidateImage?byString=${code}`
 
-// 登录按钮触发的函数
 const handleLogin = () => {
   loginFormRef.value.validate((valid) => {
     if (valid) {
@@ -94,7 +109,6 @@ const handleLogin = () => {
     }
   })
 }
-// TODO 注册时多一条 确认密码输入框 把按钮的文改了就行
 </script>
 
 <style lang="scss" scoped>
@@ -121,15 +135,12 @@ $input-height: 44px;
   min-width: 300px;
   max-width: 500px;
   height: 500px;
-  background-size: 100%;
   user-select: none;
-  //background-image: url('https://mixkit.imgix.net/art/preview/mixkit-i-love-you-hand-gesture-419-original-large.png?q=80&auto=format%2Ccompress');
+  background-size: 100%;
+
   .login-logo {
     font-size: 60px;
     letter-spacing: 12px;
-    background-image: v-bind('randomBg');
-    /* stylelint-disable-next-line */
-    //filter: invert(100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -141,48 +152,87 @@ $input-height: 44px;
   width: 50%;
   height: 500px;
 
-  & > .login-form {
-    align-self: center;
-    width: 450px;
-    padding: 0 2rem 3rem;
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 4px 10px 16px rgb(36 37 38 / 13%);
-
-    // 同意协议声明
-    & > .agreement {
-      font-size: 14px;
-      color: #999;
-
-      & > a {
-        color: #00a1d6;
-        cursor: pointer;
-      }
-    }
-
-    // 输入框样式
-    .login-input {
-      height: $input-height;
-      font-size: 18px;
-      line-height: $input-height;
-      --el-input-bg-color: #f8f5f5;
-    }
-
-    .login-btn {
-      width: 100%;
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 16px;
-    }
-  }
-
   :deep(.form-captcha .el-form-item__content) {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 22px;
+    margin-bottom: 12px;
   }
 }
 
+// 表单主体样式！
+.login-form {
+  position: relative;
+  align-self: flex-start;
+  width: 450px;
+  padding: 1rem 2rem 2rem;
+  overflow: hidden;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 4px 10px 16px rgb(36 37 38 / 13%);
+  transition: all 250ms ease-out;
+  // 登录注册切换
+  & > .login-title {
+    display: inline-block;
+    height: 32px;
+    color: #999;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+
+    > span {
+      transition: font-size 300ms ease-out;
+    }
+  }
+
+  // 同意协议声明
+  & > .agreement {
+    font-size: 14px;
+    color: #999;
+
+    & > a {
+      color: #00a1d6;
+      cursor: pointer;
+    }
+  }
+
+  // 输入框样式
+  .login-input {
+    height: $input-height;
+    font-size: 16px;
+    line-height: $input-height;
+    --el-input-bg-color: #f8f5f5;
+  }
+
+  // 登录按钮 使用绝对定位让动画效果正常点
+  .login-btn {
+    position: absolute;
+    bottom: 2rem;
+    width: 386px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 16px;
+  }
+
+  &.login {
+    height: 360px;
+
+    .login-text {
+      font-size: 24px;
+      color: #2b2b2b;
+    }
+  }
+
+  &.signup {
+    height: 425px;
+
+    .signup-text {
+      font-size: 24px;
+      color: #2b2b2b;
+    }
+  }
+}
+
+// 无关紧要的底部
 .login-footer {
   position: absolute;
   bottom: 10px;
@@ -191,6 +241,19 @@ $input-height: 44px;
   user-select: none;
   background: linear-gradient(to left, #0250c5 0%, #d43f8d 100%);
   -webkit-background-clip: text;
+}
+
+// 切换到注册表单时，确认密码框的动态效果  难点
+// from是初始帧的样式(随后就被移除)
+.from-left-enter-from {
+  height: 0;
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+// active是动画生效周期,当from被移除后，动画效果生效
+.from-left-enter-active {
+  transition: all 0.3s ease-out;
 }
 
 /*

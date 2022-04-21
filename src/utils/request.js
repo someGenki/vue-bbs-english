@@ -24,7 +24,6 @@ axios.interceptors.response.use(
   // 响应4xx 5xx
   (error) => {
     // ... doing something
-    ElMessage({ message: error.response?.data?.msg || 'undefined' })
     return Promise.reject(error.response)
   }
 )
