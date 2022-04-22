@@ -121,7 +121,8 @@ const handleReply = () => {
     word-break: break-word;
     word-wrap: break-word;
     white-space: pre-wrap;
-    :deep(.wx-emoji){
+
+    :deep(.wx-emoji) {
       margin-bottom: -4px;
     }
   }

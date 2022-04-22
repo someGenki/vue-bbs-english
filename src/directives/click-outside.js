@@ -4,6 +4,7 @@ export default {
       if (el.style.display === 'none' || el.contains(e.target)) return
       else binding.value()
     }
+
     el.__vueClickOutsie__ = documentHandler
     document.addEventListener('click', documentHandler)
   },

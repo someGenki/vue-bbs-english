@@ -38,6 +38,7 @@ export function getMarkdownData(markdownText) {
   element.innerHTML = ''
   return res
 }
+
 // 获取路径中的查询参数并存入对象中
 export const getParams = (fullPath) => {
   let index

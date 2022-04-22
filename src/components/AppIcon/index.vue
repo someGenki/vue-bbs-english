@@ -62,6 +62,7 @@ if (/^el-?/i.test(icon)) {
   align-items: center;
   cursor: pointer;
 }
+
 .app-icon.text:hover {
   color: #1d7dfa;
 }

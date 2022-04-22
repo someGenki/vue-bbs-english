@@ -38,7 +38,7 @@
 import { marked } from 'marked'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { ref, provide, computed } from 'vue'
+import { computed, provide, ref } from 'vue'
 import { useUserStore } from '/src/store/user'
 import { postComment } from '/src/api/comment'
 import { getPostDetail } from '/src/api/post'

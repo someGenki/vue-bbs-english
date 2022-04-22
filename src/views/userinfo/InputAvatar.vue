@@ -18,7 +18,7 @@
     <div class="description">支持 jpg、png、jpeg 格式大小 5M 以内的图片</div>
   </div>
   <el-dialog v-model="dialogVisible" title="裁剪头像" width="30%">
-    <div style=" width: 400px;height: 400px; margin: auto">
+    <div style="width: 400px; height: 400px; margin: auto">
       <vueCropper
         :auto-crop-width="200"
         :auto-crop-height="200"

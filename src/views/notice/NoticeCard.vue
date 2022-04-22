@@ -1,6 +1,11 @@
 <template>
   <div class="notice-card">
-    <app-icon color="#5BA1FF" size="56" class="notice-type" icon="el-icon-list"/>
+    <app-icon
+      color="#5BA1FF"
+      size="56"
+      class="notice-type"
+      icon="el-icon-list"
+    />
     <router-link :to="notice.link" class="notice-title"
       >{{ notice.title }}
     </router-link>
@@ -29,10 +34,12 @@ const emit = defineEmits(['read'])
   padding: 12px 0 6px 64px;
   margin: 4px 16px;
   border-bottom: 1px solid #d0d0d0;
-  &>.notice-type{
+
+  & > .notice-type {
     position: absolute;
     left: -10px;
   }
+
   & > .notice-title {
     font-size: 14px;
     color: #666;

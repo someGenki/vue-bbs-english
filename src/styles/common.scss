@@ -14,6 +14,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 kbd {
   padding: 0.25rem;
   font-size: 0.825rem;
@@ -21,6 +22,7 @@ kbd {
   border-radius: 0.25rem;
   box-shadow: inset 0 -1px 0 0 #cdcdcd;
 }
+
 .clearfix::after {
   display: block;
   clear: both;
@@ -33,6 +35,7 @@ kbd {
   color: #5c5c5c;
   text-align: center;
 }
+
 .time {
   font-size: 14px;
 }
@@ -40,6 +43,7 @@ kbd {
 .el-skeleton {
   --el-skeleton-color: #f4f1f1 !important;
 }
+
 // <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
 // 弊端 不好改颜色
 .svg-item {
