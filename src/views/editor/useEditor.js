@@ -27,6 +27,10 @@ export function useEditor(form) {
       set(draftKey, JSON.stringify({ form: toRaw(form), date: Date.now() }))
       ElNotification({ type: 'success', message: '草稿保存成功' })
     },
+    clear:()=>{
+      remove(draftKey)
+      ElNotification({ type: 'success', message: '草稿删除成功' })
+    },
     restore: () => {
       form.title = draft.form.title
       form.content = draft.form.content

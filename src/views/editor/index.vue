@@ -21,7 +21,7 @@
       auto-insert-space
       round
     >
-      发布
+      {{ isModify ? '保 存' : '发 布' }}
     </el-button>
     <el-popconfirm
       v-if="draft"
@@ -55,21 +55,26 @@
     />
     <!--发布文章时，除标题和正文以外的其他属性设置-->
     <post-option :success="handles.success" :form="form" />
+    <el-button v-if="draft" @click="handles.clear" type="text"
+      >删除草稿
+    </el-button>
+    <span class="tip-text">{{ tipText }}</span>
   </main>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { onUnmounted, reactive, ref } from 'vue'
+import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
 import MdEditor from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { useUserStore } from '/src/store/user'
 import { useEditor } from './useEditor'
+import { getPostDetail } from '../../api/post'
 import AppHeader from '/src/components/AppHeader/index.vue'
 import AvatarMenu from '/src/components/AvatarMenu/index.vue'
 import PostOption from './PostOption.vue'
 
-// TODO markdown中的图片上传
 const user = useUserStore()
 const router = useRouter()
 
@@ -83,8 +88,17 @@ const form = reactive({
   attachment: '',
   acAgreement: true,
 })
-
+const tipText = ref('暂无')
+const isModify = ref(false)
 const { color, draft, wordCount, canSubmit, handles } = useEditor(form)
+
+// 每三分钟自动保存一次草稿
+const timer = setInterval(() => {
+  handles.store()
+  tipText.value = '自动保存保存:' + dayjs().format('YYYY-MM-DD HH:mm:ss')
+}, 1000 * 60 * 3)
+
+onUnmounted(() => clearInterval(timer))
 
 const items = [
   { title: '个人中心', path: '/userinfo', icon: 'el-icon-user' },
@@ -95,6 +109,18 @@ const items = [
     icon: 'el-icon-switch-button',
   },
 ]
+
+// 携带对应参数则进入编辑模式
+const query = router.currentRoute.value.query
+if (query.from === 'post' && query.id) {
+  const keys = ['id', 'attachment', 'title', 'content', 'category', 'tags']
+  getPostDetail(query.id).then((res) => {
+    if (res.data.uid !== user.uid) return
+    keys.forEach((key) => (form[key] = res.data[key]))
+    document.title = '修改 - ' + form.title
+    isModify.value = true
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -133,6 +159,15 @@ const items = [
 .editor-main {
   margin-top: 5rem; // 因为header固定了
   background: #ffffff;
+
+  & > .el-button {
+    margin: 4px 16px;
+  }
+
+  .tip-text {
+    font-size: 14px;
+    color: #999;
+  }
 }
 
 .other-setting {

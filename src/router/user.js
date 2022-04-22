@@ -24,6 +24,16 @@ export default [
           icon: 'el-icon-setting',
         },
       },
+      {
+        path: 'posts',
+        name: 'Posts',
+        component: () => import('/src/views/userinfo/setting.vue'),
+        meta: {
+          title: '帖子管理 - 内容管理',
+          navName: '帖子管理',
+          icon: 'el-icon-document',
+        },
+      },
     ],
   },
 ]

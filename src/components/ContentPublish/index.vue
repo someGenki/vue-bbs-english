@@ -18,7 +18,6 @@
     <div class="publish-toolbar">
       <!--TODO 点击表情不让textarea失去焦点-->
       <app-emotion @emotion="handleEmotion" />
-      <!--TODO 添加 Ctrl +Enter 按键监听-->
       <div class="reply-wrap">
         <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
         <button
@@ -61,7 +60,7 @@ const inputText = computed({
 const canReply = computed(() => {
   return user.hadLogin && props.modelValue
 })
-//   // 获取鼠标位置
+// 获取鼠标位置
 // const endPoint = textarea.selectionStart;
 const handleEmotion = (text) => {
   inputText.value += text
