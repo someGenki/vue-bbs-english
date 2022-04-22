@@ -113,8 +113,8 @@ const handleEmotion = (text) => {
     .reply-btn {
       width: 72px;
       height: 36px;
-      margin-left: 6px;
       margin-right: 16px;
+      margin-left: 6px;
       font-size: 14px;
       color: #ffffff;
       text-align: center;

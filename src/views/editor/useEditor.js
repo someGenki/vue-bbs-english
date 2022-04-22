@@ -1,15 +1,13 @@
-import { BASEURL } from '../../utils/request'
-import { get, remove, set } from '../../utils/storage'
 import { computed, toRaw } from 'vue'
-import { pubPost } from '../../api/post'
-import { ElNotification } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
+import { get, remove, set } from '../../utils/storage'
+import { pubPost } from '../../api/post'
 
 export function useEditor(form) {
   const color = '#1d7dfa'
   const router = useRouter()
   const draftKey = 'post-draft'
-  const reqUrl = BASEURL + '/file/upload'
   const draft = JSON.parse(get(draftKey))
   const wordCount = computed(() => `${form.title.length}/64`)
   const canSubmit = computed(() => {
@@ -37,5 +35,5 @@ export function useEditor(form) {
     },
   }
 
-  return { color, draftKey, reqUrl, draft, wordCount, canSubmit, handles }
+  return { color, draftKey, draft, wordCount, canSubmit, handles }
 }

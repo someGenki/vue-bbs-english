@@ -121,12 +121,12 @@ getPostDetail(pid).then((res) => {
   }
 
   > .attachment-box {
-    border-radius: 4px;
+    position: relative;
+    min-height: 70px;
+    padding: 8px 16px;
     font-size: 14px;
     color: #7b7b7b;
-    padding: 8px 16px;
-    min-height: 70px;
-    position: relative;
+    border-radius: 4px;
 
     > .download-attachment {
       position: absolute;

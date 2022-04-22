@@ -1,4 +1,11 @@
 import { computed } from 'vue'
+import {getStrColor} from "../../utils/process";
+
+// 分割用`-`连接的标签属性，返回数组。包含名字和随机颜色
+export const splitTags = (tags) => {
+  tags = tags || '' // 防止返回非数组
+  return tags.split('-').map((x) => ({ name: x, color: getStrColor(x) }))
+}
 
 export function getDifficulty(dif) {
   const difColor = computed(() => {

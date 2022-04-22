@@ -9,15 +9,20 @@
     >
       {{ tag.name }}
     </el-tag>
-    <el-tag :color="dif.difColor" effect="dark">{{ dif.difText }}</el-tag>
+    <el-tag :color="difColor" effect="dark">{{ difText }}</el-tag>
   </div>
 </template>
 
 <script setup>
+import { getDifficulty, splitTags } from '/src/hooks/content/useArticle'
+
 const props = defineProps({
-  tagList: { type: Array, required: true },
-  dif: { type: Object },
+  tags: { type: [String, Array], required: true },
+  difficulty: { type: Number, required: true },
 })
+
+const tagList = splitTags(props.tags)
+const { difColor, difText } = getDifficulty(props.difficulty)
 </script>
 
 <style lang="scss" scoped>

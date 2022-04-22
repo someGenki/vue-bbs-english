@@ -12,7 +12,7 @@
       />
       <span class="word-count">{{ wordCount }}</span>
     </div>
-
+    <!--头部右侧按钮组+头像下拉菜单-->
     <el-button
       @click="handles.submit"
       :disabled="!canSubmit"
@@ -29,7 +29,7 @@
       title="是否加载本地缓存的草稿?"
     >
       <template #reference>
-        <el-button size="large" auto-insert-space round> 还原</el-button>
+        <el-button size="large" auto-insert-space round>还原</el-button>
       </template>
     </el-popconfirm>
     <el-button
@@ -42,50 +42,12 @@
     >
       暂存
     </el-button>
-
     <avatar-menu :avatar="user.avatar" :items="items" />
   </app-header>
   <main class="editor-main">
     <md-editor placeholder="正文..." v-model="form.content" />
-    <div class="other-setting">
-      <div class="category">
-        <span class="desc">帖子分类:</span>
-        <el-radio-group v-model="form.category" size="large">
-          <el-radio v-for="i in postCategory" :label="i.value">
-            {{ i.name }}
-          </el-radio>
-        </el-radio-group>
-      </div>
-      <div class="attachment">
-        <p class="desc">上传附件:</p>
-        <el-upload
-          drag
-          :limit="1"
-          :headers="{ token: getToken() }"
-          :action="reqUrl"
-          :on-remove="() => (form.attachment = '')"
-          :on-success="handles.success"
-        >
-          <app-icon size="64" icon="el-icon-upload-filled" />
-          <div class="el-upload__text">
-            将文件拖拽到此处或 <em>点击选择</em>
-          </div>
-          <template #tip>
-            <div class="el-upload__tip"> 文件大小不建议查过10240Kb</div>
-          </template>
-        </el-upload>
-      </div>
-      <div class="checkbox">
-        <el-checkbox
-          v-model="form.acAgreement"
-          label="我已阅读并接受《网络社区规范》"
-        />
-        <el-checkbox
-          v-model="form.acAgreement"
-          label="我已阅读并接受《内容创造保护》"
-        />
-      </div>
-    </div>
+    <!--发布文章时，除标题和正文以外的其他属性设置-->
+    <post-option :success="handles.success" :form="form" />
   </main>
 </template>
 
@@ -94,12 +56,11 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import MdEditor from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
-import AppHeader from '/src/components/AppHeader/index.vue'
-import AvatarMenu from '/src/components/AvatarMenu/index.vue'
-import { getToken } from '/src/utils/storage'
-import { postCategory } from '/src/hooks/content/usePost'
 import { useUserStore } from '/src/store/user'
 import { useEditor } from './useEditor'
+import AppHeader from '/src/components/AppHeader/index.vue'
+import AvatarMenu from '/src/components/AvatarMenu/index.vue'
+import PostOption from './PostOption.vue'
 
 // TODO markdown中的图片上传
 const user = useUserStore()
@@ -116,7 +77,7 @@ const form = reactive({
   acAgreement: true,
 })
 
-const { color, draft, reqUrl, wordCount, canSubmit, handles } = useEditor(form)
+const { color, draft, wordCount, canSubmit, handles } = useEditor(form)
 
 const items = [
   { title: '个人中心', path: '/userinfo', icon: 'el-icon-user' },

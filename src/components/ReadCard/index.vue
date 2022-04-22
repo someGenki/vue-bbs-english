@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`/article/${data.id}`" class="read-card">
+  <router-link target="_blank" :to="`/article/${data.id}`" class="read-card">
     <img class="first-pic" :src="data.firstPic" alt="" />
     <div class="card-introduce">
       <h3 class="title">{{ data.title }}</h3>
