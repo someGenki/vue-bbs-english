@@ -1,5 +1,5 @@
 <template>
-  <div class="setting">
+  <div id="a-setting" class="setting" :class="{ folded }">
     <el-checkbox v-model="settings.doubleTran" label="双击翻译选中单词" />
     <el-checkbox v-model="settings.boldText" label="正文内容字体加粗" />
     <!--字体大小-->
@@ -21,37 +21,52 @@
         size="small"
       >
         <el-option
-          v-for="item in options"
+          v-for="item in fontOptions"
           :key="item"
           :label="item"
           :value="item"
         />
       </el-select>
     </div>
+    <!--字体颜色-->
     <div>
       <span>选择字体颜色:&nbsp;</span>
-      <el-color-picker v-model="settings.color" />
+      <el-color-picker size="small" v-model="settings.color" />
     </div>
+    <!--背景颜色-->
     <div>
       <span>选择背景颜色:&nbsp;</span>
-      <el-color-picker v-model="settings.backgroundColor" />
+      <el-color-picker size="small" v-model="settings.backgroundColor" />
     </div>
+
+    <app-icon
+      @click="folded = !folded"
+      class="fold-btn"
+      icon="el-icon-d-arrow-left"
+    />
+    <!--    <app-icon
+          v-else
+          @click="folded = false"
+          class="fold-btn"
+          icon="el-icon-d-arrow-right"
+        />-->
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const { settings } = defineProps({
   settings: { type: Object, required: true },
 })
+const folded = ref(false)
 const selectStyle = computed(() => ({
   width: '120px',
   fontFamily: settings.fontFamily,
 }))
-const options = [
-  'cursive',
+const fontOptions = [
   'BreeSerif',
+  'cursive',
   'Consolas',
   'fangsong',
   'tahoma',
@@ -67,18 +82,19 @@ const options = [
 <style lang="scss" scoped>
 .setting {
   position: fixed;
+  top: 6rem;
+  left: 0;
   display: flex;
   flex-direction: column;
-  min-height: 60px;
   min-width: 120px;
+  min-height: 60px;
   padding: 4px 12px;
   font-size: 14px;
   color: #5c5c5c;
-  left: 0;
-  top: 6rem;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: $box-shadow-base;
+  transition: all 300ms ease;
 
   & > * {
     margin-bottom: 8px;
@@ -89,9 +105,34 @@ const options = [
   }
 
   :deep(.el-input__inner) {
+    font-family: inherit;
     font-size: 15px;
     text-align: center;
-    font-family: inherit;
+  }
+
+  & > .fold-btn {
+    position: absolute;
+    top: 16px;
+    right: -12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+    transition: all 200ms;
+
+    &:hover {
+      transform: scale(1.1);
+      border-color: #bbb;
+    }
+  }
+
+  &.folded {
+    transform: translateX(-100%);
+
+    & > .fold-btn {
+      transform: rotateY(180deg);
+    }
   }
 }
 </style>
