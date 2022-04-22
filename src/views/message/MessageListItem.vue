@@ -110,6 +110,9 @@ const handleReply = () => {
     margin-right: 5px;
     color: #4949fc;
   }
+  :deep(.wx-emoji){
+    margin-bottom: -4px;
+  }
 }
 
 .avatar {

@@ -3,7 +3,7 @@
     <Search />
     <Publish />
     <template v-if="user.hadLogin">
-      <button class="read-chat">
+      <button @click="$router.push('/notice')" class="read-chat">
         <app-icon size="20" icon="el-icon-bell-filled" />
       </button>
       <button class="read-message">
