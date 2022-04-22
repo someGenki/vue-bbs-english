@@ -53,6 +53,7 @@
 import { computed, ref } from 'vue'
 import { useEmotion } from '/src/hooks/emotion/useEmotions'
 
+// <app-emotion @emotion="handleEmotion" />
 const emit = defineEmits(['emotion'])
 const { emotions, emotionTabs } = useEmotion()
 
@@ -68,6 +69,7 @@ const emotionClass = computed(() => {
   return 'emotion-box ' + choose.value
 })
 
+// 待改进：获取光标位置进行插入
 const handleEmotionClick = (arg) => {
   emit('emotion', arg.text)
 }
@@ -76,18 +78,17 @@ const handleEmotionClick = (arg) => {
 <style lang="scss">
 // 暴露出去的触发按钮
 .app-emotion {
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
   align-items: center;
   margin-right: 14px;
-  font-size: 14px;
+  font-size: 15px;
   color: #7f7f7f;
   cursor: pointer;
 
   & > svg {
-    height: 14px;
-    margin-top: 1px;
-    margin-right: 2px;
+    height: 16px;
+    margin-right: 4px;
   }
 
   &:hover {
