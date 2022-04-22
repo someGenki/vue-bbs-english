@@ -1050,11 +1050,6 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cropperjs@^1.5.6:
-  version "1.5.12"
-  resolved "https://registry.yarnpkg.com/cropperjs/-/cropperjs-1.5.12.tgz#d9c0db2bfb8c0d769d51739e8f916bbc44e10f50"
-  integrity sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==
-
 cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
@@ -2794,12 +2789,10 @@ vite@^2.9.5:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vue-cropperjs@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/vue-cropperjs/-/vue-cropperjs-5.0.0.tgz#7f8cbc460737af3831b4ded634c95905198e329e"
-  integrity sha512-RhnC8O33uRZNkn74aiHZwNHnBJOXWlS4P6gsRI0lw4cZlWjKSCywZI9oSI9POlIPI6OYv30jvnHMXGch85tw7w==
-  dependencies:
-    cropperjs "^1.5.6"
+vue-cropper@^0.5.8:
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/vue-cropper/-/vue-cropper-0.5.8.tgz#df5c8b923bfc2f1db5280054f73640b0c6a75a8d"
+  integrity sha512-Xgi/aLQCcNCiBTUdovy/i4LWx0G7fQnAENBpDWA3J4i87Zlk9DJRksXrClsQ6nnaFRfQVkMimij5GEvAMaXdYw==
 
 vue-demi@*:
   version "0.12.5"

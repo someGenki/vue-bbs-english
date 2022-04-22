@@ -25,9 +25,9 @@ export function isExist(type, value) {
 }
 
 export function uploadAvatar(file) {
-  let param = new FormData() // 创建form对象
+  const param = new FormData() // 创建form对象
   param.append('file', file) // 通过append向form对象添加数据
-  let config = {
+  const config = {
     headers: { 'Content-Type': 'multipart/form-data' },
   }
   return http.post('file/avatar', param, config)

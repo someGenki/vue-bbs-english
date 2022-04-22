@@ -1,11 +1,6 @@
 <template>
   <div class="profile">
-    <el-form
-      :model="form"
-      :rulues="rules"
-      label-position="left"
-      label-width="70px"
-    >
+    <el-form :model="form" label-position="left" label-width="70px">
       <div class="divide"></div>
       <el-form-item label="学校" prop="school">
         <el-input v-model="form.school" maxlength="50" show-word-limit />
@@ -20,20 +15,20 @@
       <el-form-item label="性别" prop="sex">
         <div class="sex-wrapper">
           <el-radio-group v-model="form.sex">
-            <el-radio label="male" />
-            <el-radio label="female" />
-            <el-radio label="unset" />
+            <el-radio :label="1">male</el-radio>
+            <el-radio :label="2">female</el-radio>
+            <el-radio :label="3">unset</el-radio>
           </el-radio-group>
         </div>
       </el-form-item>
 
       <div class="divide"></div>
-      <el-form-item label="个人介绍" prop="sign">
+      <el-form-item label="个人签名" prop="sign">
         <el-input
           v-model="form.sign"
           type="textarea"
           maxlength="100"
-          :autosize="{ minRows: 6, maxRows: 6 }"
+          :autosize="{ minRows: 4, maxRows: 6 }"
           show-word-limit
         />
       </el-form-item>
@@ -45,25 +40,15 @@
         </el-button>
       </el-form-item>
     </el-form>
-
-    <div class="input-avatar">
-      <div class="avatar-uploader">
-        <img :src="user.avatar" alt="" />
-        <div class="click-cover">
-          <app-icon icon="el-icon-plus" />
-          <div>点击头像修改</div>
-        </div>
-      </div>
-      <div class="title">我的头像</div>
-      <div class="description">支持 jpg、png、jpeg 格式大小 5M 以内的图片</div>
-    </div>
+    <input-avatar />
   </div>
 </template>
 
 <script setup>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../../store/user'
+import { useUserStore } from '/src/store/user'
+import InputAvatar from './InputAvatar.vue'
 
 const router = useRouter()
 const user = useUserStore()
@@ -74,9 +59,8 @@ const form = reactive({
   school: '',
   profession: '',
   sign: '',
-  sex: 0,
+  sex: 3,
 })
-const rules = {}
 
 const handleSave = () => {
   alert('暂未开放')
@@ -108,73 +92,11 @@ const handleSave = () => {
       color: white;
       background-color: #1d7dfa;
       border: none;
-      border-radius: 0;
 
       &:hover {
         background-color: rgba(30, 128, 255, 0.16);
       }
     }
-  }
-}
-
-.input-avatar {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-items: center;
-  width: 112px;
-  margin-left: 74px;
-
-  .avatar-uploader {
-    position: relative;
-    width: 90px;
-    height: 90px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-
-    &:hover {
-      .click-cover {
-        visibility: visible;
-        background-color: rgba(29, 33, 41, 0.5);
-      }
-    }
-
-    .click-cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      font-size: 12px;
-      color: #fff;
-      cursor: pointer;
-      visibility: hidden;
-      border-radius: 50%;
-    }
-  }
-
-  .title {
-    margin-top: 10px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #1d2129;
-  }
-
-  .description {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 17px;
-    color: #86909c;
   }
 }
 </style>
