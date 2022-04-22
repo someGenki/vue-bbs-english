@@ -1,19 +1,17 @@
 <template>
   <div class="article-view">
-    <el-skeleton :loading="!loaded" :throttle="300">
-      <!--展示:标题、标签集合、发布者信息、主体内容-->
-      <article v-if="loaded" class="article-area">
-        <h1 class="article-title">{{ article.title }}</h1>
-        <tags-row :tag-list="article.tagList" :dif="dif" />
-        <meta-info :article="article" />
-        <div
-          class="markdown-body"
-          :style="contentStyle"
-          @dblclick.capture="getWord"
-          v-html="marked(article.content)"
-        />
-      </article>
-    </el-skeleton>
+    <!--展示:标题、标签集合、发布者信息、主体内容-->
+    <article v-if="loaded" class="article-area">
+      <h1 class="article-title">{{ article.title }}</h1>
+      <tags-row :tags="article.tags" :difficulty="article.difficulty" />
+      <meta-info :article="article" />
+      <div
+        class="markdown-body"
+        :style="contentStyle"
+        @dblclick.capture="getWord"
+        v-html="marked(article.content)"
+      />
+    </article>
   </div>
   <setting-panel :settings="settings" />
 </template>
@@ -21,13 +19,11 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { getArticle, translate } from '/src/api/article'
 import { marked } from 'marked'
-import { getStrColor } from '/src/utils/process'
-import MetaInfo from '/src/components/MetaInfo/index.vue'
-import '/src/styles/markdown-theme.scss'
-import { getDifficulty } from '/src/hooks/content/useArticle'
 import { ElNotification } from 'element-plus'
+import '/src/styles/markdown-theme.scss'
+import { getArticle, translate } from '/src/api/article'
+import MetaInfo from '/src/components/MetaInfo/index.vue'
 import SettingPanel from './SettingPanel.vue'
 import TagsRow from './TagsRow.vue'
 
@@ -35,7 +31,6 @@ const aid = useRoute().params.aid
 // [id,uid,tags,difficulty,content]
 const article = ref(null)
 const loaded = ref(false)
-const dif = reactive({})
 const settings = reactive({
   doubleTran: true,
   boldText: false,
@@ -53,19 +48,9 @@ const contentStyle = computed(() => ({
   backgroundColor: settings.backgroundColor,
 }))
 
-// 分割用`-`连接的标签属性，返回数组。包含名字和随机颜色
-const splitTags = (tags) => {
-  tags = tags || '' // 防止返回非数组
-  return tags.split('-').map((x) => ({ name: x, color: getStrColor(x) }))
-}
-
 getArticle(aid).then((res) => {
   loaded.value = true
   article.value = res.data
-  article.value.tagList = splitTags(res.data.tags)
-  const { difColor, difText } = getDifficulty(res.data.difficulty)
-  dif.difColor = difColor
-  dif.difText = difText
   document.title = res.data.title + ' - 二元'
 })
 
@@ -97,18 +82,6 @@ const getWord = () => {
 }
 </script>
 
-<style>
-@font-face {
-  font-family: 'BreeSerif';
-  src: url('/src/assets/fonts/BreeSerif.ttf');
-}
-
-@font-face {
-  font-family: 'Consolas';
-  src: local(Consolas);
-}
-</style>
-
 <style lang="scss" scoped>
 .article-view {
   position: relative;
@@ -124,5 +97,17 @@ const getWord = () => {
     padding-top: 8px;
     background: #fbfbfb;
   }
+}
+</style>
+
+<style>
+@font-face {
+  font-family: 'BreeSerif';
+  src: url('/src/assets/fonts/BreeSerif.ttf');
+}
+
+@font-face {
+  font-family: 'Consolas';
+  src: local(Consolas);
 }
 </style>
