@@ -18,6 +18,8 @@ import AppAvatar from '/src/components/AppAvatar/index.vue'
 
 const app = createApp({ render: () => h(RouterView) })
 
+// space
+
 globalRegister(app, ElIcons, { prefix: 'elIcon' })
 
 dayjs.locale('zh-cn')

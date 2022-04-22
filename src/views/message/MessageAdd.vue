@@ -9,6 +9,7 @@
       v-model="form.content"
     />
     <div class="toolbar">
+      <app-emotion @emotion="handleEmotion" />
       <div class="ops">
         <el-input
           v-model="form.nickname"
@@ -36,6 +37,7 @@ import { reactive } from 'vue'
 import { postMessage } from '/src/api/message'
 import { useUserStore } from '/src/store/user'
 import { ElMessage } from 'element-plus'
+import AppEmotion from '/src/components/AppEmotion/index.vue'
 
 const props = defineProps({
   // 要对留言回复的那条留言的id
@@ -55,7 +57,9 @@ const form = reactive({
   toName: props.toName,
   toId: props.toId,
 })
-
+const handleEmotion = (text) => {
+  form.content += text
+}
 const handleSubmit = () => {
   postMessage(form).then(() => {
     ElMessage({

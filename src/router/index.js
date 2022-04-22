@@ -33,6 +33,11 @@ const baseRoutes = [
         component: () => import('/src/views/article/index.vue'),
       },
       {
+        path: '/space/:uid',
+        name: 'Space',
+        component: () => import('/src/views/space/index.vue'),
+      },
+      {
         path: '/notice',
         name: 'Notice',
         component: () => import('/src/views/notice/index.vue'),

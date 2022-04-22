@@ -91,6 +91,7 @@ provide('itemType', itemType) // 为评论组件提供资源类型
 getPostDetail(pid).then((res) => {
   post.value = res.data
   authorId.value = res.data.uid
+  document.title = res.data.title + ' - 二元'
 })
 
 // 获取文章下的评论列表
