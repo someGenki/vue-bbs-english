@@ -19,7 +19,6 @@ const props = defineProps({
   data: { type: Object, required: true },
   switchShow: { type: Function, required: true },
 })
-console.log(props.data)
 </script>
 
 <style lang="scss" scoped>

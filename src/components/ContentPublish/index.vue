@@ -1,27 +1,41 @@
 <template>
-  <div class="content-publish publish-area" :class="{ compact }">
+  <div
+    @keydown.ctrl.enter="emit('reply')"
+    class="content-publish publish-area"
+    :class="{ compact }"
+  >
     <div v-if="title" class="publish-title">{{ title }}</div>
     <div class="publish-content">
       <app-avatar v-if="showAvatar" v-bind="user" myself />
-      <textarea ref="textarea" v-model="inputText" :placeholder="placeText" />
+      <textarea
+        :class="{ hasText: inputText }"
+        autofocus
+        ref="textarea"
+        v-model="inputText"
+        :placeholder="placeText"
+      />
     </div>
     <div class="publish-toolbar">
+      <!--TODO 点击表情不让textarea失去焦点-->
       <app-emotion @emotion="handleEmotion" />
       <!--TODO 添加 Ctrl +Enter 按键监听-->
-      <button
-        @keydown.ctrl.enter="$emit('reply')"
-        @click="$emit('reply')"
-        :disabled="!canReply"
-        class="reply-btn"
-      >
-        回&nbsp;复
-      </button>
+      <div class="reply-wrap">
+        <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+        <button
+          @keydown.ctrl.enter="emit('reply')"
+          @click="emit('reply')"
+          :disabled="!canReply"
+          class="reply-btn"
+        >
+          回&nbsp;复
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useUserStore } from '/src/store/user'
 import AppEmotion from '/src/components/AppEmotion/index.vue'
 
@@ -35,7 +49,6 @@ const props = defineProps({
   modelValue: { type: String }, // 双向绑定
   unique: { type: Boolean, default: false }, // 唯一展开
   compact: { type: Boolean, default: false }, // 更加紧凑
-  autoFocus: { type: Boolean, default: false }, // 自动聚焦
   showAvatar: { type: Boolean, default: true }, // 显示头像
 })
 
@@ -51,9 +64,6 @@ const canReply = computed(() => {
 const handleEmotion = (text) => {
   inputText.value += text
 }
-onMounted(() => {
-  if (props.autoFocus) textarea.value.focus()
-})
 </script>
 
 <style lang="scss" scoped>
@@ -96,11 +106,15 @@ onMounted(() => {
     padding-top: 4px;
     user-select: none;
 
-    & > .reply-btn {
+    & > .reply-wrap {
+      margin-left: auto;
+    }
+
+    .reply-btn {
       width: 72px;
       height: 36px;
+      margin-left: 6px;
       margin-right: 16px;
-      margin-left: auto;
       font-size: 14px;
       color: #ffffff;
       text-align: center;
@@ -122,6 +136,7 @@ onMounted(() => {
 .publish-area.compact {
   padding: 2px 4px;
   margin-bottom: 0;
+
   .reply-btn {
     width: 62px;
     height: 28px;
