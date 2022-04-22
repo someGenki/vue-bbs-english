@@ -39,8 +39,8 @@ const iconColor = userinfo.value === 1 ? '#40a9ff' : '#ff7474'
 
 <style lang="scss" scoped>
 .user-space-header {
-  overflow: hidden;
   height: 340px;
+  overflow: hidden;
   background: #ffffff;
 
   & > .user-cover {
@@ -49,8 +49,8 @@ const iconColor = userinfo.value === 1 ? '#40a9ff' : '#ff7474'
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 
     & > img {
-      max-height: 250px;
       width: 100%;
+      max-height: 250px;
     }
   }
 
@@ -58,18 +58,18 @@ const iconColor = userinfo.value === 1 ? '#40a9ff' : '#ff7474'
     position: relative;
 
     > .user-avatar {
-      border: 3px solid #ebe0e0;
       position: absolute;
-      border-radius: 8px;
-      height: 100px;
-      left: 10px;
       top: -24px;
+      left: 10px;
+      height: 100px;
+      border: 3px solid #ebe0e0;
+      border-radius: 8px;
     }
 
     > .detail {
       position: absolute;
-      left: 125px;
       top: 5px;
+      left: 125px;
 
       .user-nickname {
         margin-right: 12px;

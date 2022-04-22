@@ -25,10 +25,10 @@ getUserInfoDigest(uid).then((res) => {
 <style lang="scss" scoped>
 .user-space {
   max-width: 1000px;
-  margin: -8px auto 8px;
   min-height: 800px;
+  margin: -8px auto 8px;
+  overflow: hidden;
 
   border-radius: 2px;
-  overflow: hidden;
 }
 </style>

@@ -41,6 +41,7 @@ const baseRoutes = [
         path: '/notice',
         name: 'Notice',
         component: () => import('/src/views/notice/index.vue'),
+        meta: { title: '消息 - 二元' },
       },
       // 搜索、空间、内容发表
       {
