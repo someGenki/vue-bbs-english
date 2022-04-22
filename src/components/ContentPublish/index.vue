@@ -61,6 +61,8 @@ const inputText = computed({
 const canReply = computed(() => {
   return user.hadLogin && props.modelValue
 })
+//   // 获取鼠标位置
+// const endPoint = textarea.selectionStart;
 const handleEmotion = (text) => {
   inputText.value += text
 }

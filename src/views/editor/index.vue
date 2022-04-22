@@ -45,7 +45,14 @@
     <avatar-menu :avatar="user.avatar" :items="items" />
   </app-header>
   <main class="editor-main">
-    <md-editor placeholder="正文..." v-model="form.content" />
+    <md-editor
+      :prettier="false"
+      noKatex
+      @onSave="handles.store"
+      @onUploadImg="handles.upload"
+      placeholder="正文..."
+      v-model="form.content"
+    />
     <!--发布文章时，除标题和正文以外的其他属性设置-->
     <post-option :success="handles.success" :form="form" />
   </main>
