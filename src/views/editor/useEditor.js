@@ -3,7 +3,7 @@ import { get, remove, set } from '../../utils/storage'
 import { computed, toRaw } from 'vue'
 import { pubPost } from '../../api/post'
 import { ElNotification } from 'element-plus'
-import {useRouter} from "vue-router";
+import { useRouter } from 'vue-router'
 
 export function useEditor(form) {
   const color = '#1d7dfa'
