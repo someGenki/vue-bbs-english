@@ -2,30 +2,28 @@
   <div class="post-view">
     <div class="main-area">
       <!--骨架屏包裹 主体内容展示[Markdown] + 回帖输入框 -->
-      <article v-if="post" class="article-area">
+      <article v-if="post" class="post-area">
         <h1 class="article-title">{{ post.title }}</h1>
         <meta-info :article="post" />
         <div class="markdown-body" v-html="marked(post.content)" />
-        <!--TODO <div>相关附件:参考掘金的被收录于专栏： </div> -->
+        <div v-if="post.attachment" class="attachment-box">
+          <div>帖子相关附件：</div>
+          <app-icon color="#28AFEA" size="54" icon="el-icon-document-add" />
+          <span>&nbsp;请自行甄别文件是否安全！！！</span>
+          <el-button color="#626aef" class="download-attachment">
+            <a :href="post.attachment" target="_blank">下载附件</a>
+          </el-button>
+        </div>
       </article>
+      <!--回帖输入框-->
       <content-publish
         title="评论"
         @reply="handleReply"
         :place-text="placeText"
         v-model="inputText"
       />
-      <!--评论区 根据post id 获取-->
-      <el-skeleton :loading="!loaded">
-        <div
-          v-if="loaded"
-          v-infinite-scroll="loadMore"
-          :infinite-scroll-disabled="disabled"
-          class="comment-area"
-        >
-          <div class="comment-title">全部评论</div>
-          <comment-card v-for="item in models.records" :data="item" />
-        </div>
-      </el-skeleton>
+      <!--评论区列表-->
+      <post-comment-list ref="commentList" :pid="pid" />
     </div>
     <!--侧边推广栏-->
     <div class="aside-area">
@@ -39,35 +37,27 @@
 <script setup>
 import { marked } from 'marked'
 import { useRoute } from 'vue-router'
-import { ref, computed, provide } from 'vue'
+import { ElMessage } from 'element-plus'
+import { ref, provide, computed } from 'vue'
 import { useUserStore } from '/src/store/user'
 import { postComment } from '/src/api/comment'
-import { getPostDetail, getPostComments } from '/src/api/post'
+import { getPostDetail } from '/src/api/post'
 import '/src/styles/markdown-theme.scss'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
-import CommentCard from '/src/components/CommentCard/index.vue'
-import { useGetPage } from '/src/hooks/content/useGetPage'
-import { ElMessage } from 'element-plus'
+import PostCommentList from './PostCommentList.vue'
 
 const commentSize = 4
 const user = useUserStore()
 const post = ref(null)
 const authorId = ref(null)
 const inputText = ref(null)
+const commentList = ref(null)
 const pid = useRoute().params.pid
 const itemType = { itemType: 4, itemId: pid }
 
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
-)
-
-const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
-  1,
-  commentSize,
-  getPostComments,
-  { delay: 380 },
-  pid
 )
 
 const handleReply = () => {
@@ -79,13 +69,13 @@ const handleReply = () => {
   }).then((res) => {
     ElMessage({ type: 'success', message: res.msg })
     inputText.value = ''
-    getPaging(1, commentSize, pid).then(loadMore)
+    commentList.value.reLoadMore()
   })
 }
 
-provide('uniReply', ref(null)) // 兄弟组件间通信
+provide('uniReply', ref(null)) // 用于兄弟组件间通信
 provide('authorId', authorId) // 注入作者id，为评论组件判断是否为作者
-provide('itemType', itemType) // 为评论组件提供资源类型
+provide('itemType', itemType) // 为评论组件回复提供资源类型
 
 // 根据文章id以获取文章具体内容
 getPostDetail(pid).then((res) => {
@@ -93,11 +83,7 @@ getPostDetail(pid).then((res) => {
   authorId.value = res.data.uid
   document.title = res.data.title + ' - 二元'
 })
-
-// 获取文章下的评论列表
-getPaging(1, commentSize, pid)
-
-// https://www.jianshu.com/p/0b06128a6117 关于生产锚点
+// https://www.jianshu.com/p/0b06128a6117 关于生成锚点
 </script>
 
 <style lang="scss" scoped>
@@ -118,33 +104,40 @@ getPaging(1, commentSize, pid)
   }
 }
 
-// 评论区
-.comment-area {
-  padding: 12px 28px;
-  margin-bottom: 24px;
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-
-  > .comment-title {
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-  }
-}
-
 // 正文展示
-.article-area {
+.post-area {
   padding: 24px 30px;
   margin-bottom: 12px;
   background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
+
   > .article-title {
     margin: 0 0 20px;
     font-size: 32px;
     font-weight: 600;
     line-height: 1.31;
     color: #252933;
+  }
+
+  > .attachment-box {
+    border-radius: 4px;
+    font-size: 14px;
+    color: #7b7b7b;
+    padding: 8px 16px;
+    min-height: 70px;
+    position: relative;
+
+    > .download-attachment {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+    }
+
+    > .app-icon {
+      margin: 8px 4px;
+      border-radius: 4px;
+    }
   }
 }
 

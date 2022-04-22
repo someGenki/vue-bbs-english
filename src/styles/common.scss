@@ -14,7 +14,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+kbd {
+  border: 2px solid #cdcdcd;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.825rem;
+  box-shadow: inset 0 -1px 0 0 #cdcdcd;
+}
 .clearfix::after {
   display: block;
   clear: both;
