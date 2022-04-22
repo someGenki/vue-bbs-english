@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { marked } from 'marked'
 import { ElNotification } from 'element-plus'

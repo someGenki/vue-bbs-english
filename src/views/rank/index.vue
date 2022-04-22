@@ -1,4 +1,4 @@
-<template> 排行榜 </template>
+<template> 排行榜</template>
 
 <script setup></script>
 

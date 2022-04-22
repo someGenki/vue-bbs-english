@@ -24,10 +24,9 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useGetPage } from '/src/hooks/content/useGetPage'
 import { getPost } from '/src/api/post'
-import { watchEffect } from 'vue'
 import HomeAside from './HomeAside.vue'
 import HomeTab from './HomeTab.vue'
 import PostCard from '/src/components/PostCard/index.vue'

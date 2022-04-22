@@ -38,6 +38,7 @@ import userNav from '/src/router/user'
   grid-gap: 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+
   > div {
     background-color: white;
     border-radius: 3px;
@@ -48,12 +49,14 @@ import userNav from '/src/router/user'
   grid-column: 1/3;
   padding-left: 24px;
   background-color: white;
+
   .link {
     display: flex;
     align-items: center;
     font-size: 14px;
     line-height: 3.6rem;
     color: #909090;
+
     &:hover {
       color: $light-blue;
       cursor: pointer;
@@ -63,14 +66,17 @@ import userNav from '/src/router/user'
 
 .userinfo-nav {
   padding: 8px;
+
   .nav-item {
     display: flex;
     align-items: center;
     height: 48px;
     cursor: pointer;
+
     .app-icon {
       margin: 0 15px 0 20px;
     }
+
     &.active,
     &:hover {
       color: #1d7dfa;
@@ -81,11 +87,13 @@ import userNav from '/src/router/user'
 
 .userinfo-main {
   padding: 20px;
+
   .title {
     margin-top: 0;
     font-size: 24px;
     color: #333;
   }
+
   // 穿透到子路由
   :deep(.divide) {
     width: 100%;

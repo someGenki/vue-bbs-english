@@ -9,6 +9,7 @@
     >
       <div class="comment-title">全部评论</div>
       <comment-card v-for="item in models.records" :data="item" />
+      <el-empty v-if="models.records.length === 0" />
     </div>
   </el-skeleton>
 </template>

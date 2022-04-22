@@ -71,9 +71,11 @@ const props = defineProps({
     :deep(.el-upload-dragger) {
       height: 120px;
     }
-    :deep(.el-upload-list__item-name){
+
+    :deep(.el-upload-list__item-name) {
       max-width: 300px;
     }
+
     .el-upload .app-icon {
       margin-top: 20px;
     }
@@ -88,5 +90,4 @@ const props = defineProps({
     margin-top: 16px;
   }
 }
-
 </style>

@@ -1,4 +1,6 @@
-<template> <div> setting </div></template>
+<template>
+  <div> setting</div>
+</template>
 
 <script setup></script>
 

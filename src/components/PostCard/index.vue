@@ -46,7 +46,7 @@
 
 <script setup>
 import dayjs from 'dayjs'
-import { getStrColor, getMarkdownData } from '/src/utils/process'
+import { getMarkdownData, getStrColor } from '/src/utils/process'
 
 // [id,uid,avatar,nickname,content,gmtCreate,likes,pv,comments[,tags]]
 const props = defineProps({ data: { type: Object } })
