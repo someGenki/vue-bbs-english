@@ -114,16 +114,16 @@ const fontOptions = [
     position: absolute;
     top: 16px;
     right: -12px;
+    padding: 2px;
+    cursor: pointer;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 50%;
-    padding: 2px;
-    cursor: pointer;
     transition: all 200ms;
 
     &:hover {
-      transform: scale(1.1);
       border-color: #bbb;
+      transform: scale(1.1);
     }
   }
 
