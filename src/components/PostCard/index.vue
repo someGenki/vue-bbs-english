@@ -24,7 +24,7 @@
       <span class="svg-item view"><i />{{ data.pv }}</span>
       <span class="svg-item messenger"><i />{{ data.comments }}</span>
       <span class="divide">|</span>
-      <span class="item">{{ timeStr }}</span>
+      <span class="item time">{{ timeStr }}</span>
       <el-tag
         v-if="data.tags"
         class="post-tag"

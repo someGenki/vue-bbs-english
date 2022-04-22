@@ -4,34 +4,22 @@
       <!--展示:标题、标签集合、发布者信息、主体内容-->
       <article v-if="loaded" class="article-area">
         <h1 class="article-title">{{ article.title }}</h1>
-        <div class="article-tags">
-          <el-tag
-            v-for="tag in article.tagList"
-            :key="tag.name"
-            :color="tag.color"
-            effect="dark"
-            round
-          >
-            {{ tag.name }}
-          </el-tag>
-          <el-tag :color="dif.difColor" effect="dark">{{ dif.difText }}</el-tag>
-        </div>
-        <meta-info
-          style="padding-top: 8px; background: #fbfbfb"
-          :article="article"
-        />
+        <tags-row :tag-list="article.tagList" :dif="dif" />
+        <meta-info :article="article" />
         <div
           class="markdown-body"
+          :style="contentStyle"
           @dblclick.capture="getWord"
           v-html="marked(article.content)"
         />
       </article>
     </el-skeleton>
   </div>
+  <setting-panel :settings="settings" />
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { getArticle, translate } from '/src/api/article'
 import { marked } from 'marked'
@@ -40,20 +28,36 @@ import MetaInfo from '/src/components/MetaInfo/index.vue'
 import '/src/styles/markdown-theme.scss'
 import { getDifficulty } from '/src/hooks/content/useArticle'
 import { ElNotification } from 'element-plus'
+import SettingPanel from './SettingPanel.vue'
+import TagsRow from './TagsRow.vue'
 
+const aid = useRoute().params.aid
 // [id,uid,tags,difficulty,content]
 const article = ref(null)
 const loaded = ref(false)
 const dif = reactive({})
-const aid = useRoute().params.aid
+const settings = reactive({
+  doubleTran: true,
+  boldText: false,
+  fontSize: 16,
+  fontFamily: 'system-ui',
+  color: '#212121',
+  backgroundColor: '#fff',
+})
+
+const contentStyle = computed(() => ({
+  fontWeight: settings.boldText ? 'bold' : '400',
+  fontSize: settings.fontSize + 'px',
+  fontFamily: settings.fontFamily,
+  color: settings.color,
+  backgroundColor: settings.backgroundColor,
+}))
 
 // 分割用`-`连接的标签属性，返回数组。包含名字和随机颜色
 const splitTags = (tags) => {
   tags = tags || '' // 防止返回非数组
   return tags.split('-').map((x) => ({ name: x, color: getStrColor(x) }))
 }
-
-// https://github.com/someGenki/vue_learn_english/blob/master/src/components/common/SourceText.vue
 
 getArticle(aid).then((res) => {
   loaded.value = true
@@ -65,7 +69,9 @@ getArticle(aid).then((res) => {
   document.title = res.data.title + ' - 二元'
 })
 
+// 获取选中的单词 修建空格限制长度然后发送请求
 const getWord = () => {
+  if (!settings.doubleTran) return
   let sText =
     document.selection === undefined
       ? document.getSelection().toString()
@@ -91,6 +97,18 @@ const getWord = () => {
 }
 </script>
 
+<style>
+@font-face {
+  font-family: 'BreeSerif';
+  src: url('/src/assets/fonts/BreeSerif.ttf');
+}
+
+@font-face {
+  font-family: 'Consolas';
+  src: local(Consolas);
+}
+</style>
+
 <style lang="scss" scoped>
 .article-view {
   position: relative;
@@ -101,19 +119,10 @@ const getWord = () => {
   margin: 0 auto 18px;
   background-color: #ffffff;
   border-radius: 4px;
-}
 
-.article-tags {
-  margin-bottom: 14px;
-
-  & > .el-tag {
-    padding: 12px;
-    margin-right: 12px;
-    border: none;
-
-    &:last-child {
-      float: right;
-    }
+  .meta-info-box {
+    padding-top: 8px;
+    background: #fbfbfb;
   }
 }
 </style>
