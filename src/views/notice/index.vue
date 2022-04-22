@@ -66,9 +66,9 @@ getNotice().then((res) => {
 
 <style lang="scss" scoped>
 .user-notice {
-  margin: 0 auto;
   max-width: 1000px;
   min-height: 400px;
+  margin: 0 auto;
 }
 
 .notice-list {

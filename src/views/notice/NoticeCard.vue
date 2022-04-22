@@ -26,8 +26,8 @@ const emit = defineEmits(['read'])
 <style lang="scss" scoped>
 .notice-card {
   position: relative;
-  margin: 4px 16px;
   padding: 12px 0 6px 64px;
+  margin: 4px 16px;
   border-bottom: 1px solid #d0d0d0;
   &>.notice-type{
     position: absolute;
