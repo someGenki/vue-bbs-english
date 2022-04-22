@@ -42,12 +42,10 @@ import { ref, provide, computed } from 'vue'
 import { useUserStore } from '/src/store/user'
 import { postComment } from '/src/api/comment'
 import { getPostDetail } from '/src/api/post'
-import '/src/styles/markdown-theme.scss'
+import PostCommentList from './PostCommentList.vue'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
-import PostCommentList from './PostCommentList.vue'
 
-const commentSize = 4
 const user = useUserStore()
 const post = ref(null)
 const authorId = ref(null)
