@@ -9,7 +9,7 @@
     >
       {{ tag.name }}
     </el-tag>
-    <el-tag :color="difColor" effect="dark">{{ difText }}</el-tag>
+    <el-tag v-if="difficulty" :color="difColor" effect="dark">{{ difText }}</el-tag>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ import { getDifficulty, splitTags } from '/src/hooks/content/useArticle'
 
 const props = defineProps({
   tags: { type: [String, Array], required: true },
-  difficulty: { type: Number, required: true },
+  difficulty: { type: Number, default:0 },
 })
 
 const tagList = splitTags(props.tags)

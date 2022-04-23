@@ -22,11 +22,11 @@ const props = defineProps({
 <style lang="scss" scoped>
 .active-user-card {
   display: flex;
+  align-items: flex-start;
   padding: 10px 12px;
   font-size: 14px;
-  align-items: flex-start;
-  cursor: pointer;
   color: #919191;
+  cursor: pointer;
 }
 
 .active-card-wrap {

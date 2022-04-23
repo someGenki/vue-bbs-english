@@ -1,11 +1,17 @@
 <template>
   <div class="search">
-    <input type="text" name="search" placeholder="搜索" />
-    <button>
+    <input v-model="text" type="text" name="search" placeholder="搜索" />
+    <button @click="$router.push({ path: '/search', query: { q: text } })">
       <app-icon color="white" icon="el-icon-search" />
     </button>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+const text = ref('')
+</script>
 
 <style lang="scss" scoped>
 $primary-color: #09a8db;
@@ -31,6 +37,7 @@ $primary-color: #09a8db;
 
     &:focus {
       width: 100%;
+      background: #ffffff;
       outline: 1px solid $primary-color;
     }
 

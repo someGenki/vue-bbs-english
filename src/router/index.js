@@ -43,6 +43,12 @@ const baseRoutes = [
         component: () => import('/src/views/notice/index.vue'),
         meta: { title: '消息 - 二元' },
       },
+      {
+        path: '/search',
+        name: 'Search',
+        component: () => import('/src/views/search/index.vue'),
+        meta: { title: '搜索 - 二元' },
+      },
       // 搜索、空间、内容发表
       {
         path: '/login',

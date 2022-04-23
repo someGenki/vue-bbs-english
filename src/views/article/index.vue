@@ -23,9 +23,9 @@ import { marked } from 'marked'
 import { ElNotification } from 'element-plus'
 import '/src/styles/markdown-theme.scss'
 import { getArticle, translate } from '/src/api/article'
-import MetaInfo from '/src/components/MetaInfo/index.vue'
 import SettingPanel from './SettingPanel.vue'
-import TagsRow from './TagsRow.vue'
+import MetaInfo from '/src/components/MetaInfo/index.vue'
+import TagsRow from '/src/components/TagsRow/index.vue'
 
 const aid = useRoute().params.aid
 // [id,uid,tags,difficulty,content]
