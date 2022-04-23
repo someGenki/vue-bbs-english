@@ -50,11 +50,8 @@
     <!-- 活跃用户 -->
     <div class="active-user">
       <div class="active-user-title">🔥活跃用户</div>
-      <div style="padding: 12px">
-        <h2>TODO</h2>
-        <h2>TODO</h2>
-        <h2>TODO</h2>
-        <h2>TODO</h2>
+      <div v-if="topUser">
+        <active-user-card v-for="u in topUser" :user="u" />
       </div>
     </div>
     <!-- 导航集合 -->
@@ -97,6 +94,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import { getTopUser } from '../../api/search'
+import ActiveUserCard from './ActiveUserCard.vue'
 
 function getGreeting(hour) {
   if (hour < 6) return '凌晨'
@@ -109,9 +108,12 @@ function getGreeting(hour) {
   else return '夜里'
 }
 
-const activeTab = ref('default')
 const hour = new Date().getHours()
 const greeting = ref(getGreeting(hour) + '好!')
+const topUser = ref(null)
+getTopUser().then((res) => {
+  topUser.value = res.data.slice(0, 5)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -208,7 +210,6 @@ const greeting = ref(getGreeting(hour) + '好!')
 
   // 活跃用户组件
   > .active-user {
-    //padding: 16px;
     .active-user-title {
       padding: 8px 12px;
       font-size: 14px;
