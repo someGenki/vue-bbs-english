@@ -8,7 +8,7 @@
         <span class="views">阅览次数&nbsp;{{ article.pv }}</span>
       </div>
       <div class="right-slot">
-        <div @click="test" :class="{ active }" class="like-btn" />
+        <div @click="$emit('like')"  :class="{ active: hadLike }" class="like-btn" />
       </div>
     </div>
   </div>
@@ -20,6 +20,7 @@ import { getUserInfoDigest as getInfo } from '/src/api/user'
 
 const props = defineProps({
   article: { type: Object, required: true },
+  hadLike: { type: Boolean, default: false },
 })
 
 const loaded = ref(false)
@@ -29,12 +30,6 @@ getInfo(props.article.uid).then((res) => {
   loaded.value = true
   info.value = res.data
 })
-
-const active = ref(false)
-
-function test() {
-  active.value = !active.value
-}
 </script>
 
 <style lang="scss" scoped>

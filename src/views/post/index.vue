@@ -4,7 +4,7 @@
       <!--骨架屏包裹 主体内容展示[Markdown] + 回帖输入框 -->
       <article v-if="post" class="post-area">
         <h1 class="article-title">{{ post.title }}</h1>
-        <meta-info :article="post" />
+        <meta-info @like="handleLike" :had-like="hadLike" :article="post" />
         <div class="markdown-body" v-html="marked(post.content)" />
         <div v-if="post.attachment" class="attachment-box">
           <div>帖子相关附件：</div>
@@ -20,7 +20,7 @@
         title="评论"
         @reply="handleReply"
         :place-text="placeText"
-        v-model="inputText"
+        v-model="replyText"
       />
       <!--评论区列表-->
       <post-comment-list ref="commentList" :pid="pid" />
@@ -45,11 +45,13 @@ import { getPostDetail } from '/src/api/post'
 import PostCommentList from './PostCommentList.vue'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
+import { doLike, doUnlike, isLike } from '/src/api/like'
 
 const user = useUserStore()
 const post = ref(null)
+const hadLike = ref(false)
 const authorId = ref(null)
-const inputText = ref(null)
+const replyText = ref(null)
 const commentList = ref(null)
 const pid = useRoute().params.pid
 const itemType = { itemType: 4, itemId: pid }
@@ -61,19 +63,25 @@ const placeText = computed(() =>
 const handleReply = () => {
   postComment({
     parentId: 0,
-    content: inputText.value,
+    content: replyText.value,
     fromName: user.nickname,
     ...itemType,
   }).then((res) => {
     ElMessage({ type: 'success', message: res.msg })
-    inputText.value = ''
+    replyText.value = ''
     commentList.value.reLoadMore()
   })
 }
-
+const handleLike = () => {
+  hadLike.value
+    ? doUnlike(4, pid).then(() => (hadLike.value = false))
+    : doLike(4, pid).then(() => (hadLike.value = true))
+}
 provide('uniReply', ref(null)) // 用于兄弟组件间通信
 provide('authorId', authorId) // 注入作者id，为评论组件判断是否为作者
 provide('itemType', itemType) // 为评论组件回复提供资源类型
+
+user.hadLogin && isLike(4, pid).then((res) => (hadLike.value = res.data))
 
 // 根据文章id以获取文章具体内容
 getPostDetail(pid).then((res) => {
