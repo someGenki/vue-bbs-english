@@ -69,6 +69,7 @@ const { difColor, difText } = getDifficulty(props.data.difficulty)
 
   & > .infos {
     & > * {
+      font-size: 14px;
       margin-right: 12px;
     }
 

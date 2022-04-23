@@ -1,12 +1,12 @@
 import { createApp, h } from 'vue'
 import { RouterView } from 'vue-router'
 import 'element-plus/dist/index.css'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import ElementPlus from 'element-plus'
 import * as ElIcons from '@element-plus/icons-vue'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
-
 import router from './router'
 import pinia from './store/index.js'
 import './styles/common.scss'
@@ -26,7 +26,7 @@ globalRegister(app, ElIcons, { prefix: 'elIcon' })
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 
-app.use(router).use(pinia).use(ElementPlus)
+app.use(router).use(pinia).use(ElementPlus, { locale: zhCn })
 
 app.directive('default-img', defaultImg)
 

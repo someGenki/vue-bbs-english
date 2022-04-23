@@ -86,6 +86,8 @@ router.afterEach((to) => {
   document.title = to.meta.title || title
 })
 
+router.redirect = () => router.replace('/redirect')
+
 /*const routes = [
   {
     path: '/',
