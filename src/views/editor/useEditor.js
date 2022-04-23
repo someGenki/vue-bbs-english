@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { get, remove, set } from '../../utils/storage'
 import { pubPost } from '../../api/post'
-import { uploadFile } from '../../api/file'
+import { uploadImage } from '../../api/file'
 
 export function useEditor(form) {
   const color = '#1d7dfa'
@@ -45,7 +45,7 @@ export function useEditor(form) {
      * @param {(urls: string[]) => void} callback 将urls通知editor
      */
     upload: (files, callback) => {
-      const promises = Array.from(files).map(uploadFile)
+      const promises = Array.from(files).map(uploadImage)
       Promise.all(promises).then((res) => {
         callback(res.map((i) => i.data)) // 取出响应中的data
       })

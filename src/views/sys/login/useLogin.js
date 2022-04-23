@@ -2,6 +2,7 @@ import { reactive, ref, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { useUserStore } from '/src/store/user'
+import { isExist } from '/src/api/user'
 import { getParams } from '/src/utils/process'
 
 const loginFormObj = import.meta.env.DEV
@@ -32,7 +33,23 @@ export function useLogin() {
   const code = getRandomCode()
   const loginForm = reactive(loginFormObj)
   const loginRules = {
-    username: [{ required: true, message: '用户名不能为空' }],
+    username: [
+      {
+        validator: (rule, value, cb) => {
+          if (!value) {
+            cb(new Error('用户名不能为空'))
+          } else if (isLogin.value === false) {
+            isExist('username', value).then((res) => {
+              if (res.code !== 200) cb(new Error(res.msg))
+              else cb()
+            })
+          } else {
+            cb()
+          }
+        },
+        trigger: 'blur',
+      },
+    ],
     password: [{ required: true, message: '密码不能为空' }],
     confirm: [
       {
