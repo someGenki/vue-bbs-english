@@ -37,24 +37,23 @@ function genSvgImg(text, color, size = 36) {
 /**
  * 当图片加载失败时，显示默认图片
  * 参数可选：'avatar' | 'background' | string
- * <img :src="xxxx" v-default-img="'avatar'" />
+ * <img :src="xxxx" v-default-img.avatar />
  */
 export default async function defaultImg(el, binding) {
   // 需要显示默认图片(当图片原本的src属性有错时)的类型
-  const param = binding.value
+  const {value,modifiers} = binding
   // 图片原本的src
   const realURL = el.src
   // 当原本图片不存在时，根据参数返回不同的图片url
   const exist = await imageIsExist(realURL)
-  if (!exist) {
-    if (param === 'avatar') {
-      el.setAttribute('src', defaultAvatar)
-    } else if (param === 'background') {
-      el.setAttribute('src', defaultBackground)
-    } else if (param === null) {
-      el.remove()
-    } else {
-      el.setAttribute('src', genSvgImg(param, getStrColor(param)))
-    }
+  if (exist) return // 图片可正常加载，不做任何处理
+  if (value) {
+    el.setAttribute('src', genSvgImg(value, getStrColor(value)))
+  } else if (modifiers.avatar) {
+    el.setAttribute('src', defaultAvatar)
+  } else if (modifiers.background) {
+    el.setAttribute('src', defaultBackground)
+  } else {
+    el.remove() // 什么都不加 v-default-img 时 移除图片
   }
 }

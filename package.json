@@ -21,7 +21,7 @@
     "element-plus": "^2.1.10",
     "js-cookie": "^3.0.1",
     "marked": "^4.0.14",
-    "md-editor-v3": "^1.11.11",
+    "md-editor-v3": "^1.11.12",
     "pinia": "^2.0.13",
     "vue": "^3.2.33",
     "vue-cropper": "^0.5.8",
