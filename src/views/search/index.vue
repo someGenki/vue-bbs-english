@@ -1,34 +1,30 @@
 <template>
   <div class="search-view">
     <div v-if="list" class="search-area">
-      <div v-for="item in list" class="search-card">
-        <div class="search-title">
-          <router-link :to="`/${isPost(item) ? 'post' : 'article'}/${item.id}`"
-            >{{ item.title }}
-          </router-link>
-        </div>
-        <div class="search-content">{{ item.content }}</div>
-        <div class="search-infos">
-          <span class="svg-item view"><i />{{ item.pv }}</span>
-          <span class="time">{{ item.gmtCreate }}</span>
-          <tags-row :tags="item.tags" />
-        </div>
-      </div>
+      <search-card v-for="item in list" :mark="markWord" :data="item" />
+      <el-empty v-if="list.length === 0" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSearch } from '/src/api/search'
-import TagsRow from '/src/components/TagsRow/index.vue'
+import SearchCard from './SearchCard.vue'
 
 const route = useRoute()
 const list = ref(null)
-const isPost = (data) => data.hasOwnProperty('hot')
+const emReg = ref(null)
 
-getSearch(route.query.q).then((res) => (list.value = res.data))
+watchEffect(() => {
+  getSearch(route.query.q).then((res) => (list.value = res.data))
+  emReg.value = new RegExp(route.query.q || '', 'gim')
+})
+const markWord = (text) => {
+  if (!route.query.q) return text
+  return text.replace(emReg.value, (t) => `<em>${t}</em>`)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -40,37 +36,7 @@ getSearch(route.query.q).then((res) => (list.value = res.data))
 // 非中心摆放，更加贴切习惯(还是看掘金的)
 .search-area {
   max-width: 768px;
-  min-height: 500px;
+  min-height: 300px;
   background: #fff;
-}
-
-.search-card {
-  padding: 16px;
-  border-top: 1px solid #f5f5f5;
-
-  .search-title {
-    font-size: 18px;
-    font-weight: bolder;
-    // 悬浮下划线
-  }
-
-  .search-content {
-    font-size: 14px;
-    line-height: 20px;
-    height: 20px;
-    overflow: hidden;
-    color: #5c5c5c;
-    margin: 8px 0;
-  }
-
-  .search-infos {
-    display: flex;
-    align-items: center;
-
-    .article-tags {
-      display: inline-block;
-      margin: 0 12px;
-    }
-  }
 }
 </style>

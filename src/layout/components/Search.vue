@@ -1,7 +1,14 @@
 <template>
   <div class="search">
-    <input v-model="text" type="text" name="search" placeholder="搜索" />
-    <button @click="$router.push({ path: '/search', query: { q: text } })">
+    <input
+      @keydown.enter="goSearch"
+      id="search-input"
+      @click=""
+      v-model="text"
+      type="text"
+      placeholder="搜索"
+    />
+    <button @click="goSearch">
       <app-icon color="white" icon="el-icon-search" />
     </button>
   </div>
@@ -9,8 +16,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const text = ref('')
+const goSearch = () =>
+  router.push({ path: '/search', query: { q: text.value } })
 </script>
 
 <style lang="scss" scoped>
