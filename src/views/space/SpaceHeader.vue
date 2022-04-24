@@ -2,7 +2,7 @@
   <div class="user-space-header">
     <!-- 背景图 -->
     <div class="user-cover">
-      <img :src="userinfo.coverImg" v-default-img="'background'" />
+      <img :src="userinfo.coverImg" v-default-img.background />
     </div>
     <div class="user-info">
       <img

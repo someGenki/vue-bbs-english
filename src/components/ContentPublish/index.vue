@@ -6,7 +6,7 @@
   >
     <div v-if="title" class="publish-title">{{ title }}</div>
     <div class="publish-content">
-      <app-avatar v-if="showAvatar" v-bind="user" myself />
+      <app-avatar v-if="showAvatar" v-bind="user" need-login />
       <textarea
         :class="{ hasText: inputText }"
         autofocus
@@ -16,7 +16,7 @@
       />
     </div>
     <div class="publish-toolbar">
-      <!--TODO 点击表情不让textarea失去焦点-->
+      <!--TODO 点击表情不让textarea失去焦点，且添加时获得光标-->
       <app-emotion @emotion="handleEmotion" />
       <div class="reply-wrap">
         <kbd>Ctrl</kbd> + <kbd>Enter</kbd>

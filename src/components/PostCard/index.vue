@@ -5,7 +5,7 @@
       <img
         v-if="content.firstImg"
         :src="content.firstImg"
-        v-default-img="null"
+        v-default-img
         class="card-image"
       />
       <div class="card-content">
