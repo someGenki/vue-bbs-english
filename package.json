@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "preinstall": "node ./scripts/preinstall.js",
+    "deploy": "node ./scripts/deploy.js",
     "prttier:all": "prettier --write .",
     "lint:css": "stylelint **/*.{vue,css,sass,scss} --fix"
   },
