@@ -3,7 +3,7 @@ import emotionList from './emotion-list'
 const wxReg = /\[wx_([\u4E00-\u9FA5]{1,3})]/g
 
 export function processWx(str, klass = 'wx-emoji') {
-  return str.replace(wxReg, (_, word) => {
+  return str?.replace(wxReg, (_, word) => {
     const index = emotionList.weChatList.indexOf(word)
     return index !== -1
       ? `<img class="${klass}" src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/${index}.gif" alt="">`

@@ -14,3 +14,7 @@ export function getCommentList(itemType, itemId, num, size) {
 export function postComment(data) {
   return http.post('/comment/make', data)
 }
+
+export function getChildCommentList(num, size, pid) {
+  return http.get(`/comment/reply/${pid}?num=${num}&size=${size}`)
+}

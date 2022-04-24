@@ -53,6 +53,7 @@ const props = defineProps({
 
 const user = useUserStore()
 const textarea = ref(null)
+
 const inputText = computed({
   get: () => props.modelValue || '',
   set: (val) => emit('update:modelValue', val),
@@ -79,10 +80,12 @@ const handleEmotion = (text) => {
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
+
 .publish-area {
   padding: 16px 28px;
   margin-bottom: 6px;
-  background-color: white;
+  background-color: #ffffff;
 
   & > .publish-title {
     margin-bottom: 10px;
@@ -94,22 +97,23 @@ const handleEmotion = (text) => {
     display: flex;
     align-items: center;
     min-height: 50px;
-  }
+    margin-right: 18px;
 
-  & > .publish-content > textarea {
-    width: calc(98% - 56px);
-    height: 48px;
-    padding: 4px;
-    margin-left: 18px;
-    font-size: 15px;
-    resize: none;
-    user-select: none;
-    border: none;
-    border-radius: 4px;
-    outline: none;
+    & > textarea {
+      width: 100%;
+      height: 48px;
+      padding: 4px;
+      margin-left: 18px;
+      font-size: 15px;
+      resize: none;
+      user-select: none;
+      border: none;
+      border-radius: 4px;
+      outline: none;
 
-    &:focus {
-      outline: 1px solid #dcdcdc;
+      &:focus {
+        outline: 1px solid #dcdcdc;
+      }
     }
   }
 
@@ -118,6 +122,7 @@ const handleEmotion = (text) => {
     align-items: center;
     padding-top: 4px;
     user-select: none;
+    margin-right: 18px;
 
     & > .reply-wrap {
       margin-left: auto;
@@ -126,20 +131,19 @@ const handleEmotion = (text) => {
     .reply-btn {
       width: 72px;
       height: 36px;
-      margin-right: 16px;
       margin-left: 6px;
       font-size: 14px;
       color: #ffffff;
       text-align: center;
       cursor: pointer;
-      background: #40a9ff;
+      background: $button-bg;
       border: none;
       border-radius: 4px;
       outline: 0;
 
       &:disabled {
         cursor: not-allowed;
-        background-color: #bbbbbb;
+        background-color: $disabled-bg;
       }
     }
   }

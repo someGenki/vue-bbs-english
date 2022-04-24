@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span v-if="nickname">
     回复
     <router-link class="reply-user" :to="`/space/${uid}`">
       @{{ nickname }}:
@@ -11,17 +11,17 @@
 export default {
   props: {
     uid: { type: [Number, String], required: true },
-    nickname: { type: String, required: true },
+    nickname: { type: String },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .reply-user {
-  color: #008cc8;
+  color: #0593d0;
 
   &:hover {
-    color: #00aeec;
+    color: #02a8e3;
   }
 }
 </style>

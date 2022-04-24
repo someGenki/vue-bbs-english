@@ -19,6 +19,8 @@ const authorId = inject('authorId') // refImpl!
 </script>
 
 <style lang="scss" scoped>
+@import "/src/styles/_variables";
+
 .from-user {
   margin-right: 6px;
   font-size: 15px;
@@ -26,7 +28,7 @@ const authorId = inject('authorId') // refImpl!
 
   & > .isAuthor {
     margin-left: 6px;
-    color: #8c8ca0;
+    color: $mild-gray;
   }
 }
 </style>
