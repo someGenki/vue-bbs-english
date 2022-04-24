@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <!--响应式的logo和剩余插槽-->
+    <!--响应式的logo和默认插槽-->
     <div class="container">
       <router-link to="/">
         <img class="logo" alt="logo" src="/src/assets/images/logo.png" />
@@ -10,7 +10,7 @@
           src="/src/assets/images/logo-64.png"
         />
       </router-link>
-      <slot></slot>
+      <slot/>
     </div>
   </header>
 </template>

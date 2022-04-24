@@ -17,7 +17,7 @@
           @click="tryCall(item.handle)"
         >
           <app-link :disabled="item.disabled" center :to="item.path">
-            <app-icon v-if="item.icon" :icon="item.icon" />
+            <app-icon v-if="item.icon" :icon="item.icon"/>
             {{ item.title }}
           </app-link>
         </el-dropdown-item>
@@ -27,26 +27,22 @@
 </template>
 
 <script setup>
-import { useUserStore } from '/src/store/user'
+import {useUserStore} from '/src/store/user'
 
-defineProps({ items: { type: Array }, avatar: { type: String } })
+defineProps({items: {type: Array}, avatar: {type: String}})
 
 const user = useUserStore()
 const tryCall = (fn, ...args) => {
-  if (typeof fn === 'function') {
-    fn(...args)
-  }
+  if (typeof fn === 'function') fn(...args)
 }
 </script>
 
 <style lang="scss" scoped>
 .dropdown-avatar {
-  width: 2.6rem;
-  height: 2.6rem;
-  margin-top: 1px;
-  margin-left: 4px;
-  color: #4e5969;
+  width: 44px;
+  height: 44px;
+  margin-left: 6px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 </style>

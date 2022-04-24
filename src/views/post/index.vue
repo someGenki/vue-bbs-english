@@ -54,7 +54,7 @@ const authorId = ref(null)
 const replyText = ref(null)
 const commentList = ref(null)
 const pid = useRoute().params.pid
-const itemType = { itemType: 4, itemId: pid }
+const itemType = { itemType: 4, itemId: Number(pid) }
 
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`

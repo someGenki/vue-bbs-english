@@ -1,11 +1,11 @@
 <template>
   <div class="notice-card">
-    <app-icon
+<!--    <app-icon
       color="#5BA1FF"
-      size="56"
+      size="36"
       class="notice-type"
       icon="el-icon-list"
-    />
+    />-->
     <router-link :to="notice.link" class="notice-title"
       >{{ notice.title }}
     </router-link>
@@ -31,7 +31,7 @@ const emit = defineEmits(['read'])
 <style lang="scss" scoped>
 .notice-card {
   position: relative;
-  padding: 12px 0 6px 64px;
+  padding: 12px 0 6px 14px;
   margin: 4px 16px;
   border-bottom: 1px solid #d0d0d0;
 

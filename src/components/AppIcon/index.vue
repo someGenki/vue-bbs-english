@@ -1,7 +1,7 @@
 <template>
   <i v-bind="$attrs" class="app-icon" :class="{ text }">
-    <el-icon v-if="iconType === 'el'" v-bind="iconProp">
-      <component :is="iconName" />
+    <el-icon v-if="isElIcon" :color="color" :size="parseInt(size)">
+      <component :is="icon" />
     </el-icon>
     <svg v-else v-bind="iconProp">
       <use :xlink:href.attr="iconName" />
@@ -14,7 +14,7 @@
 import { ElIcon } from 'element-plus'
 
 /**
- * <app-icon icon="el-icon-right" />      el-开头将渲染成 <i/> el图标支持小驼峰和中划线分割命名
+ * @example <app-icon icon="el-icon-right" />      el-开头将渲染成 <i/> el图标支持小驼峰和中划线分割命名
  * <app-icon icon="github" size="32" />   其他则渲染成  <svg>
  *
  * 附： 动态组件 <component :is="xxx" />模板编译的结果：_resolveDynamicComponent(xxx)
@@ -30,30 +30,25 @@ const props = defineProps({
   text: { type: [String, Number] },
 })
 
-const { icon, color, size } = props
+const isElIcon = /^el-?/i.test(props.icon)
 
-let iconType, iconName, iconProp
+let iconName, iconProp
 
-// 如果是el-icon类型 则使用全局注册的el-icon
-if (/^el-?/i.test(icon)) {
-  iconType = 'el'
-  iconName = icon
-  iconProp = { color, size: parseInt(size) }
-} else {
-  // 否则使用svg sprites图标
-  iconType = 'custom'
-  iconName = '#icon-' + icon
-  const sizePx = parseInt(size) + 'px'
-  const style = { width: sizePx, height: sizePx }
-  if (color) {
-    style.color = color
+// 如果不是el-icon,则使用svg sprites图标，以 #icon- 为id前缀进行引用
+if (!isElIcon) {
+  iconName = '#icon-' + props.icon
+  const size = isNaN(props.size) ? props.size : props.size + 'px'
+  const style = { width: size, height: size }
+  if (props.color) {
+    style.color = props.color
     style.fill = 'currentColor'
   }
   iconProp = { style }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "/src/styles/_variables";
 .app-icon {
   display: inline-flex;
 }
@@ -64,6 +59,6 @@ if (/^el-?/i.test(icon)) {
 }
 
 .app-icon.text:hover {
-  color: #1d7dfa;
+  color: $deep-blue;
 }
 </style>

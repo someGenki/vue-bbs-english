@@ -26,6 +26,7 @@ const choose = computed({
 </script>
 
 <style lang="scss" scoped>
+@import "/src/styles/_variables";
 .emotion-tabs {
   position: relative;
   height: 36px;
@@ -43,7 +44,7 @@ const choose = computed({
     cursor: pointer;
 
     &:hover {
-      background-color: #e3e4e5;
+      background-color: $hover-bg;
     }
 
     &.choose {

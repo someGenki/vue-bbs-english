@@ -13,10 +13,10 @@
         ref="textarea"
         v-model="inputText"
         :placeholder="placeText"
+        @blur="handleBlur"
       />
     </div>
     <div class="publish-toolbar">
-      <!--TODO 点击表情不让textarea失去焦点，且添加时获得光标-->
       <app-emotion @emotion="handleEmotion" />
       <div class="reply-wrap">
         <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, provide, ref } from 'vue'
 import { useUserStore } from '/src/store/user'
 import AppEmotion from '/src/components/AppEmotion/index.vue'
 
@@ -60,10 +60,21 @@ const inputText = computed({
 const canReply = computed(() => {
   return user.hadLogin && props.modelValue
 })
-// 获取鼠标位置
-// const endPoint = textarea.selectionStart;
+
+provide('textarea', textarea) // 注入输入框，以便子组件操作
+
+let start = 0 // 失焦时记录光标位置
+const handleBlur = () => {
+  start = textarea.value.selectionStart
+}
+// 将表情添加到输入框的光标处
 const handleEmotion = (text) => {
-  inputText.value += text
+  const str = inputText.value
+  inputText.value = str.substring(0, start) + text + str.substring(start)
+  nextTick(() => {
+    textarea.value.focus() // nextTick的作用是保证插入字符后，光标仍在合适的位置且不失去焦点
+    textarea.value.setSelectionRange(start + text.length, start + text.length)
+  })
 }
 </script>
 
@@ -92,6 +103,7 @@ const handleEmotion = (text) => {
     margin-left: 18px;
     font-size: 15px;
     resize: none;
+    user-select: none;
     border: none;
     border-radius: 4px;
     outline: none;
