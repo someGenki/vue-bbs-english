@@ -20,7 +20,7 @@
   height: 4rem;
   margin-bottom: 1rem;
   color: #909090;
-  background: #fff;
+  background: #ffffff;
   border-bottom: 1px solid #f1f1f1;
   box-shadow: 0 4px 12px 0 rgb(0 0 0 / 3%);
 

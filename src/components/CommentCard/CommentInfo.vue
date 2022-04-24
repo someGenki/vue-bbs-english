@@ -6,7 +6,7 @@
     <span @click="switchShow" :class="{ showReply }" class="svg-item messenger">
       <i />{{ showReply ? '收起回复' : '回复' }}
     </span>
-    <span v-if="data.parentId === 0" class="total-reply">
+    <span v-if="false" class="total-reply">
       共&nbsp;{{ data.childrenCount }}&nbsp;条回复
     </span>
   </div>
@@ -21,22 +21,24 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
+
 .comment-info {
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #949494;
+  color: $mild-gray;
 
   & > span {
     margin-right: 12px;
   }
 
   & > .showReply {
-    color: #1d7dfa;
+    color: $deep-blue;
   }
 
   & > .svg-item:hover {
-    color: #1d7dfa;
+    color: $deep-blue;
     cursor: pointer;
   }
 

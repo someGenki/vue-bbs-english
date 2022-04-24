@@ -7,7 +7,13 @@ $primary-text-color: rgba(0, 0, 0, 0.7);
 $container-max-width: 1200px; //外部容器最大宽度
 
 $light-blue: #40a9ff; //亮蓝色 #1e80ff
-$deep-blue:#1d7dfa; // 深蓝色，用于字体hover的color
+
+/* 字体 */
+$content-text-color:#171819; // 正文/评论展示的字体颜色
+$deep-blue:#1d7dfa;     // 深蓝色，用于字体hover的color
+$mild-gray:#949494;     // 中等黑，用于显示次要信息的字体颜色
+/* 边框 */
+$divide-thin-border:1px solid #e6e6e6; // 卡片之间分割
 
 /* 阴影 */
 $box-shadow-base: 0 2px 6px rgba(0, 0, 0, 0.15); // 浮层阴影
@@ -16,3 +22,5 @@ $popover-shadow: 0 12px 12px 0 #6e78824c; // 气泡卡片的阴影
 /* 背景 */
 $hover-bg: #e3e4e5;
 $card-bg: #ffffff;
+$button-bg:#40A9FF;
+$disabled-bg:#bbbbbb;

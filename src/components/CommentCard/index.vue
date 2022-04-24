@@ -1,6 +1,5 @@
 <template>
   <div class="comment-card" :class="{ children: parent !== null }">
-    <!--后台返回的子评论数据中无头像！以后在改吧-->
     <app-avatar
       :uid="data.fromId"
       :avatar="data.fromAvatar"
@@ -9,7 +8,7 @@
     <!--评论者信息、内容、日期点赞数据、默认隐藏的评论框、递归的自身组件-->
     <div class="comment-wrapper">
       <from-user :nickname="data.fromName" :uid="data.fromId" />
-      <!--内容展示-->
+      <!--具体内容展示-->
       <div class="comment-content">
         <reply-user-at
           v-if="parent !== null && data.toId"
@@ -41,68 +40,79 @@
           :parent="data"
           :data="child"
         />
+        <span v-if="data.childrenCount > data.children.length" class="loadMore">
+          共{{ data.childrenCount }}条回复，
+          <span @click="loadChildReply" class="loadMore-btn">点击加载</span>
+        </span>
       </template>
     </div>
   </div>
 </template>
 
 <script setup>
-import { inject } from 'vue'
-import dayjs from 'dayjs'
+import { ElMessage } from 'element-plus'
+import { useUserStore } from '/src/store/user'
+import { processWx } from '/src/hooks/emotion/useEmotions'
+import { useComment } from '/src/hooks/content/useComment'
+import { getChildCommentList, postComment } from '/src/api/comment'
 import FromUser from './FromUser.vue'
 import ReplyUserAt from './ReplyUserAt.vue'
 import CommentInfo from './CommentInfo.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
-import { processWx } from '/src/hooks/emotion/useEmotions'
-import { ElMessage } from 'element-plus'
-import { postComment } from '/src/api/comment'
-import { useUserStore } from '/src/store/user'
-import { useComment } from '/src/hooks/content/useComment'
 
-// 评论功能也是个难点 包括唯一的输入框，递归展示 <comment-card :data="data" />
+// 评论功能也是个难点和复杂点 包括唯一的输入框，递归展示 <comment-card :data="data" />
 const { data, parent } = defineProps({
-  // id fromUser ...
+  // id,fromUser[,toUser],content,children,likes,gmtCreate
   data: { type: Object, required: true },
+  // 由父级评论传递其自身data，用于处理父子评论关系
   parent: { type: Object, default: null },
 })
+const { switchShow, showReply, inputText, itemType } = useComment()
 const user = useUserStore()
-const { switchShow, showReply, inputText } = useComment()
 const placeText = `回复${data.fromName}...`
-const dayjsFormat = 'YYYY-MM-DD HH:mm:ss'
-const itemType = inject('itemType')
 
 // 发送请求并回显评论
 const handleReply = () => {
   const raw = {
     parentId: parent ? parent.id : data.id,
     content: inputText.value,
+    fromId: user.uid,
     fromName: user.nickname,
+    toId: data.fromId,
     ...itemType,
   }
   if (parent) {
-    raw.toId = data.fromId
-    raw.toName = data.fromName
     // 将当前字评论的children指向 保证评论结构(2层)
     data.children = parent.children
+    raw.toName = data.fromName
   }
   postComment(raw).then((res) => {
     ElMessage({ type: 'success', message: res.msg })
-    // 评论后后台技术返回的数据没有日期。先这样
-    res.data.gmtCreate = dayjs().format(dayjsFormat)
+    res.data.fromAvatar = user.avatar
     if (!Array.isArray(data.children)) data.children = []
     data.children.push({ ...res.data })
     inputText.value = ''
     switchShow()
   })
 }
+// 只有父评论有加载子评论的方法
+const loadChildReply = () => {
+  if (parent) return
+  getChildCommentList(1, 10, data.id).then((res) => {
+    data.children.length = 0
+    data.children.push(...res.data.records)
+  })
+}
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
+
 .comment-card {
   min-height: 40px;
   padding: 12px 2px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: $divide-thin-border;
 
   &:last-of-type {
     border-bottom: 0;
@@ -116,7 +126,7 @@ const handleReply = () => {
   > .comment-content {
     margin-bottom: 4px;
     overflow: hidden;
-    color: #171819;
+    color: $content-text-color;
     text-shadow: none;
     word-break: break-word;
     word-wrap: break-word;
@@ -125,6 +135,14 @@ const handleReply = () => {
     :deep(.wx-emoji) {
       margin-bottom: -4px;
     }
+  }
+}
+
+.loadMore-btn {
+  cursor: pointer;
+
+  &:hover {
+    color: $deep-blue;
   }
 }
 
