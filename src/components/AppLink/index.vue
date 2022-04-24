@@ -7,7 +7,7 @@
 
 <script setup>
 /**
- *   <app-link  :to="i.path"> xxx </app-link>
+ * @example   <app-link  :to="i.path"> xxx </app-link>
  *
  * component是内置组件，根据 :is='type' 来决定哪个组件被渲染
  * type是字符串，可以是html自带的标签如 'a' ，也可以是组件名称 'router-link'

@@ -1,7 +1,6 @@
 <template>
   <!--底部栏: 发布时间、点赞、评论、评论条数-->
   <div class="comment-info">
-    <!--FIXME TMD后台返回的时间呢-->
     <span v-if="data.gmtCreate" class="time">{{ data.gmtCreate }}</span>
     <span class="svg-item thumbs-up"><i />{{ data.likes || 0 }}</span>
     <span @click="switchShow" :class="{ showReply }" class="svg-item messenger">

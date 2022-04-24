@@ -3,7 +3,7 @@
     <!--后台返回的子评论数据中无头像！以后在改吧-->
     <app-avatar
       :uid="data.fromId"
-      :avatar="data.fromAvatar || data.fromName"
+      :avatar="data.fromAvatar"
       :nickname="data.fromName"
     />
     <!--评论者信息、内容、日期点赞数据、默认隐藏的评论框、递归的自身组件-->

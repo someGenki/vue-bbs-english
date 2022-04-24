@@ -19,6 +19,7 @@ a {
   text-decoration: none;
 }
 
+//快捷键的语义化标签
 kbd {
   padding: 0.25rem;
   font-size: 0.825rem;
@@ -48,7 +49,7 @@ kbd {
   --el-skeleton-color: #f4f1f1 !important;
 }
 
-// <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
+// @example <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
 // 弊端 不好改颜色
 .svg-item {
   // 设置flex以便上下居中

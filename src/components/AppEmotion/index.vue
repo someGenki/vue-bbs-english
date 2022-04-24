@@ -6,7 +6,7 @@
     placement="bottom-start"
   >
     <!--暴露出去的样式-->
-    <emotion-box />
+    <emotion-box :auto-focus="textAreaFocus"><span>表情</span></emotion-box>
 
     <template #content>
       <div class="emotion-title">{{ emotions[choose].name }}</div>
@@ -28,19 +28,20 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { useEmotion } from '/src/hooks/emotion/useEmotions'
 import EmotionTab from './EmotionTab.vue'
 import EmotionBox from './EmotionBox.vue'
 
-// <app-emotion @emotion="handleEmotion" />
-
+/**
+ * @example <app-emotion @emotion="handleEmotion" />
+ */
 const emit = defineEmits(['emotion'])
 const { emotions, emotionTabs } = useEmotion()
 
 const choose = ref('wx')
 const cache = Object.create(null)
-
+const textarea = inject('textarea')
 const emotionList = computed(() => {
   const name = choose.value
   if (cache[name]) return cache[name]
@@ -52,28 +53,33 @@ const emotionList = computed(() => {
 const emotionClass = computed(() => {
   return 'emotion-box ' + choose.value
 })
-
+const textAreaFocus = () => {
+  textarea?.value?.focus()
+}
 const handleEmotionClick = (arg) => {
+  textAreaFocus()
   emit('emotion', arg.text)
 }
 </script>
 
 <style lang="scss">
+@import '/src/styles/_variables';
 // 弹出层卡片样式
 .emotion-box {
   width: 360px;
   padding: 0;
+  overflow: hidden;
   font-size: 14px;
   background-color: #ffffff;
   border: 1px solid #e3e4e5;
   border-radius: 8px;
-  box-shadow: 0 12px 12px 0 #6e78824c;
-  // 显示表情集合名
+  box-shadow: $popover-shadow;
+  // 显示表情的集合名
   > .emotion-title {
     margin: 10px 14px 4px;
     line-height: 16px;
     color: #5a646e;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
   }
 
   // 被el-scroll包裹 所以层次有变
@@ -89,7 +95,7 @@ const handleEmotionClick = (arg) => {
       border-radius: 4px;
 
       &:hover {
-        background-color: #e3e5e7;
+        background-color: $hover-bg;
       }
     }
   }

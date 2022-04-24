@@ -31,10 +31,10 @@
 export default {
   inheritAttrs: false,
   props: {
-    uid: { type: Number, required: true },    // user id 用于跳转
-    avatar: { type: String, required: true }, // 图片url
+    uid: { type: [String, Number], required: true }, // user id 用于跳转
     nickname: { type: String, required: true }, // 用于图片加载失败时作为字符头像
 
+    avatar: { type: String, default: '' }, // 图片url
     needLogin: { type: Boolean, default: false },
     rounded: { type: Boolean, default: true },
     background: { type: String, default: '#eee' },
@@ -46,8 +46,8 @@ export default {
 <style lang="scss" scoped>
 .app-avatar {
   float: left;
-  user-select: none;
   overflow: hidden;
+  user-select: none;
 }
 
 .rounded {
