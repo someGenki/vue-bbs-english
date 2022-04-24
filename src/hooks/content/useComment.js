@@ -31,5 +31,5 @@ export function useComment() {
       showReply.value = false
     }
   }
-  return { inputText, showReply, itemType,switchShow }
+  return { inputText, showReply, itemType, switchShow }
 }

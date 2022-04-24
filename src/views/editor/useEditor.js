@@ -27,7 +27,7 @@ export function useEditor(form) {
       set(draftKey, JSON.stringify({ form: toRaw(form), date: Date.now() }))
       ElNotification({ type: 'success', message: '草稿保存成功' })
     },
-    clear:()=>{
+    clear: () => {
       remove(draftKey)
       ElNotification({ type: 'success', message: '草稿删除成功' })
     },

@@ -27,7 +27,7 @@ const props = defineProps({
   font-size: 14px;
   color: #919191;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background: #f1f1f1;
   }
 }

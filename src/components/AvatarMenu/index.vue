@@ -17,7 +17,7 @@
           @click="tryCall(item.handle)"
         >
           <app-link :disabled="item.disabled" center :to="item.path">
-            <app-icon v-if="item.icon" :icon="item.icon"/>
+            <app-icon v-if="item.icon" :icon="item.icon" />
             {{ item.title }}
           </app-link>
         </el-dropdown-item>
@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
-import {useUserStore} from '/src/store/user'
+import { useUserStore } from '/src/store/user'
 
-defineProps({items: {type: Array}, avatar: {type: String}})
+defineProps({ items: { type: Array }, avatar: { type: String } })
 
 const user = useUserStore()
 const tryCall = (fn, ...args) => {

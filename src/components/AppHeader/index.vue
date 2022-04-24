@@ -10,7 +10,7 @@
           src="/src/assets/images/logo-64.png"
         />
       </router-link>
-      <slot/>
+      <slot />
     </div>
   </header>
 </template>

@@ -34,7 +34,8 @@ kbd {
   content: ' ';
 }
 
-.noMore,.loadMore {
+.noMore,
+.loadMore {
   margin: 12px auto;
   font-size: 14px;
   color: #5c5c5c;
@@ -43,6 +44,7 @@ kbd {
 
 .time {
   font-size: 14px;
+  color: #6d757d;
 }
 
 .el-skeleton {

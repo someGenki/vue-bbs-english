@@ -1,4 +1,8 @@
-<template> 排行榜</template>
+<template>
+  <div>
+    <!--TODO 排行榜！-->
+  </div>
+</template>
 
 <script setup></script>
 

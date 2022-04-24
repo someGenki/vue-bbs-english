@@ -25,9 +25,10 @@ const isPost = (data) => data.hasOwnProperty('hot')
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
 .search-card {
   padding: 16px;
-  border-top: 1px solid #f5f5f5;
+  border-top: $divide-thin-border;
 
   .search-title {
     font-size: 18px;
@@ -41,7 +42,7 @@ const isPost = (data) => data.hasOwnProperty('hot')
     overflow: hidden;
     font-size: 14px;
     line-height: 20px;
-    color: #5c5c5c;
+    color: $deep-gray;
   }
 
   .search-infos {
