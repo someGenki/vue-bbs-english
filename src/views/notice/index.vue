@@ -19,9 +19,9 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import NoticeCard from './NoticeCard.vue'
-import { getNotice, readNotice } from '/src/api/user'
 import { ElNotification } from 'element-plus'
+import { getNotice, readNotice } from '/src/api/user'
+import NoticeCard from '/src/components/NoticeCard/index.vue'
 
 // 根据资源的类型和id生成一个链接，不带域名
 function makeLink(itemType, itemId) {

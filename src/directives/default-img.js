@@ -41,7 +41,7 @@ function genSvgImg(text, color, size = 36) {
  */
 export default async function defaultImg(el, binding) {
   // 需要显示默认图片(当图片原本的src属性有错时)的类型
-  const {value,modifiers} = binding
+  const { value, modifiers } = binding
   // 图片原本的src
   const realURL = el.src
   // 当原本图片不存在时，根据参数返回不同的图片url

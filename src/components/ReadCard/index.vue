@@ -9,7 +9,7 @@
           {{ difText }}
         </span>
         <span class="time">{{ data.gmtCreate }}</span>
-        <span class="view"><i />{{ data.pv }}</span>
+        <span class="svg-item view"><i />{{ data.pv }}</span>
       </div>
     </div>
   </router-link>
@@ -26,20 +26,21 @@ const { difColor, difText } = getDifficulty(props.data.difficulty)
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
+
 .read-card {
   display: block;
   height: 170px;
   padding: 10px;
   margin-bottom: 12px;
-  color: #6d757d;
   cursor: pointer;
   background-color: #ffffff;
   border-radius: 4px;
   transition: transform 200ms;
 
   &:hover {
-    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.05);
-    transform: translateY(-3px);
+    box-shadow: $card-shadow;
+    transform: translateY(-2px);
   }
 }
 
@@ -59,12 +60,12 @@ const { difColor, difText } = getDifficulty(props.data.difficulty)
 
   & > .title {
     margin-top: 2px;
-    color: #222222;
+    color: $title-text-color;
   }
 
   & > .description {
     flex: 1;
-    color: #6d757d;
+    color: $deep-gray;
   }
 
   & > .infos {
@@ -82,14 +83,6 @@ const { difColor, difText } = getDifficulty(props.data.difficulty)
       align-items: center;
       float: right;
       margin-right: 28px;
-
-      & > i {
-        width: 14px;
-        height: 14px;
-        margin-right: 4px;
-        background-image: url('/src/icons/view.png');
-        background-size: 100%;
-      }
     }
   }
 }

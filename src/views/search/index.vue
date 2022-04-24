@@ -11,7 +11,7 @@
 import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSearch } from '/src/api/search'
-import SearchCard from './SearchCard.vue'
+import SearchCard from '/src/components/SearchCard/index.vue'
 
 const route = useRoute()
 const list = ref(null)
@@ -37,6 +37,6 @@ const markWord = (text) => {
 .search-area {
   max-width: 768px;
   min-height: 300px;
-  background: #fff;
+  background: #ffffff;
 }
 </style>

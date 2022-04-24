@@ -1,11 +1,11 @@
 <template>
   <div class="notice-card">
-<!--    <app-icon
-      color="#5BA1FF"
-      size="36"
-      class="notice-type"
-      icon="el-icon-list"
-    />-->
+    <!--    <app-icon
+          color="#5BA1FF"
+          size="36"
+          class="notice-type"
+          icon="el-icon-list"
+        />-->
     <router-link :to="notice.link" class="notice-title"
       >{{ notice.title }}
     </router-link>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { processWx } from '../../hooks/emotion/useEmotions'
+import { processWx } from '/src/hooks/emotion/useEmotions'
 
 const props = defineProps({
   notice: { type: Object, required: true },
@@ -29,11 +29,12 @@ const emit = defineEmits(['read'])
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
 .notice-card {
   position: relative;
   padding: 12px 0 6px 14px;
   margin: 4px 16px;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: $divide-thin-border;
 
   & > .notice-type {
     position: absolute;
@@ -42,8 +43,11 @@ const emit = defineEmits(['read'])
 
   & > .notice-title {
     font-size: 14px;
-    color: #666;
+    color: $deep-gray;
     cursor: pointer;
+    &:hover {
+      color: $deep-blue;
+    }
   }
 
   & > .notice-content {
@@ -54,7 +58,7 @@ const emit = defineEmits(['read'])
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: #999;
+    color: $mild-gray;
 
     & > .time {
       margin-right: 8px;
@@ -66,7 +70,7 @@ const emit = defineEmits(['read'])
       cursor: pointer;
 
       &:hover {
-        color: #1e80ff;
+        color: $deep-blue;
       }
     }
   }

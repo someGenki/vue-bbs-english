@@ -18,8 +18,7 @@ export function uploadImage(image) {
   return http.post('file/img', param, config)
 }
 
-
-export function getFileInfo(url){
-  if(!url) return
-  return http.get('file/info?url='+url)
+export function getFileInfo(url) {
+  if (!url) return
+  return http.get('file/info?url=' + url)
 }

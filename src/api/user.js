@@ -24,8 +24,8 @@ export function isExist(type, value) {
   return http.get(`/user/exist?type=${type}&value=${value}`)
 }
 
-export function updateInfos(infos){
-  return http.put('user/update/infos',infos)
+export function updateInfos(infos) {
+  return http.put('user/update/infos', infos)
 }
 
 export function uploadAvatar(file) {

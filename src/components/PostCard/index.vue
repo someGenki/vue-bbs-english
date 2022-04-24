@@ -18,23 +18,7 @@
         <div class="post-content">{{ content.rawText }}</div>
       </div>
     </router-link>
-    <!--待抽离-->
-    <div class="post-card-footer">
-      <span class="svg-item thumbs-up"><i />{{ data.likes }}</span>
-      <span class="svg-item view"><i />{{ data.pv }}</span>
-      <span class="svg-item messenger"><i />{{ data.comments }}</span>
-      <span class="divide">|</span>
-      <span class="item time">{{ timeStr }}</span>
-      <el-tag
-        v-if="data.tags"
-        class="post-tag"
-        :color="tagColor"
-        effect="dark"
-        type="info"
-      >
-        {{ data.tags }}
-      </el-tag>
-    </div>
+    <post-card-info :data="data" />
     <app-icon
       class="post-card-more"
       icon="el-icon-arrow-down"
@@ -45,19 +29,19 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs'
 import { getMarkdownData, getStrColor } from '/src/utils/process'
+import PostCardInfo from './PostCardInfo.vue'
 
 // [id,uid,avatar,nickname,content,gmtCreate,likes,pv,comments[,tags]]
 const props = defineProps({ data: { type: Object } })
 
-const timeStr = dayjs().to(props.data.gmtCreate)
 const nameColor = getStrColor(props.data.nickname)
-const tagColor = getStrColor(props.data.tags)
 const content = getMarkdownData(props.data.content)
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
+
 .post-card {
   position: relative;
   height: 150px;
@@ -68,7 +52,7 @@ const content = getMarkdownData(props.data.content)
   transition: all 0.15s;
 
   &:hover {
-    box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: $card-shadow;
   }
 
   .post-card-more {
@@ -118,7 +102,7 @@ const content = getMarkdownData(props.data.content)
       overflow: hidden;
       font-size: 18px;
       font-weight: bolder;
-      color: #1d2129;
+      color: $title-text-color;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -127,41 +111,11 @@ const content = getMarkdownData(props.data.content)
     .post-content {
       display: -webkit-box;
       overflow: hidden;
-      color: #4a545f;
+      color: $deep-gray;
       text-overflow: ellipsis;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
     }
-  }
-}
-
-.post-card-footer {
-  position: absolute;
-  bottom: 8px;
-  display: flex;
-  align-items: center;
-  margin-left: 45px;
-
-  color: #4e5969;
-  user-select: none;
-
-  // 分割线 ` | `
-  .divide {
-    margin-right: 14px;
-    font-size: 12px;
-    color: #999;
-  }
-
-  // 重置svg的光标样式
-  .svg-item > i {
-    cursor: default;
-  }
-
-  // 卡片标签
-  .post-tag {
-    height: 22px;
-    margin-left: auto;
-    border: none;
   }
 }
 </style>

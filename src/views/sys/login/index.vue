@@ -24,7 +24,7 @@
             登录或注册即代表你同意<a>用户协议</a>和<a>隐私政策</a>
           </p>
 
-          <el-form-item  prop="username">
+          <el-form-item prop="username">
             <el-input
               required
               name="username"

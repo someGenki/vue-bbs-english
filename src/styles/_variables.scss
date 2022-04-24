@@ -9,18 +9,21 @@ $container-max-width: 1200px; //外部容器最大宽度
 $light-blue: #40a9ff; //亮蓝色 #1e80ff
 
 /* 字体 */
-$content-text-color:#171819; // 正文/评论展示的字体颜色
-$deep-blue:#1d7dfa;     // 深蓝色，用于字体hover的color
-$mild-gray:#949494;     // 中等黑，用于显示次要信息的字体颜色
+$title-text-color: #1d2129; // 显示标题的颜色
+$content-text-color: #171819; // 正文/评论展示的颜色
+$name-text-color: #515767; // 用于展示的名字的颜色
+$deep-blue: #1d7dfa; // 深蓝色，用于字体hover时的颜色
+$mild-gray: #949494; // 中等灰，用于显示次要信息的颜色
+$deep-gray: #4a545f; // 深灰色，用于显示卡片里描述的颜色
 /* 边框 */
-$divide-thin-border:1px solid #e6e6e6; // 卡片之间分割
+$divide-thin-border: 1px solid #e6e6e6; // 卡片之间分割
 
 /* 阴影 */
 $box-shadow-base: 0 2px 6px rgba(0, 0, 0, 0.15); // 浮层阴影
 $popover-shadow: 0 12px 12px 0 #6e78824c; // 气泡卡片的阴影
-
+$card-shadow: 12px 12px 20px rgba(0, 0, 0, 0.05);
 /* 背景 */
 $hover-bg: #e3e4e5;
 $card-bg: #ffffff;
-$button-bg:#40A9FF;
-$disabled-bg:#bbbbbb;
+$button-bg: #40a9ff;
+$disabled-bg: #bbbbbb;

@@ -121,8 +121,8 @@ const handleEmotion = (text) => {
     display: flex;
     align-items: center;
     padding-top: 4px;
-    user-select: none;
     margin-right: 18px;
+    user-select: none;
 
     & > .reply-wrap {
       margin-left: auto;

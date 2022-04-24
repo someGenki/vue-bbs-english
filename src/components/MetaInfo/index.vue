@@ -8,7 +8,11 @@
         <span class="views">阅览次数&nbsp;{{ article.pv }}</span>
       </div>
       <div class="right-slot">
-        <div @click="$emit('like')"  :class="{ active: hadLike }" class="like-btn" />
+        <div
+          @click="$emit('like')"
+          :class="{ active: hadLike }"
+          class="like-btn"
+        />
       </div>
     </div>
   </div>
@@ -33,6 +37,8 @@ getInfo(props.article.uid).then((res) => {
 </script>
 
 <style lang="scss" scoped>
+@import '/src/styles/_variables';
+
 .meta-info-box {
   min-height: 50px;
   padding: 4px;
@@ -46,18 +52,18 @@ getInfo(props.article.uid).then((res) => {
 
   > .nickname {
     line-height: 1.5;
-    color: #515767;
+    color: $name-text-color;
   }
 
   > .meta-box {
     margin-top: 2px;
     font-size: 14px;
     line-height: 22px;
-    color: #8a919f;
+    color: $mild-gray;
 
     & > .time::after {
       margin: 0 8px;
-      color: #868b91;
+      color: $mild-gray;
       content: '·';
     }
   }
