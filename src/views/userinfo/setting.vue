@@ -1,5 +1,5 @@
 <template>
-  <div> setting</div>
+  <div>未开放</div>
 </template>
 
 <script setup></script>

@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+// TODO 推文发表 查看
 const { userinfo } = defineProps({
   userinfo: { type: Object, required: true },
 })

@@ -2,14 +2,15 @@
   <div class="search-card">
     <div class="search-title">
       <router-link :to="`/${isPost(data) ? 'post' : 'article'}/${data.id}`">
-        <span v-html="mark(data.title)" />
+        <span v-html="title" />
       </router-link>
     </div>
-    <div class="search-content" v-html="mark(data.title)" />
+    <div class="search-content" v-html="content" />
     <div class="search-infos">
       <span class="svg-item view"><i />{{ data.pv }}</span>
       <span class="time">{{ data.gmtCreate }}</span>
       <tags-row :tags="data.tags" />
+      <slot name="ops"></slot>
     </div>
   </div>
 </template>
@@ -17,15 +18,18 @@
 <script setup>
 import TagsRow from '/src/components/TagsRow/index.vue'
 
-const props = defineProps({
+const { data, mark } = defineProps({
   data: { type: Object },
   mark: { type: Function },
 })
 const isPost = (data) => data.hasOwnProperty('hot')
+const title = mark ? mark(data.title) : data.title
+const content = mark ? mark(data.content) : data.content
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/variables';
+@import '/src/styles/variables';
+
 .search-card {
   padding: 16px;
   border-top: $divide-thin-border;
@@ -58,6 +62,9 @@ const isPost = (data) => data.hasOwnProperty('hot')
   :deep(em) {
     font-style: normal;
     color: #f03232;
+  }
+  &:hover{
+    background-color:#F5F5F5 ;
   }
 }
 </style>

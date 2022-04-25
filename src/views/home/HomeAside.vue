@@ -1,13 +1,15 @@
 <template>
   <div class="home-aside">
-    <!-- TODO 签到功能-->
     <div class="aside-sign-in">
       <div class="card-title">
         <div>
           <app-icon icon="el-icon-calendar" color="#DD6207" size="24" />
           <span class="greeting-text">{{ greeting }}</span>
         </div>
-        <button class="sign-in-btn">签到一下</button>
+        <button v-if="noSignin" @click="handleSignin" class="sign-in-btn">
+          签到一下
+        </button>
+        <button v-else class="sign-in-btn">已签到</button>
       </div>
       <p class="card-text">点亮你在这儿的每一天✨</p>
     </div>
@@ -95,7 +97,10 @@
 <script setup>
 import { ref } from 'vue'
 import { getTopUser } from '../../api/search'
+import { doSignin, hasSignin } from '../../api/user'
 import ActiveUserCard from './ActiveUserCard.vue'
+import { useUserStore } from '../../store/user'
+import { ElNotification } from 'element-plus'
 
 function getGreeting(hour) {
   if (hour < 6) return '凌晨'
@@ -108,16 +113,34 @@ function getGreeting(hour) {
   else return '夜里'
 }
 
+const user = useUserStore()
+const noSignin = ref(true) // true = 未签到过 false = 签到过了
+
+if (user.hadLogin) {
+  hasSignin().then((res) => {
+    noSignin.value = res.data
+  })
+}
+
 const hour = new Date().getHours()
 const greeting = ref(getGreeting(hour) + '好!')
 const topUser = ref(null)
 getTopUser().then((res) => {
   topUser.value = res.data.slice(0, 5)
 })
+const handleSignin = () => {
+  if (user.hadLogin) {
+    doSignin().then((res) => {
+      ElNotification({ type: 'success', message: res.msg + '✨', offset: 80 })
+      noSignin.value = true
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-@import "/src/styles/variables";
+@import '/src/styles/variables';
+
 .home-aside {
   position: absolute;
   top: 0;
@@ -188,6 +211,7 @@ getTopUser().then((res) => {
       background-color: rgba(232, 220, 220, 0.2);
       border-radius: 2px;
     }
+
     // 用于背景色太亮时候的样式
     .attach-tag--light {
       color: #fff;
