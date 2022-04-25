@@ -1,6 +1,6 @@
 <template>
   <div class="home-aside">
-    <!-- 签到(未完成)-->
+    <!-- TODO 签到功能-->
     <div class="aside-sign-in">
       <div class="card-title">
         <div>
@@ -117,6 +117,7 @@ getTopUser().then((res) => {
 </script>
 
 <style lang="scss" scoped>
+@import "/src/styles/variables";
 .home-aside {
   position: absolute;
   top: 0;
@@ -146,7 +147,7 @@ getTopUser().then((res) => {
     .card-text {
       margin-top: 12px;
       font-size: 14px;
-      color: #656970;
+      color: $deep-gray;
       text-align: center;
     }
 
@@ -154,7 +155,7 @@ getTopUser().then((res) => {
       margin-left: 12px;
       font-size: 18px;
       font-weight: bold;
-      color: #1d2129;
+      color: $title-text-color;
       vertical-align: top;
     }
 
@@ -162,10 +163,10 @@ getTopUser().then((res) => {
       height: 32px;
       padding: 4px 12px;
       font-size: 14px;
-      color: #1e80ff;
+      color: $deep-blue;
       cursor: pointer;
       background-color: #ffffff;
-      border: 1px solid #1e80ff;
+      border: $blue-btn-border;
       border-radius: 16px;
 
       &:hover {
@@ -187,7 +188,7 @@ getTopUser().then((res) => {
       background-color: rgba(232, 220, 220, 0.2);
       border-radius: 2px;
     }
-
+    // 用于背景色太亮时候的样式
     .attach-tag--light {
       color: #fff;
       background-color: rgb(89 89 89 / 75%);

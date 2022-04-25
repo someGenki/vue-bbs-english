@@ -80,6 +80,7 @@ const fontOptions = [
 </script>
 
 <style lang="scss" scoped>
+@import "/src/styles/variables.scss";
 .setting {
   position: fixed;
   top: 6rem;

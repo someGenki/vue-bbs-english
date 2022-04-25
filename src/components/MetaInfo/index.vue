@@ -37,7 +37,7 @@ getInfo(props.article.uid).then((res) => {
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 
 .meta-info-box {
   min-height: 50px;

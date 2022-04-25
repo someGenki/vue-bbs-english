@@ -107,7 +107,7 @@ const loadChildReply = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 
 .comment-card {
   min-height: 40px;

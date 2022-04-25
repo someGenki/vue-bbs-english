@@ -26,7 +26,7 @@ const choose = computed({
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 .emotion-tabs {
   position: relative;
   height: 36px;

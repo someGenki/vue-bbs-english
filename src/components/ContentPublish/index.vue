@@ -80,7 +80,7 @@ const handleEmotion = (text) => {
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 
 .publish-area {
   padding: 16px 28px;

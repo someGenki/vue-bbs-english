@@ -26,7 +26,7 @@ const { difColor, difText } = getDifficulty(props.data.difficulty)
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 
 .read-card {
   display: block;

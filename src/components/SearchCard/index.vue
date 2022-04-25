@@ -25,7 +25,7 @@ const isPost = (data) => data.hasOwnProperty('hot')
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 .search-card {
   padding: 16px;
   border-top: $divide-thin-border;

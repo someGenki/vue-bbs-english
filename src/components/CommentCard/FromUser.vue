@@ -19,7 +19,7 @@ const authorId = inject('authorId') // refImpl!
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 
 .from-user {
   margin-right: 6px;

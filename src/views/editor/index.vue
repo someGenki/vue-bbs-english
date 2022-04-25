@@ -35,7 +35,7 @@
     <el-button
       size="large"
       :color="color"
-      style="margin: 2px 12px"
+      style="margin: 0 12px"
       auto-insert-space
       round
       @click="handles.store"
@@ -44,19 +44,25 @@
     </el-button>
     <avatar-menu :avatar="user.avatar" :items="items" />
   </app-header>
+  <!-- markdown编辑器+其他内容 -->
   <main class="editor-main">
     <md-editor
-      :prettier="false"
       noKatex
-      @onSave="handles.store"
-      @onUploadImg="handles.upload"
+      no-mermaid
+      :prettier="false"
       placeholder="正文..."
       v-model="form.content"
+      @onSave="handles.store"
+      @onUploadImg="handles.upload"
     />
     <!--发布文章时，除标题和正文以外的其他属性设置-->
-    <post-option :success="handles.success" :form="form" />
-    <el-button v-if="draft" @click="handles.clear" type="text"
-      >删除草稿
+    <post-option
+      v-if="type === 'post'"
+      :success="handles.success"
+      :form="form"
+    />
+    <el-button v-if="draft" @click="handles.clear" type="text">
+      删除草稿
     </el-button>
     <span class="tip-text">{{ tipText }}</span>
   </main>
@@ -64,33 +70,35 @@
 
 <script setup>
 import { onUnmounted, reactive, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
-import { useRouter } from 'vue-router'
 import MdEditor from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
-import { useUserStore } from '/src/store/user'
 import { useEditor } from './useEditor'
-import { getPostDetail } from '../../api/post'
+import { useUserStore } from '/src/store/user'
+import { getPostDetail } from '/src/api/post'
+import PostOption from './PostOption.vue'
 import AppHeader from '/src/components/AppHeader/index.vue'
 import AvatarMenu from '/src/components/AvatarMenu/index.vue'
-import PostOption from './PostOption.vue'
 
 const user = useUserStore()
+const route = useRoute()
 const router = useRouter()
+const { type = 'post', id } = route.query // post or article(暂未支持)
 
 user.hadLogin ? user.getUserInfo() : router.replace('/login')
 
 const form = reactive({
   title: '',
   content: '',
-  category: 'default',
   tags: 'test',
+  category: 'default',
   attachment: '',
   acAgreement: true,
 })
-const tipText = ref('暂无')
+const tipText = ref('...') // 页面最下方的提示栏
 const isModify = ref(false)
-const { color, draft, wordCount, canSubmit, handles } = useEditor(form)
+const { color, draft, wordCount, canSubmit, handles } = useEditor(form, type)
 
 // 每三分钟自动保存一次草稿
 const timer = setInterval(() => {
@@ -110,13 +118,19 @@ const items = [
   },
 ]
 
-// 携带对应参数则进入编辑模式
-const query = router.currentRoute.value.query
-if (query.from === 'post' && query.id) {
-  const keys = ['id', 'attachment', 'title', 'content', 'category', 'tags']
-  getPostDetail(query.id).then((res) => {
+// 携带对应参数则进入编辑模式,加载数据库中的内容
+if (id && type === 'post') {
+  const keysOfPost = [
+    'id',
+    'attachment',
+    'title',
+    'content',
+    'category',
+    'tags',
+  ]
+  getPostDetail(id).then((res) => {
     if (res.data.uid !== user.uid) return
-    keys.forEach((key) => (form[key] = res.data[key]))
+    keysOfPost.forEach((key) => (form[key] = res.data[key]))
     document.title = '修改 - ' + form.title
     isModify.value = true
   })
@@ -137,7 +151,6 @@ if (query.from === 'post' && query.id) {
   flex: 1;
   align-items: center;
   height: 100%;
-  color: #484848;
 
   & > .title-input {
     width: 100%;
@@ -153,6 +166,7 @@ if (query.from === 'post' && query.id) {
     position: absolute;
     right: 32px;
     font-size: 14px;
+    color: #949494;
   }
 }
 
@@ -165,6 +179,7 @@ if (query.from === 'post' && query.id) {
   }
 
   .tip-text {
+    margin: 4px 16px;
     font-size: 14px;
     color: #999;
   }
