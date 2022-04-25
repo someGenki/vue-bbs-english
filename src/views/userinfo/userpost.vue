@@ -43,13 +43,13 @@ if (user.hadLogin) {
 }
 
 .search-card:hover .userpost-del {
-  visibility: visible;
   color: #1e80ff;
+  visibility: visible;
 }
 
 .userpost-del {
-  cursor: pointer;
   font-size: 14px;
+  cursor: pointer;
   visibility: hidden;
 }
 </style>
