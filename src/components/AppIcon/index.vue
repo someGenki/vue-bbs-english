@@ -48,7 +48,7 @@ if (!isElIcon) {
 </script>
 
 <style lang="scss">
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 .app-icon {
   display: inline-flex;
 }

@@ -63,7 +63,7 @@ const handleEmotionClick = (arg) => {
 </script>
 
 <style lang="scss">
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 // 弹出层卡片样式
 .emotion-box {
   width: 360px;

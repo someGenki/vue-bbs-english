@@ -21,7 +21,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '../../styles/variables';
 
 .comment-info {
   display: flex;

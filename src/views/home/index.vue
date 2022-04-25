@@ -42,9 +42,7 @@ const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
   category.value
 )
 
-watchEffect(() => {
-  getPaging(1, 10, category.value)
-})
+watchEffect(() => getPaging(1, 10, category.value))
 </script>
 
 <style lang="scss" scoped>

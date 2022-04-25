@@ -29,7 +29,7 @@ const emit = defineEmits(['read'])
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '/src/styles/variables';
 .notice-card {
   position: relative;
   padding: 12px 0 6px 14px;

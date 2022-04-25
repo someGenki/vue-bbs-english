@@ -1,14 +1,14 @@
 import { computed, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
-import { get, remove, set } from '../../utils/storage'
-import { pubPost } from '../../api/post'
-import { uploadImage } from '../../api/file'
+import { get, remove, set } from '/src/utils/storage'
+import { pubPost } from '/src/api/post'
+import { uploadImage } from '/src/api/file'
 
-export function useEditor(form) {
+export function useEditor(form, type) {
   const color = '#1d7dfa'
   const router = useRouter()
-  const draftKey = 'post-draft'
+  const draftKey = type + '-draft'
   const draft = JSON.parse(get(draftKey))
   const wordCount = computed(() => `${form.title.length}/64`)
   const canSubmit = computed(() => {
@@ -16,8 +16,8 @@ export function useEditor(form) {
   })
   const handles = {
     submit: () => {
+      // pubPost根据type换成pubArticle
       pubPost(toRaw(form)).finally(() => {
-        // 这里后端标题一样虽然能提交但是报错。。
         ElNotification({ type: 'success', message: 'ok!' })
         remove(draftKey)
         setTimeout(() => router.push('/'), 400)

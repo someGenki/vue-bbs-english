@@ -40,7 +40,7 @@ const content = getMarkdownData(props.data.content)
 </script>
 
 <style lang="scss" scoped>
-@import '/src/styles/_variables';
+@import '/src/styles/variables';
 
 .post-card {
   position: relative;

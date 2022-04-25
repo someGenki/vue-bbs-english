@@ -31,6 +31,7 @@ import userNav from '/src/router/user'
 </script>
 
 <style lang="scss" scoped>
+@import "/src/styles/variables";
 .userinfo-container {
   display: grid;
   grid-template-rows: 3.6rem 635px;
