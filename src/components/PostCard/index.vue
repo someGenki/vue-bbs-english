@@ -1,7 +1,8 @@
 <template>
   <div :data-id="data.id" class="post-card">
     <router-link target="_blank" :to="`/post/${data.id}`" class="post-card-box">
-      <app-avatar v-bind="data" />
+      <app-avatar v-if="!noUser" v-bind="data" />
+      <slot/>
       <img
         v-if="content.firstImg"
         :src="content.firstImg"
@@ -9,7 +10,7 @@
         class="card-image"
       />
       <div class="card-content">
-        <div class="card-info">
+        <div v-if="!noUser" class="card-info">
           <span :style="{ color: nameColor }" class="nickname">
             {{ data.nickname }}
           </span>
@@ -33,7 +34,10 @@ import { getMarkdownData, getStrColor } from '/src/utils/process'
 import PostCardInfo from './PostCardInfo.vue'
 
 // [id,uid,avatar,nickname,content,gmtCreate,likes,pv,comments[,tags]]
-const props = defineProps({ data: { type: Object } })
+const props = defineProps({
+  data: { type: Object },
+  noUser: { type: Boolean,default:false },
+})
 
 const nameColor = getStrColor(props.data.nickname)
 const content = getMarkdownData(props.data.content)

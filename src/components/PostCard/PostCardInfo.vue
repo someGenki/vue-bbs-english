@@ -6,7 +6,7 @@
     <span class="divide">|</span>
     <span class="item time">{{ timeStr }}</span>
     <el-tag
-      v-if="data.tags"
+      v-if="false"
       class="post-tag"
       :color="tagColor"
       effect="dark"
@@ -55,7 +55,7 @@ const tagColor = getStrColor(data.tags)
   // 卡片标签
   .post-tag {
     height: 22px;
-    margin-left: auto;
+    margin-left: 16px;
     border: none;
   }
 }
