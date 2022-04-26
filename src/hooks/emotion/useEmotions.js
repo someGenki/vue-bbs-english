@@ -14,7 +14,6 @@ export function processWx(str, klass = 'wx-emoji') {
 /**
  * emotions中的热门😃来自 [EMOJIAll](https://www.emojiall.com/zh-hans/top-daily/zh-hans)
  */
-
 const emotions = {
   wx: {
     list: emotionList.weChatList,

@@ -1,8 +1,8 @@
 <template>
   <div :data-id="data.id" class="post-card">
     <router-link target="_blank" :to="`/post/${data.id}`" class="post-card-box">
-      <app-avatar v-if="!noUser" v-bind="data" />
-      <slot/>
+      <app-avatar v-if="!noUser" show-card v-bind="data" />
+      <slot />
       <img
         v-if="content.firstImg"
         :src="content.firstImg"
@@ -36,7 +36,7 @@ import PostCardInfo from './PostCardInfo.vue'
 // [id,uid,avatar,nickname,content,gmtCreate,likes,pv,comments[,tags]]
 const props = defineProps({
   data: { type: Object },
-  noUser: { type: Boolean,default:false },
+  noUser: { type: Boolean, default: false },
 })
 
 const nameColor = getStrColor(props.data.nickname)

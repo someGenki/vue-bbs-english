@@ -4,6 +4,7 @@
       :uid="data.fromId"
       :avatar="data.fromAvatar"
       :nickname="data.fromName"
+      show-card
     />
     <!--评论者信息、内容、日期点赞数据、默认隐藏的评论框、递归的自身组件-->
     <div class="comment-wrapper">
@@ -50,6 +51,7 @@
 </template>
 
 <script setup>
+import { inject } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '/src/store/user'
 import { processWx } from '/src/hooks/emotion/useEmotions'
@@ -61,14 +63,19 @@ import CommentInfo from './CommentInfo.vue'
 import CommentCard from '/src/components/CommentCard/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
 
-// 评论功能也是个难点和复杂点 包括唯一的输入框，递归展示 <comment-card :data="data" />
+/**
+ * 评论功能也是个难点和复杂点 包括唯一的输入框，递归展示 <comment-card :data="data" />
+ * 需要provide('itemType') 便于提交评论类型时获取资源类型
+ */
 const { data, parent } = defineProps({
   // id,fromUser[,toUser],content,children,likes,gmtCreate
   data: { type: Object, required: true },
   // 由父级评论传递其自身data，用于处理父子评论关系
   parent: { type: Object, default: null },
 })
-const { switchShow, showReply, inputText, itemType } = useComment()
+const { switchShow, showReply, inputText } = useComment()
+const itemType = inject('itemType')
+
 const user = useUserStore()
 const placeText = `回复${data.fromName}...`
 

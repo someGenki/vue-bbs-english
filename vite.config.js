@@ -41,8 +41,7 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      scss: {
-      },
+      scss: {},
     },
   },
 })

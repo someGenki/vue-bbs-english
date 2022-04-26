@@ -3,6 +3,7 @@
     <!-- 文本输入框-->
     <el-input
       type="textarea"
+      ref="textareaRef"
       :clearable="true"
       :autosize="{ minRows: 5, maxRows: 8 }"
       placeholder="请留下和谐友善的言论哦"
@@ -33,7 +34,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { provide, reactive, ref } from 'vue'
 import { postMessage } from '/src/api/message'
 import { useUserStore } from '/src/store/user'
 import { ElMessage } from 'element-plus'
@@ -47,8 +48,10 @@ const props = defineProps({
   // 要对留言回复的那条留言所在的父级留言的id,对父级留言则,2个相同
   parentId: { type: Number, default: 0 },
 })
-
 const user = useUserStore()
+
+const textareaRef = ref(null)
+provide('textarea', textareaRef)
 
 const form = reactive({
   content: '',

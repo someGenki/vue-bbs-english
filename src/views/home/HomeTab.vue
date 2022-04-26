@@ -18,7 +18,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "/src/styles/variables";
+@import '/src/styles/variables';
 .tabs-wrap {
   margin-bottom: 18px;
   margin-left: 18px;

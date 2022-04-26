@@ -31,6 +31,7 @@ const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
 
 getPaging(1, 5)
 provide('uniReply', ref(null)) // 兄弟组件间通信
+provide('itemType', { itemType: 2 }) // 兄弟组件间通信
 </script>
 
 <style lang="scss" scoped>

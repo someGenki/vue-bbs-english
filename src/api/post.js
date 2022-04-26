@@ -1,5 +1,5 @@
 import http from '/src/utils/request'
-import {getCommentList} from './comment'
+import { getCommentList } from './comment'
 
 export function getPost(num, size, category) {
   if (!category) return http.get(`/post/page?num=${num}&size=${size}`)
@@ -24,7 +24,7 @@ export function getUserPost(uid) {
   return http.get(`/post/user/${uid}`)
 }
 
-export function delPost(pid){
+export function delPost(pid) {
   return http.get(`/post/del/${pid}`)
 }
 

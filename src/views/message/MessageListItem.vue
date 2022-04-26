@@ -42,14 +42,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
 import { useEmotion } from '/src/hooks/emotion/useEmotions'
 import { useComment } from '/src/hooks/content/useComment'
 import { postMessage } from '/src/api/message'
 import { useUserStore } from '/src/store/user'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
-import { ElNotification } from 'element-plus'
-import { useRouter } from 'vue-router'
 
 const { model, parent } = defineProps({
   model: { type: Object, required: true },
