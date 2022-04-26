@@ -43,6 +43,7 @@ const iconColor = userinfo.value === 1 ? '#40a9ff' : '#ff7474'
   height: 340px;
   overflow: hidden;
   background: #ffffff;
+  margin-bottom: 16px;
 
   & > .user-cover {
     position: relative;

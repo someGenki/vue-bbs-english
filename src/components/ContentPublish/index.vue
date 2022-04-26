@@ -26,7 +26,7 @@
           :disabled="!canReply"
           class="reply-btn"
         >
-          回&nbsp;复
+          {{ replyText }}
         </button>
       </div>
     </div>
@@ -39,7 +39,7 @@ import { useUserStore } from '/src/store/user'
 import AppEmotion from '/src/components/AppEmotion/index.vue'
 
 /**
- * @example <content-publish :place-text="placeText" v-model="inputText" />
+ * @example <content-publish :place-text="placeText" v-model="inputText" @reply />
  */
 const emit = defineEmits(['update:modelValue', 'reply'])
 const props = defineProps({
@@ -47,6 +47,7 @@ const props = defineProps({
   placeText: { type: String }, // 提示文本
   modelValue: { type: String }, // 双向绑定
   unique: { type: Boolean, default: false }, // 唯一展开
+  replyText: { type: String, default: '回 复' }, // 唯一展开
   compact: { type: Boolean, default: false }, // 更加紧凑
   showAvatar: { type: Boolean, default: true }, // 显示头像
 })
@@ -80,7 +81,7 @@ const handleEmotion = (text) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/variables';
+@import '/src/styles/variables';
 
 .publish-area {
   padding: 16px 28px;
