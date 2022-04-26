@@ -1,11 +1,10 @@
 <template>
   <div class="article-view">
-    <button @click="handle">test</button>
     <!--展示:标题、标签集合、发布者信息、主体内容-->
     <article v-if="loaded" ref="articleRef" class="article-area">
       <h1 class="article-title">{{ article.title }}</h1>
       <tags-row :tags="article.tags" :difficulty="article.difficulty" />
-      <meta-info :article="article" />
+      <meta-info @like="handleLike" :had-like="hadLike" :article="article" />
       <div
         class="markdown-body"
         :style="contentStyle"
@@ -32,6 +31,7 @@ const aid = useRoute().params.aid
 // [id,uid,tags,difficulty,content]
 const article = ref(null)
 const loaded = ref(false)
+const hadLike = ref(false)
 const settings = reactive({
   doubleTran: true,
   boldText: false,
@@ -56,10 +56,17 @@ getArticle(aid).then((res) => {
 })
 
 const articleRef = ref(null)
-const handle = () => {
-  articleRef.value.requestFullscreen()
-}
 
+const handleLike = ()=>{
+  hadLike.value=!hadLike.value
+  if(hadLike.value){
+    ElNotification({
+      type:"success",
+      message:"推荐成功🎉",
+      offset:80,
+    })
+  }
+}
 // 获取选中的单词 修建空格限制长度然后发送请求
 const getWord = () => {
   if (!settings.doubleTran) return

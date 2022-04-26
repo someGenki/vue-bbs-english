@@ -92,7 +92,7 @@ router.afterEach((to) => {
   document.title = to.meta.title || title
 })
 
-router.redirect = () => router.replace('/redirect')
+router.refresh = () => router.replace('/redirect')
 
 /*const routes = [
   {
