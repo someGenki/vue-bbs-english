@@ -1,7 +1,7 @@
 <template>
   <div class="input-avatar">
     <div @click="fileInput.click" class="avatar-uploader">
-      <img :src="user.avatar" alt="avatar" />
+      <img :src="user.avatar" v-default-img="user.nickname" alt="avatar" />
       <div class="click-cover">
         <app-icon icon="el-icon-plus" />
         <div>点击头像修改</div>

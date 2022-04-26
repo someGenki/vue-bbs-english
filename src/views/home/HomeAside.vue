@@ -53,7 +53,7 @@
     <div class="active-user">
       <div class="active-user-title">🔥活跃用户</div>
       <div v-if="topUser">
-        <active-user-card v-for="u in topUser" :user="u" />
+        <active-user-card v-for="u in topUser" :data="u" />
       </div>
     </div>
     <!-- 导航集合 -->
@@ -98,9 +98,9 @@
 import { ref } from 'vue'
 import { getTopUser } from '../../api/search'
 import { doSignin, hasSignin } from '../../api/user'
-import ActiveUserCard from './ActiveUserCard.vue'
 import { useUserStore } from '../../store/user'
 import { ElNotification } from 'element-plus'
+import ActiveUserCard from '/src/components/UserCard/index.vue'
 
 function getGreeting(hour) {
   if (hour < 6) return '凌晨'

@@ -24,8 +24,16 @@ export const useUserStore = defineStore('user', {
       return data
     },
     async signup(payload) {
+      const { code, data, msg } = await register(payload)
+      if (code !== 200) {
+        throw msg
+      }
+      this.saveUserInfo(data)
+      return data
+    },
+    async signup1(payload) {
       try {
-        const { code, data } = await register(payload)
+        const { code, data } = await register(payload) // 弃用
         if (code === 200) {
           this.saveUserInfo(data)
           return data
