@@ -84,7 +84,7 @@ getUserInfo(user.uid).then(({ data }) => {
 const handleSave = () => {
   updateInfos(form).then((res) => {
     ElNotification(res.msg)
-    router.redirect()
+    router.refresh()
   })
 }
 </script>

@@ -11,7 +11,7 @@
       <h2 v-if="isSelf">推文广场</h2>
       <h2 v-else>历史推文</h2>
       <div v-for="t in tweetList" class="tweet-card">
-        <span>{{ t.content }}</span>
+        <span v-html="processWx(t.content)" />
         <span class="time">{{ t.createdTime }}</span>
       </div>
       <el-empty v-if="tweetList.length === 0" />
@@ -28,6 +28,7 @@ import ContentPublish from '/src/components/ContentPublish/index.vue'
 import { getTweets, postTweet } from '../../api/tweet'
 import { ElNotification } from 'element-plus'
 import { useUserStore } from '../../store/user'
+import { processWx } from '../../hooks/emotion/useEmotions'
 
 const route = useRoute()
 const router = useRouter()
@@ -37,17 +38,17 @@ const loading = ref(false)
 const userinfo = ref(null)
 const tweetList = ref(null)
 const inputText = ref('')
-const placeText = ref('从这开始发表一条推文吧')
+const placeText = '从这开始发表一条推文吧'
+const isSelf = uid === user.uid
 
 const handleReply = () => {
   postTweet(inputText.value).then((res) => {
     ElNotification({ type: 'success', message: res.msg })
     inputText.value = ''
-    setTimeout(() => router.redirect(), 400)
+    setTimeout(() => router.refresh(), 400)
   })
 }
-const isSelf = uid === user.uid
-console.log(isSelf, uid, user.uid)
+
 getUserInfoDigest(uid).then((res) => {
   loading.value = true
   userinfo.value = res.data
