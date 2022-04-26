@@ -13,7 +13,7 @@
       </div>
       <div v-if="loaded" class="rank-list">
         <!--user card 待设计，同样穿个data-->
-        <template v-if="chooseType">
+        <template v-if="chooseType === 'post'">
           <post-card
             v-for="(item, index) in list"
             no-user
@@ -25,6 +25,13 @@
             </div>
           </post-card>
         </template>
+        <template v-else>
+          <user-card v-for="(item, index) in list" :data="item" :key="item.id">
+            <div class="rank-val">
+              {{ index + 1 }}
+            </div>
+          </user-card>
+        </template>
       </div>
     </div>
   </div>
@@ -33,8 +40,9 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
 import { getRank } from '/src/api/search'
-import PostCard from '/src/components/PostCard/index.vue'
 import SwitchTabs from './SwitchTabs.vue'
+import PostCard from '/src/components/PostCard/index.vue'
+import UserCard from '/src/components/UserCard/index.vue'
 
 const loaded = ref(false)
 const list = ref(false)
@@ -51,7 +59,8 @@ const byList = {
   },
 }
 const handleSwitch = (type) => {
-  chooseType.value = 'post'
+  chooseType.value = type
+  loaded.value = false
   // 获取第一个key作为更变后的默认值
   chooseBy.value = Object.keys(byList[chooseType.value])[0]
 }
@@ -76,12 +85,17 @@ watchEffect(() => {
   max-width: 768px;
   min-height: 300px;
   background: #ffffff;
+  .rank-head{
+    border-bottom: 1px solid #e6e6e6;
+  }
 }
 
 .post-card {
   margin: 0;
   border-top: 1px solid #e6e6e6;
-
+  &:nth-child(1){
+    border-top:none;
+  }
   &:hover {
     box-shadow: none;
   }
@@ -89,7 +103,7 @@ watchEffect(() => {
   .rank-val {
     position: absolute;
     top: 12px;
-    left: -4px;
+    left: 0;
     width: 60px;
     height: 60px;
     padding: 18px;
@@ -100,16 +114,35 @@ watchEffect(() => {
   }
 }
 
+.user-card {
+  margin: 16px;
+
+  .rank-val {
+    position: absolute;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #949494;
+    background-size: 100%;
+  }
+}
+
+.user-card:nth-child(1) .rank-val ,
 .post-card:nth-child(1) .rank-val {
   color: transparent;
   background-image: url('/src/icons/medal-1.png');
 }
 
+.user-card:nth-child(2) .rank-val ,
 .post-card:nth-child(2) .rank-val {
   color: transparent;
   background-image: url('/src/icons/medal-2.png');
 }
 
+.user-card:nth-child(3) .rank-val ,
 .post-card:nth-child(3) .rank-val {
   color: transparent;
   background-image: url('/src/icons/medal-3.png');

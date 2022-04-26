@@ -30,7 +30,6 @@
 </template>
 
 <script setup>
-// TODO 推文发表 查看
 const { userinfo } = defineProps({
   userinfo: { type: Object, required: true },
 })
@@ -41,9 +40,9 @@ const iconColor = userinfo.value === 1 ? '#40a9ff' : '#ff7474'
 <style lang="scss" scoped>
 .user-space-header {
   height: 340px;
+  margin-bottom: 16px;
   overflow: hidden;
   background: #ffffff;
-  margin-bottom: 16px;
 
   & > .user-cover {
     position: relative;

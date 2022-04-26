@@ -69,11 +69,11 @@ getTweets(isSelf ? 0 : uid).then((res) => {
 }
 
 .tweet-card {
-  background: #ffffff;
-  border-radius: 6px;
   position: relative;
   padding: 24px 32px 32px;
   margin: 8px 0;
+  background: #ffffff;
+  border-radius: 6px;
 
   & > .time {
     position: absolute;
