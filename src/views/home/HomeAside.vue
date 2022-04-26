@@ -116,11 +116,7 @@ function getGreeting(hour) {
 const user = useUserStore()
 const noSignin = ref(true) // true = 未签到过 false = 签到过了
 
-if (user.hadLogin) {
-  hasSignin().then((res) => {
-    noSignin.value = res.data
-  })
-}
+user.hadLogin && hasSignin().then((res) => (noSignin.value = res.data))
 
 const hour = new Date().getHours()
 const greeting = ref(getGreeting(hour) + '好!')
@@ -132,7 +128,7 @@ const handleSignin = () => {
   if (user.hadLogin) {
     doSignin().then((res) => {
       ElNotification({ type: 'success', message: res.msg + '✨', offset: 80 })
-      noSignin.value = true
+      noSignin.value = false
     })
   }
 }
