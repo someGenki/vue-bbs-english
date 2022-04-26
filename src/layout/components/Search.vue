@@ -36,10 +36,11 @@ $primary-color: #09a8db;
     height: 35px;
     padding: 0 20px 0 10px;
     background-color: #f5f5f5;
+    border: 1px solid #cfcfcf;
 
-    border: 0;
+    //border: 0;
     border-radius: 40px;
-    outline: 1px solid #cfcfcf;
+    outline: none;
     transition: 0.3s;
 
     &::placeholder {
@@ -49,7 +50,7 @@ $primary-color: #09a8db;
     &:focus {
       width: 100%;
       background: #ffffff;
-      outline: 1px solid $primary-color;
+      border: 1px solid $primary-color;
     }
 
     &:focus + button {

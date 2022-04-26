@@ -16,7 +16,7 @@
 
 <script setup>
 const props = defineProps({
-  data: {type: Object, required: true},
+  data: { type: Object, required: true },
 })
 </script>
 

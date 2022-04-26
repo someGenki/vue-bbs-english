@@ -63,8 +63,8 @@ const content = mark ? mark(data.content) : data.content
     font-style: normal;
     color: #f03232;
   }
-  &:hover{
-    background-color:#F5F5F5 ;
+  &:hover {
+    background-color: #f5f5f5;
   }
 }
 </style>

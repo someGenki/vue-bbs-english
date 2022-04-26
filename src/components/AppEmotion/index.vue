@@ -35,6 +35,7 @@ import EmotionBox from './EmotionBox.vue'
 
 /**
  * @example <app-emotion @emotion="handleEmotion" />
+ * 需要provide一个输入框的element引用！
  */
 const emit = defineEmits(['emotion'])
 const { emotions, emotionTabs } = useEmotion()

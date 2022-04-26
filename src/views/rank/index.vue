@@ -85,7 +85,7 @@ watchEffect(() => {
   max-width: 768px;
   min-height: 300px;
   background: #ffffff;
-  .rank-head{
+  .rank-head {
     border-bottom: 1px solid #e6e6e6;
   }
 }
@@ -93,8 +93,8 @@ watchEffect(() => {
 .post-card {
   margin: 0;
   border-top: 1px solid #e6e6e6;
-  &:nth-child(1){
-    border-top:none;
+  &:nth-child(1) {
+    border-top: none;
   }
   &:hover {
     box-shadow: none;
@@ -130,19 +130,19 @@ watchEffect(() => {
   }
 }
 
-.user-card:nth-child(1) .rank-val ,
+.user-card:nth-child(1) .rank-val,
 .post-card:nth-child(1) .rank-val {
   color: transparent;
   background-image: url('/src/icons/medal-1.png');
 }
 
-.user-card:nth-child(2) .rank-val ,
+.user-card:nth-child(2) .rank-val,
 .post-card:nth-child(2) .rank-val {
   color: transparent;
   background-image: url('/src/icons/medal-2.png');
 }
 
-.user-card:nth-child(3) .rank-val ,
+.user-card:nth-child(3) .rank-val,
 .post-card:nth-child(3) .rank-val {
   color: transparent;
   background-image: url('/src/icons/medal-3.png');

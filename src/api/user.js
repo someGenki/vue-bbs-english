@@ -46,9 +46,9 @@ export function getNotice() {
 export function readNotice(id) {
   return http.put('/notice/' + id)
 }
-export function doSignin(){
+export function doSignin() {
   return http.post('/signin/add')
 }
-export function hasSignin(){
+export function hasSignin() {
   return http.get('/signin/has')
 }

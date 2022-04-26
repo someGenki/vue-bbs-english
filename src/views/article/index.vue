@@ -1,7 +1,8 @@
 <template>
   <div class="article-view">
+    <button @click="handle">test</button>
     <!--展示:标题、标签集合、发布者信息、主体内容-->
-    <article v-if="loaded" class="article-area">
+    <article v-if="loaded" ref="articleRef" class="article-area">
       <h1 class="article-title">{{ article.title }}</h1>
       <tags-row :tags="article.tags" :difficulty="article.difficulty" />
       <meta-info :article="article" />
@@ -53,6 +54,11 @@ getArticle(aid).then((res) => {
   article.value = res.data
   document.title = res.data.title + ' - 二元'
 })
+
+const articleRef = ref(null)
+const handle = () => {
+  articleRef.value.requestFullscreen()
+}
 
 // 获取选中的单词 修建空格限制长度然后发送请求
 const getWord = () => {

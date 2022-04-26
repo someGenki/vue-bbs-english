@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "homepage": "http://fanyibar.top/bbs",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "husky install",

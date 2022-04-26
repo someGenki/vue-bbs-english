@@ -15,7 +15,6 @@ import { inject, isRef, ref } from 'vue'
  */
 export function useComment() {
   const showReply = ref(false)
-  const itemType = inject('itemType')
   const inputText = ref('')
   const uniReply = inject('uniReply') // refImpl! 注意要先注入一个ref实例
   const switchShow = () => {
@@ -31,5 +30,5 @@ export function useComment() {
       showReply.value = false
     }
   }
-  return { inputText, showReply, itemType, switchShow }
+  return { inputText, showReply, switchShow }
 }
