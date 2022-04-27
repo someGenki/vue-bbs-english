@@ -18,7 +18,7 @@
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
-import { useRoute,useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { marked } from 'marked'
 import { ElNotification } from 'element-plus'
 import '/src/styles/markdown-theme.scss'
@@ -28,7 +28,7 @@ import MetaInfo from '/src/components/MetaInfo/index.vue'
 import TagsRow from '/src/components/TagsRow/index.vue'
 
 const aid = useRoute().params.aid
-const router =useRouter()
+const router = useRouter()
 // [id,uid,tags,difficulty,content]
 const article = ref(null)
 const loaded = ref(false)
@@ -52,25 +52,27 @@ const contentStyle = computed(() => ({
   backgroundColor: settings.backgroundColor,
 }))
 
-getArticle(aid).then((res) => {
-  if (res.code === 2011) {
-    return router.push('/404')
+getArticle(aid).then(
+  (res) => {
+    if (res.code === 2011) {
+      return router.push('/404')
+    }
+    loaded.value = true
+    article.value = res.data
+    document.title = res.data.title + ' - 二元'
+  },
+  (err) => {
+    ElNotification({ type: 'error', message: err.data.data })
   }
-  loaded.value = true
-  article.value = res.data
-  document.title = res.data.title + ' - 二元'
-},(err)=>{
- ElNotification({type:"error",message:err.data.data})
-})
+)
 
-
-const handleLike = ()=>{
-  hadLike.value=!hadLike.value
-  if(hadLike.value){
+const handleLike = () => {
+  hadLike.value = !hadLike.value
+  if (hadLike.value) {
     ElNotification({
-      type:"success",
-      message:"推荐成功🎉",
-      offset:80,
+      type: 'success',
+      message: '推荐成功🎉',
+      offset: 80,
     })
   }
 }

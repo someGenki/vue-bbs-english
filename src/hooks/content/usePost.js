@@ -20,3 +20,11 @@ export const postCategory = [
     value: 'notice',
   },
 ]
+export const keysOfPost = [
+  'id',
+  'attachment',
+  'title',
+  'content',
+  'category',
+  'tags',
+]
