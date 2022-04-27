@@ -37,4 +37,4 @@ app.config.globalProperties.$paths = { space: (uid) => `/space/${uid}` }
 
 app.mount('#app')
 
-// TODO 未完成功能：背景图替换 文章发布
+// TODO 未完成功能：背景图替换

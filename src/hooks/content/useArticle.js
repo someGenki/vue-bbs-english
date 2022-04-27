@@ -10,31 +10,31 @@ export const splitTags = (tags) => {
     .filter((i) => !!i.name)
 }
 
+export const difficultyLists = [
+  ['小学水平', '#48dfb4'],
+  ['中学水平', '#eec053'],
+  ['大学水平', '#00A6ED'],
+  ['商务水平', '#FF6F59'],
+]
+
 export function getDifficulty(dif) {
+  // 好像不是很需要使用到computed
   const difColor = computed(() => {
-    switch (dif) {
-      case 1:
-        return '#48dfb4'
-      case 2:
-        return '#eec053'
-      case 3:
-        return '#00A6ED'
-      case 4:
-        return '#FF6F59'
-    }
+    return difficultyLists[dif - 1][1]
   })
 
   const difText = computed(() => {
-    switch (dif) {
-      case 1:
-        return '小学水平'
-      case 2:
-        return '中学水平'
-      case 3:
-        return '大学水平'
-      case 4:
-        return '商务水平'
-    }
+    return difficultyLists[dif - 1][0]
   })
   return { difColor, difText }
 }
+
+export const keysOfArticle = [
+  'id',
+  'title',
+  'content',
+  'tags',
+  'description',
+  'difficulty',
+  'firstPic',
+]

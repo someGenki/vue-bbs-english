@@ -8,7 +8,7 @@
         autofocus
         minlength="4"
         maxlength="64"
-        placeholder="请输入帖子标题（64字以内）"
+        :placeholder="placeText"
       />
       <span class="word-count">{{ wordCount }}</span>
     </div>
@@ -58,18 +58,25 @@
     <!--发布文章时，除标题和正文以外的其他属性设置-->
     <post-option
       v-if="type === 'post'"
-      :success="handles.success"
+      :success="handles.uploadSuccess"
       :form="form"
     />
+    <!--发布帖子时，除标题和正文以外的其他属性设置-->
+    <article-option
+      v-if="type === 'article'"
+      :form="form"
+      :success="handles.uploadSuccess"
+    />
+    <!--如果有存在本地的草稿，则显示删除草稿按钮-->
     <el-button v-if="draft" @click="handles.clear" type="text">
       删除草稿
     </el-button>
-    <span class="tip-text">{{ tipText }}</span>
+    <span class="tip-text">{{ tipText }} </span>
   </main>
 </template>
 
 <script setup>
-import { onUnmounted, reactive, ref } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import MdEditor from 'md-editor-v3'
@@ -78,27 +85,30 @@ import { useEditor } from './useEditor'
 import { useUserStore } from '/src/store/user'
 import { getPostDetail } from '/src/api/post'
 import PostOption from './PostOption.vue'
+import ArticleOption from './ArticleOption.vue'
 import AppHeader from '/src/components/AppHeader/index.vue'
 import AvatarMenu from '/src/components/AvatarMenu/index.vue'
+import { getArticle } from '/src/api/article'
+import { keysOfPost } from '/src/hooks/content/usePost'
+import { keysOfArticle } from '/src/hooks/content/useArticle'
 
-const user = useUserStore()
 const route = useRoute()
 const router = useRouter()
-const { type = 'post', id } = route.query // post or article(暂未支持)
+const user = useUserStore()
+const { type = 'post', id } = route.query // post or article
 
-user.hadLogin ? user.getUserInfo() : router.replace('/login')
+user.hadLogin ? user.getUserInfo() : router.replace('/login') // 保证已登录
+watch(
+  () => route.query,
+  (o, n) => o.type !== n.type && router.refresh()
+) // type变化刷新，重新加载组件，以执行一次setup()
 
-const form = reactive({
-  title: '',
-  content: '',
-  tags: 'test',
-  category: 'default',
-  attachment: '',
-  acAgreement: true,
-})
+const color = '#1d7dfa' // 按钮色调
 const tipText = ref('...') // 页面最下方的提示栏
-const isModify = ref(false)
-const { color, draft, wordCount, canSubmit, handles } = useEditor(form, type)
+const isModify = ref(false) // 是否是编辑内容模式
+// draft: 之前保存的草稿。wordCount: title的字数统计，placeText: title的提示文本
+const { draft, wordCount, placeText, canSubmit, handles, form } =
+  useEditor(type)
 
 // 每三分钟自动保存一次草稿
 const timer = setInterval(() => {
@@ -108,8 +118,11 @@ const timer = setInterval(() => {
 
 onUnmounted(() => clearInterval(timer))
 
+// 下拉菜单项
 const items = [
   { title: '个人中心', path: '/userinfo', icon: 'el-icon-user' },
+  { title: '发布帖子', path: '/editor?type=post', icon: 'el-icon-document' },
+  { title: '发布文章', path: '/editor?type=article', icon: 'el-icon-reading' },
   {
     title: '退出登录',
     divided: true,
@@ -120,17 +133,16 @@ const items = [
 
 // 携带对应参数则进入编辑模式,加载数据库中的内容
 if (id && type === 'post') {
-  const keysOfPost = [
-    'id',
-    'attachment',
-    'title',
-    'content',
-    'category',
-    'tags',
-  ]
   getPostDetail(id).then((res) => {
     if (res.data.uid !== user.uid) return
     keysOfPost.forEach((key) => (form[key] = res.data[key]))
+    document.title = '修改 - ' + form.title
+    isModify.value = true
+  })
+} else if (id && type === 'article') {
+  getArticle(id).then((res) => {
+    if (res.data.uid !== user.uid) return
+    keysOfArticle.forEach((key) => (form[key] = res.data[key]))
     document.title = '修改 - ' + form.title
     isModify.value = true
   })
@@ -182,40 +194,6 @@ if (id && type === 'post') {
     margin: 4px 16px;
     font-size: 14px;
     color: #999;
-  }
-}
-
-.other-setting {
-  padding: 16px 0 16px 32px;
-
-  .category {
-    margin-bottom: 16px;
-  }
-
-  .desc {
-    display: inline-block;
-    width: 100px;
-  }
-
-  .attachment {
-    display: flex;
-
-    :deep(.el-upload-dragger) {
-      height: 120px;
-    }
-
-    .el-upload .app-icon {
-      margin-top: 20px;
-    }
-  }
-
-  .checkbox {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .button-group {
-    margin-top: 16px;
   }
 }
 
