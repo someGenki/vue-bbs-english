@@ -94,40 +94,4 @@ router.afterEach((to) => {
 
 router.refresh = () => router.replace('/redirect')
 
-/*const routes = [
-  {
-    path: '/',
-    component: Layout,
-    children: [
-      {
-        path: '/space/:uid',
-        name: 'space',
-        component: () => import('@/views/user/space'),
-      },
-    ],
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: About,
-  },
-  {
-    path: '/publicity',
-    name: 'Publicity',
-    component: () => import('../views/other/Publicity.vue'),
-  },
-  {
-    path: '/:catchAll(.*)',
-    name: 'catch',
-    component: Layout,
-    children: [
-      {
-        path: '/:catchAll(.*)',
-        name: '404',
-        component: () => import('@/views/error/NotFound'),
-      },
-    ],
-  },
-]*/
-
 export default router

@@ -4,11 +4,11 @@
       <!--骨架屏包裹 主体内容展示[Markdown] + 回帖输入框 -->
       <article v-if="post" class="post-area">
         <h1 class="article-title">{{ post.title }}</h1>
-        <meta-info @like="handleLike" :had-like="hadLike" :article="post" />
-        <div class="markdown-body" v-html="marked(post.content)" />
+        <meta-info @like="handleLike" :had-like="hadLike" :article="post"/>
+        <div class="markdown-body" v-html="marked(post.content)"/>
         <div v-if="post.attachment" class="attachment-box">
           <div>帖子相关附件：</div>
-          <app-icon color="#28AFEA" size="54" icon="el-icon-document-add" />
+          <app-icon color="#28AFEA" size="54" icon="el-icon-document-add"/>
           <span>&nbsp;请自行甄别文件是否安全！！！</span>
           <el-button color="#626aef" class="download-attachment">
             <a :href="post.attachment" target="_blank">下载附件</a>
@@ -23,42 +23,55 @@
         v-model="replyText"
       />
       <!--评论区列表-->
-      <post-comment-list ref="commentList" :pid="pid" />
+      <post-comment-list ref="commentList" :pid="pid"/>
     </div>
     <!--侧边推广栏-->
     <div class="aside-area">
       <div class="aside-box" v-for="i in 2">
-        <el-empty description="description" />
+        <el-empty description="description"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { marked } from 'marked'
-import { useRoute } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { computed, provide, ref } from 'vue'
-import { useUserStore } from '/src/store/user'
-import { postComment } from '/src/api/comment'
-import { getPostDetail } from '/src/api/post'
+import {marked} from 'marked'
+import {useRoute, useRouter} from 'vue-router'
+import {ElMessage, ElNotification} from 'element-plus'
+import {computed, provide, ref} from 'vue'
+import {useUserStore} from '/src/store/user'
+import {postComment} from '/src/api/comment'
+import {getPostDetail} from '/src/api/post'
 import PostCommentList from './PostCommentList.vue'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import ContentPublish from '/src/components/ContentPublish/index.vue'
-import { doLike, doUnlike, isLike } from '/src/api/like'
+import {doLike, doUnlike, isLike} from '/src/api/like'
 
 const user = useUserStore()
+const router = useRouter();
 const post = ref(null)
 const hadLike = ref(false)
 const authorId = ref(null)
 const replyText = ref(null)
 const commentList = ref(null)
 const pid = useRoute().params.pid
-const itemType = { itemType: 4, itemId: Number(pid) }
+const itemType = {itemType: 4, itemId: Number(pid)}
 
 const placeText = computed(() =>
   user.hadLogin ? '发一条友善的评论' : `请先登录再发表(●'◡'●)`
 )
+
+// 根据文章id以获取文章具体内容
+getPostDetail(pid).then((res) => {
+  if (res.code === 2011) {
+    return router.push('/404')
+  }
+  post.value = res.data
+  authorId.value = res.data.uid
+  document.title = res.data.title + ' - 二元'
+}, (err) => {
+  ElNotification({type: "error", message: err.data.data})
+})
 
 const handleReply = () => {
   postComment({
@@ -67,7 +80,7 @@ const handleReply = () => {
     fromName: user.nickname,
     ...itemType,
   }).then((res) => {
-    ElMessage({ type: 'success', message: res.msg })
+    ElMessage({type: 'success', message: res.msg})
     replyText.value = ''
     commentList.value.reLoadMore()
   })
@@ -83,12 +96,7 @@ provide('itemType', itemType) // 为评论组件回复提供资源类型
 
 user.hadLogin && isLike(4, pid).then((res) => (hadLike.value = res.data))
 
-// 根据文章id以获取文章具体内容
-getPostDetail(pid).then((res) => {
-  post.value = res.data
-  authorId.value = res.data.uid
-  document.title = res.data.title + ' - 二元'
-})
+
 // https://www.jianshu.com/p/0b06128a6117 关于生成锚点
 </script>
 

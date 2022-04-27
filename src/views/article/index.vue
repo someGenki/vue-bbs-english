@@ -18,7 +18,7 @@
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 import { marked } from 'marked'
 import { ElNotification } from 'element-plus'
 import '/src/styles/markdown-theme.scss'
@@ -28,10 +28,13 @@ import MetaInfo from '/src/components/MetaInfo/index.vue'
 import TagsRow from '/src/components/TagsRow/index.vue'
 
 const aid = useRoute().params.aid
+const router =useRouter()
 // [id,uid,tags,difficulty,content]
 const article = ref(null)
 const loaded = ref(false)
 const hadLike = ref(false)
+const articleRef = ref(null)
+
 const settings = reactive({
   doubleTran: true,
   boldText: false,
@@ -50,12 +53,16 @@ const contentStyle = computed(() => ({
 }))
 
 getArticle(aid).then((res) => {
+  if (res.code === 2011) {
+    return router.push('/404')
+  }
   loaded.value = true
   article.value = res.data
   document.title = res.data.title + ' - 二元'
+},(err)=>{
+ ElNotification({type:"error",message:err.data.data})
 })
 
-const articleRef = ref(null)
 
 const handleLike = ()=>{
   hadLike.value=!hadLike.value
