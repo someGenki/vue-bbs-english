@@ -5,31 +5,39 @@
         <template #ops>
           <el-popconfirm @confirm="handleDel(item.id)" title="真的假的啊？">
             <template #reference>
-              <span class="userpost-del">删除</span>
+              <span class="userpost-btn">
+                删除
+              </span>
             </template>
           </el-popconfirm>
+          <span  @click="handleEdit(item.id)"  class="userpost-btn">编辑</span>
         </template>
       </search-card>
-      <el-empty v-if="list.length === 0" />
+      <el-empty v-if="list.length === 0"/>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { delPost, getUserPost } from '../../api/post'
-import { useUserStore } from '../../store/user'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
+import {ElNotification} from 'element-plus'
+import {delPost, getUserPost} from '/src/api/post'
+import {useUserStore} from '/src/store/user'
 import SearchCard from '/src/components/SearchCard/index.vue'
-import { ElNotification } from 'element-plus'
 
 const user = useUserStore()
+const router = useRouter()
 const list = ref(null)
 const handleDel = (pid) => {
   delPost(pid).then((res) => {
     const index = list.value.findIndex((v) => v.id === pid)
     list.value.splice(index, 1)
-    ElNotification({ type: 'success', message: res.msg })
+    ElNotification({type: 'success', message: res.msg})
   })
+}
+const handleEdit = (pid) => {
+  router.push('/editor?type=post&id=' + pid)
 }
 if (user.hadLogin) {
   getUserPost(user.uid).then((res) => (list.value = res.data))
@@ -42,14 +50,15 @@ if (user.hadLogin) {
   overflow-y: auto;
 }
 
-.search-card:hover .userpost-del {
+.search-card:hover .userpost-btn {
   color: #1e80ff;
   visibility: visible;
 }
 
-.userpost-del {
+.userpost-btn {
   font-size: 14px;
   cursor: pointer;
   visibility: hidden;
+  margin: 6px;
 }
 </style>

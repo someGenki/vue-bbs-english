@@ -27,11 +27,21 @@ export default [
       {
         path: 'posts',
         name: 'Posts',
-        component: () => import('/src/views/userinfo/userpost.vue'),
+        component: () => import('/src/views/userinfo/userPost.vue'),
         meta: {
           title: '帖子管理 - 内容管理',
           navName: '帖子管理',
           icon: 'el-icon-document-copy',
+        },
+      },
+      {
+        path: 'articles',
+        name: 'Articles',
+        component: () => import('/src/views/userinfo/userArticle.vue'),
+        meta: {
+          title: '文章管理 - 内容管理',
+          navName: '文章管理',
+          icon: 'el-icon-reading',
         },
       },
     ],
