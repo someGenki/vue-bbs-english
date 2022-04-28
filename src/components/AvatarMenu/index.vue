@@ -16,7 +16,12 @@
           :disabled="item.disabled"
           @click="tryCall(item.handle)"
         >
-          <app-link :disabled="item.disabled" center :to="item.path">
+          <app-link
+            class="dropdown-item"
+            :disabled="item.disabled"
+            center
+            :to="item.path"
+          >
             <app-icon v-if="item.icon" :icon="item.icon" />
             {{ item.title }}
           </app-link>
@@ -44,5 +49,17 @@ const tryCall = (fn, ...args) => {
   margin-left: 6px;
   cursor: pointer;
   border-radius: 6px;
+}
+// 增大下拉菜单的可点击范围
+.dropdown-item{
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left:-16px;
+    right: -16px;
+    top: -5px;
+    bottom: -5px;
+  }
 }
 </style>

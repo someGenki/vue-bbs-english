@@ -56,9 +56,9 @@ if (user.hadLogin) {
 }
 
 .userpost-btn {
+  margin: 6px;
   font-size: 14px;
   cursor: pointer;
   visibility: hidden;
-  margin: 6px;
 }
 </style>
