@@ -2,6 +2,7 @@
   <div v-if="loading" class="user-space">
     <space-header :userinfo="userinfo" />
     <content-publish
+      v-if="isSelf"
       @reply="handleReply"
       :place-text="placeText"
       reply-text="发 表"

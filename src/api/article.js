@@ -16,6 +16,16 @@ export function getArticle(aid) {
   return http.get('/article/' + aid)
 }
 
+// 获取用户发表过的文章
+export function getUserArticle(uid) {
+  return http.get(`/article/user/${uid}`)
+}
+
+// 删除一篇文章
+export function delArticle(aid) {
+  return http.get(`/article/del/${aid}`)
+}
+
 // 翻译单个单词
 export function translate(word) {
   return http.get('/api/' + word)
