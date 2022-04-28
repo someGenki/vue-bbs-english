@@ -17,7 +17,7 @@
     <div class="title">我的头像</div>
     <div class="description">支持 jpg、png、jpeg 格式大小 5M 以内的图片</div>
   </div>
-  <el-dialog v-model="dialogVisible" title="裁剪头像" width="30%">
+  <el-dialog v-model="dialogVisible" title="裁剪头像" width="500px">
     <div style="width: 400px; height: 400px; margin: auto">
       <vueCropper
         :auto-crop-width="200"
@@ -26,7 +26,6 @@
         ref="cropper"
         centerBox
         autoCrop
-        infoTrue
         fixed
       />
     </div>
@@ -68,6 +67,7 @@ const getImage = () => {
 // input选择图片后的回调函数
 const setImage = () => {
   const file = fileInput.value.files[0]
+  fileInput.value.value = ''
   if (!file || file.type.indexOf('image/') === -1) {
     return alert('请选择图片文件!!!')
   }

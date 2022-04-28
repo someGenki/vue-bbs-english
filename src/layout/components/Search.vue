@@ -21,7 +21,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const text = ref('')
 const goSearch = () =>
-  router.push({ path: '/search', query: { q: text.value } })
+  text.value && router.push({ path: '/search', query: { q: text.value } })
 </script>
 
 <style lang="scss" scoped>
