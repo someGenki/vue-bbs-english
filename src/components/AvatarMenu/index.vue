@@ -54,12 +54,12 @@ const tryCall = (fn, ...args) => {
 .dropdown-item{
   position: relative;
   &::after {
-    content: '';
     position: absolute;
-    left:-16px;
-    right: -16px;
     top: -5px;
+    right: -16px;
     bottom: -5px;
+    left:-16px;
+    content: '';
   }
 }
 </style>

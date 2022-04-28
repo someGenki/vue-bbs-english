@@ -34,7 +34,7 @@ import { processWx } from '../../hooks/emotion/useEmotions'
 const route = useRoute()
 const router = useRouter()
 const user = useUserStore()
-const uid = Number(route.params.uid)
+const uid = Number(route.params.uid) || user.uid
 const loading = ref(false)
 const userinfo = ref(null)
 const tweetList = ref(null)

@@ -31,18 +31,6 @@ export const useUserStore = defineStore('user', {
       this.saveUserInfo(data)
       return data
     },
-    async signup1(payload) {
-      try {
-        const { code, data } = await register(payload) // 弃用
-        if (code === 200) {
-          this.saveUserInfo(data)
-          return data
-        }
-      } catch (e) {
-        // 这里有后端的设计失误。。。
-        throw e.data.msg
-      }
-    },
     async getUserInfo() {
       if (!this.hadLogin) return
       const { data, code, msg } = await getNewestInfo()
