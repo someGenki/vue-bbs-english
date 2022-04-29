@@ -31,7 +31,7 @@ const router = useRouter()
 const list = ref(null)
 const handleDel = (aid) => {
   delArticle(aid).then((res) => {
-    const index = list.value.findIndex((v) => v.id === pid)
+    const index = list.value.findIndex((v) => v.id === aid)
     list.value.splice(index, 1)
     ElNotification({type: 'success', message: res.msg})
   })

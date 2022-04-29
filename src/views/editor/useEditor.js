@@ -6,13 +6,13 @@ import { pubPost } from '/src/api/post'
 import { uploadImage } from '/src/api/file'
 import { commitArticle } from '/src/api/article'
 
-const baseForm = { title: '', content: '', tags: 'test', acAgreement: true }
+const baseForm = { title: '', content: '', tags: '外语', acAgreement: true }
 const formOfPost = { category: 'default', attachment: '' }
 const formOfArticle = { description: '', difficulty: 1, firstPic: '' }
 
 const hasBase = (form) =>
   form.title.length > 3 && form.content.length > 3 && form.acAgreement
-const articleVerify = (form) => form.firstPic && form.description.length > 4
+const articleVerify = (form) => form.firstPic && form.description.length > 3
 
 export function useEditor(type) {
   const router = useRouter()
