@@ -25,10 +25,12 @@ export function useEditor(type) {
     return hasBase(form) && (type === 'article' ? articleVerify(form) : true)
   })
 
-  // 根据type生成具体的表单对象，title、content、tags、acAgreement为共有属性
-  const form = reactive(
-    Object.assign(baseForm, type === 'post' ? formOfPost : formOfArticle)
+  const initForm = Object.assign(
+    baseForm,
+    type === 'post' ? formOfPost : formOfArticle
   )
+  // 根据type生成具体的表单对象，title、content、tags、acAgreement为共有属性
+  const form = reactive(JSON.parse(JSON.stringify(initForm)))
 
   // 事件处理器
   const handles = {
@@ -40,6 +42,7 @@ export function useEditor(type) {
       fn(toRaw(form)).finally(() => {
         ElNotification({ type: 'success', message: 'ok!' })
         remove(draftKey)
+        Object.entries(initForm).forEach((k, v) => (form[k] = v))
         setTimeout(() => router.push('/'), 400)
       })
     },

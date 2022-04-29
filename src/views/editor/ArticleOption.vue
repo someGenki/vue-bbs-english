@@ -170,6 +170,6 @@ const handleInputConfirm = () => {
 .article-desc {
   width: 100%;
   max-width: 768px;
-  margin: 0 16px;
+  margin: 0;
 }
 </style>

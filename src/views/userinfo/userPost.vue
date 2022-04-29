@@ -1,7 +1,7 @@
 <template>
   <div class="userpost-view">
     <div v-if="list" class="search-area">
-      <search-card v-for="item in list" :data="item">
+      <search-card v-for="item in list" :key="item.id" :data="item">
         <template #ops>
           <el-popconfirm @confirm="handleDel(item.id)" title="真的假的啊？">
             <template #reference>
@@ -32,6 +32,7 @@ const list = ref(null)
 const handleDel = (pid) => {
   delPost(pid).then((res) => {
     const index = list.value.findIndex((v) => v.id === pid)
+    console.log(index)
     list.value.splice(index, 1)
     ElNotification({type: 'success', message: res.msg})
   })

@@ -36,7 +36,6 @@ const markWord = (text) => {
 // 非中心摆放，更加贴切习惯(还是看掘金的)
 .search-area {
   max-width: 768px;
-  min-height: 300px;
   background: #ffffff;
 }
 </style>
