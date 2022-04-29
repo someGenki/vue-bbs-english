@@ -36,5 +36,3 @@ app.component('app-avatar', AppAvatar)
 app.config.globalProperties.$paths = { space: (uid) => `/space/${uid}` }
 
 app.mount('#app')
-
-// TODO 未完成功能：背景图替换

@@ -169,7 +169,7 @@ if (id && type === 'post') {
     height: 100%;
     padding-right: 32px;
     margin-right: 32px;
-    font-size: 26px;
+    font-size: 24px;
     border: none;
     outline: none;
   }

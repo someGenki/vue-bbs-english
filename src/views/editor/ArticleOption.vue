@@ -34,6 +34,36 @@
         </el-radio>
       </el-radio-group>
     </div>
+    <div class="tags">
+      <span class="desc">文章标签:</span>
+      <div class="tags-wrapper">
+        <el-tag
+          v-for="tag in dynamicTags"
+          :key="tag"
+          closable
+          :disable-transitions="false"
+          @close="handleClose(tag)"
+        >
+          {{ tag }}
+        </el-tag>
+        <el-input
+          v-if="inputVisible"
+          ref="InputRef"
+          v-model="inputValue"
+          size="small"
+          @keyup.enter="handleInputConfirm"
+          @blur="handleInputConfirm"
+        />
+        <el-button
+          v-else
+          class="button-new-tag"
+          size="small"
+          @click="showInput"
+        >
+          + 新标签
+        </el-button>
+      </div>
+    </div>
     <div class="checkbox">
       <el-checkbox
         v-model="form.acAgreement"
@@ -48,6 +78,7 @@
 </template>
 
 <script setup>
+import { nextTick, ref } from 'vue'
 import { BASEURL } from '/src/utils/request'
 import { getToken } from '/src/utils/storage'
 import { difficultyLists } from '/src/hooks/content/useArticle'
@@ -57,6 +88,29 @@ const props = defineProps({
   success: { type: Function, required: true },
   reqUrl: { type: String, default: BASEURL + '/file/img' },
 })
+
+const inputValue = ref('')
+const dynamicTags = ref(props.form.tags.split('-'))
+const inputVisible = ref(false)
+const InputRef = ref(null)
+
+const handleClose = (tag) => {
+  dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1)
+}
+
+const showInput = () => {
+  inputVisible.value = true
+  nextTick(() => InputRef.value.input.focus())
+}
+
+const handleInputConfirm = () => {
+  if (inputValue.value) {
+    dynamicTags.value.push(inputValue.value)
+    props.form.tags = dynamicTags.value.join('-')
+  }
+  inputVisible.value = false
+  inputValue.value = ''
+}
 </script>
 
 <style lang="scss" scoped>
@@ -94,6 +148,16 @@ const props = defineProps({
 
     .el-tag {
       border: none;
+    }
+  }
+
+  & > .tags {
+    .tags-wrapper {
+      display: inline-flex;
+
+      & > * {
+        margin: 6px 0 6px 12px;
+      }
     }
   }
 
