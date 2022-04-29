@@ -32,7 +32,7 @@ const content = mark ? mark(data.content) : data.content
 
 .search-card {
   padding: 16px;
-  border-top: $divide-thin-border;
+  border-bottom: $divide-thin-border;
 
   .search-title {
     font-size: 18px;
@@ -64,7 +64,7 @@ const content = mark ? mark(data.content) : data.content
     color: #f03232;
   }
   &:hover {
-    background-color: #f5f5f5;
+    background-color: #fcfcfc;
   }
 }
 </style>
