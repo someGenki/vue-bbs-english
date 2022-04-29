@@ -25,6 +25,17 @@
             </div>
           </post-card>
         </template>
+        <template v-else-if="chooseType === 'article'">
+          <read-card
+            v-for="(item, index) in list"
+            :key="item.id"
+            :data="item"
+          >
+            <div class="rank-val">
+              {{ index + 1 }}
+            </div>
+          </read-card>
+        </template>
         <template v-else>
           <user-card v-for="(item, index) in list" :data="item" :key="item.id">
             <div class="rank-val">
@@ -43,15 +54,17 @@ import { getRank } from '/src/api/search'
 import SwitchTabs from './SwitchTabs.vue'
 import PostCard from '/src/components/PostCard/index.vue'
 import UserCard from '/src/components/UserCard/index.vue'
+import ReadCard from '/src/components/ReadCard/index.vue'
 
 const loaded = ref(false)
 const list = ref(false)
 const chooseType = ref('post')
 const chooseBy = ref('pv')
 // 用于标签栏的渲染数据
-const tabs = { post: '文章', user: '用户' }
+const tabs = { post: '帖子', article: '文章', user: '用户' }
 const byList = {
   user: { point: '积分点数' },
+  article: { pv: '点击量' },
   post: {
     pv: '点击量',
     likes: '点赞数',
@@ -85,6 +98,7 @@ watchEffect(() => {
   max-width: 768px;
   min-height: 300px;
   background: #ffffff;
+
   .rank-head {
     border-bottom: 1px solid #e6e6e6;
   }
@@ -93,9 +107,11 @@ watchEffect(() => {
 .post-card {
   margin: 0;
   border-top: 1px solid #e6e6e6;
+
   &:nth-child(1) {
     border-top: none;
   }
+
   &:hover {
     box-shadow: none;
   }

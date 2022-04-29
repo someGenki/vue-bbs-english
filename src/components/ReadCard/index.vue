@@ -9,6 +9,7 @@
           {{ difText }}
         </span>
         <span class="time">{{ data.gmtCreate }}</span>
+        <tags-row style="display: inline;" :tags="data.tags" />
         <span class="svg-item view"><i />{{ data.pv }}</span>
       </div>
     </div>
@@ -17,6 +18,7 @@
 
 <script setup>
 import { getDifficulty } from '/src/hooks/content/useArticle'
+import TagsRow from '/src/components/TagsRow/index.vue'
 
 const props = defineProps({
   // [id, firstPic, title, description, difficulty, pv, gmtCreate]

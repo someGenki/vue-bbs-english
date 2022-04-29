@@ -21,10 +21,10 @@
 <script setup>
 import {ref} from 'vue'
 import {useRouter} from 'vue-router'
+import {ElNotification} from "element-plus";
 import {useUserStore} from '/src/store/user'
 import SearchCard from '/src/components/SearchCard/index.vue'
 import {delArticle, getUserArticle} from "../../api/article";
-import {ElNotification} from "element-plus";
 
 const user = useUserStore()
 const router = useRouter()
