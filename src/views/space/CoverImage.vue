@@ -21,13 +21,12 @@
         <vueCropper
           auto-crop-width="1000"
           auto-crop-height="250"
+          :can-move-box="false"
           :img="imgData"
           ref="cropper"
           autoCrop
           fixedBox
           original
-          :can-move-box="false"
-          :can-scale="false"
         />
       </div>
 

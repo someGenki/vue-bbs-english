@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref} from 'vue'
 
 const { settings } = defineProps({
   settings: { type: Object, required: true },
