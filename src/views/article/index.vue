@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, toRaw, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { marked } from 'marked'
 import { ElNotification } from 'element-plus'
@@ -26,6 +26,7 @@ import { getArticle, translate } from '/src/api/article'
 import SettingPanel from './SettingPanel.vue'
 import MetaInfo from '/src/components/MetaInfo/index.vue'
 import TagsRow from '/src/components/TagsRow/index.vue'
+import { get, set } from '/src/utils/storage'
 
 const aid = useRoute().params.aid
 const router = useRouter()
@@ -35,14 +36,17 @@ const loaded = ref(false)
 const hadLike = ref(false)
 const articleRef = ref(null)
 
-const settings = reactive({
-  doubleTran: true,
-  boldText: false,
-  fontSize: 16,
-  fontFamily: 'system-ui',
-  color: '#212121',
-  backgroundColor: '#fff',
-})
+const settingsFromLocal = JSON.parse(get('article-setting'))
+const settings = reactive(
+  settingsFromLocal || {
+    doubleTran: true,
+    boldText: false,
+    fontSize: 18,
+    fontFamily: 'system-ui',
+    color: '#212121',
+    backgroundColor: '#fff',
+  }
+)
 
 const contentStyle = computed(() => ({
   fontWeight: settings.boldText ? 'bold' : '400',
@@ -66,6 +70,9 @@ getArticle(aid).then(
   }
 )
 
+watch(settings, (o, n) => {
+  set('article-setting', JSON.stringify(toRaw(n)))
+})
 const handleLike = () => {
   hadLike.value = !hadLike.value
   if (hadLike.value) {
