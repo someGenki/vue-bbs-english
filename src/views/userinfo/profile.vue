@@ -11,7 +11,7 @@
       </el-form-item>
       <div class="divide"></div>
       <el-form-item label="QQ号" prop="school">
-        <el-input v-model="form.qqnum" maxlength="32" show-word-limit />
+        <el-input v-model="form.qqnum" maxlength="11" show-word-limit />
       </el-form-item>
       <div class="divide"></div>
       <el-form-item label="性别" prop="sex">
