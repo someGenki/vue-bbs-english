@@ -1,6 +1,7 @@
 <template>
   <div class="home-container">
     <div class="posts-container">
+      <!--分类筛选帖子的标签栏-->
       <home-tab :category="category" />
       <!-- 帖子预览卡片带骨架屏 -->
       <el-skeleton :count="5" animated :loading="!loaded">
@@ -23,10 +24,10 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
 import { computed, watchEffect } from 'vue'
-import { useGetPage } from '/src/hooks/content/useGetPage'
+import { useRoute } from 'vue-router'
 import { getPost } from '/src/api/post'
+import { useGetPage } from '/src/hooks/content/useGetPage'
 import HomeAside from './HomeAside.vue'
 import HomeTab from './HomeTab.vue'
 import PostCard from '/src/components/PostCard/index.vue'
@@ -41,7 +42,7 @@ const { loaded, models, disabled, loadMore, getPaging } = useGetPage(
   { delay: 320 },
   category.value
 )
-
+// 将箭头函数作为category的一个依赖，category变化时重新执行该箭头函数
 watchEffect(() => getPaging(1, 10, category.value))
 </script>
 

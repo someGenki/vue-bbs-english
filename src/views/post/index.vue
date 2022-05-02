@@ -89,6 +89,7 @@ const handleReply = () => {
   })
 }
 const handleLike = () => {
+  if(!user.hadLogin) return
   hadLike.value
     ? doUnlike(4, pid).then(() => (hadLike.value = false))
     : doLike(4, pid).then(() => (hadLike.value = true))

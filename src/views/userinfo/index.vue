@@ -1,9 +1,9 @@
 <template>
   <div class="userinfo-container">
     <div class="userinfo-header">
-      <div class="link" @click="$router.push('/userinfo/profile')">
+      <div class="link" @click="$router.push('/space')">
         <app-icon icon="el-icon-arrow-left-bold" />
-        <span>返回个人主页</span>
+        <span>返回个人空间</span>
       </div>
     </div>
 

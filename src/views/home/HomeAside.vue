@@ -219,7 +219,7 @@ const handleSignin = () => {
   > .newest-info {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 0 10px;
     margin-top: 12px;
     background-color: #ffffff;
 
