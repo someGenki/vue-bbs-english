@@ -110,7 +110,6 @@ const handleInputConfirm = () => {
 .post-option {
   padding: 16px 0 16px 32px;
 
-
   .desc {
     display: inline-block;
     width: 100px;

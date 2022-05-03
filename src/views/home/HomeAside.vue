@@ -57,7 +57,7 @@
       </div>
     </div>
     <!-- 导航集合 -->
-    <nav-set/>
+    <nav-set />
   </div>
 </template>
 
@@ -191,6 +191,5 @@ getTopUser().then((res) => (topUser.value = res.data.slice(0, 5)))
       border-bottom: 1px solid #e5e5e5;
     }
   }
-
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="user-space-header">
-    <cover-image :img="userinfo.coverImg"/>
+    <cover-image :img="userinfo.coverImg" />
     <div class="user-info">
       <img
         class="user-avatar"
@@ -13,12 +13,12 @@
             {{ userinfo.nickname }}
           </span>
           <span class="sex" v-if="userinfo.sex < 3">
-            <app-icon size="20" :icon="iconName" :color="iconColor"/>
+            <app-icon size="20" :icon="iconName" :color="iconColor" />
           </span>
           <span class="point">{{ null }}</span>
         </div>
         <div class="user-sign">
-          <app-icon icon="el-icon-mic"/>
+          <app-icon icon="el-icon-mic" />
           {{ userinfo.sign }}
         </div>
       </div>
@@ -29,7 +29,7 @@
 <script setup>
 import CoverImage from './CoverImage.vue'
 
-const {userinfo} = defineProps({userinfo: {type: Object, required: true}})
+const { userinfo } = defineProps({ userinfo: { type: Object, required: true } })
 const iconName = `el-icon-${userinfo.sex === 1 ? 'male' : 'female'}`
 const iconColor = userinfo.sex === 1 ? '#40a9ff' : '#ff7474'
 </script>

@@ -16,15 +16,15 @@
 </template>
 
 <script setup>
-import {getDifficulty, splitTags} from '/src/hooks/content/useArticle'
+import { getDifficulty, splitTags } from '/src/hooks/content/useArticle'
 // <tags-row :tags="data.tags" />
 const props = defineProps({
-  tags: {type: [String, Array], required: true},
-  difficulty: {type: Number, default: 0},
+  tags: { type: [String, Array], required: true },
+  difficulty: { type: Number, default: 0 },
 })
 
 const tagList = splitTags(props.tags)
-const {difColor, difText} = getDifficulty(props.difficulty)
+const { difColor, difText } = getDifficulty(props.difficulty)
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +37,7 @@ const {difColor, difText} = getDifficulty(props.difficulty)
     border: none;
   }
 }
-.diff{
+.diff {
   float: right;
 }
 </style>

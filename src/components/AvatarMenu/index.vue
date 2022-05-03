@@ -51,14 +51,14 @@ const tryCall = (fn, ...args) => {
   border-radius: 6px;
 }
 // 增大下拉菜单的可点击范围
-.dropdown-item{
+.dropdown-item {
   position: relative;
   &::after {
     position: absolute;
     top: -5px;
     right: -16px;
     bottom: -5px;
-    left:-16px;
+    left: -16px;
     content: '';
   }
 }

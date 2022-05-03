@@ -9,7 +9,7 @@
           {{ difText }}
         </span>
         <span class="time">{{ data.gmtCreate }}</span>
-        <tags-row style="display: inline;" :tags="data.tags" />
+        <tags-row style="display: inline" :tags="data.tags" />
         <span class="svg-item view"><i />{{ data.pv }}</span>
       </div>
     </div>

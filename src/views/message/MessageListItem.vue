@@ -62,7 +62,7 @@ const content = useEmotion().processWx(model.content)
 const { switchShow, showReply, inputText } = useComment()
 
 const handleReply = () => {
-  if(!user.hadLogin) return
+  if (!user.hadLogin) return
   postMessage({
     content: inputText.value,
     nickname: user.nickname,

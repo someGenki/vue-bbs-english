@@ -8,7 +8,7 @@ export function commitArticle(form) {
 // 获取文章list
 export function getArticleList(num = 1, size = 5, search = '') {
   let tmp = search === 'default' ? '' : `&search=${search}`
-  if(!search){
+  if (!search) {
     return http.get(`/article/page?num=${num}&size=${size}`)
   }
   return http.get(`/article/page?num=${num}&size=${size}` + tmp)

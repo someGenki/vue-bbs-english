@@ -27,7 +27,7 @@
     </div>
     <!--侧边推广栏-->
     <div class="aside-area">
-      <img class="aside-aed" src="/src/assets/images/ead01.png" alt="">
+      <img class="aside-aed" src="/src/assets/images/ead01.png" alt="" />
       <div class="aside-box">
         <el-empty description="暂无数据" />
       </div>
@@ -78,7 +78,7 @@ getPostDetail(pid).then(
 )
 
 const handleReply = () => {
-  if(!user.hadLogin) return
+  if (!user.hadLogin) return
   postComment({
     parentId: 0,
     content: replyText.value,
@@ -91,7 +91,7 @@ const handleReply = () => {
   })
 }
 const handleLike = () => {
-  if(!user.hadLogin) return
+  if (!user.hadLogin) return
   hadLike.value
     ? doUnlike(4, pid).then(() => (hadLike.value = false))
     : doLike(4, pid).then(() => (hadLike.value = true))
@@ -174,14 +174,13 @@ user.hadLogin && isLike(4, pid).then((res) => (hadLike.value = res.data))
     background: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-
   }
-  .aside-aed{
-    object-fit: contain;
-    background: #ffffff;
-    padding: 16px;
-    border: 1px solid #e0e0e0;
+  .aside-aed {
     width: 100%;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    object-fit: contain;
   }
 }
 </style>

@@ -26,11 +26,7 @@
           </post-card>
         </template>
         <template v-else-if="chooseType === 'article'">
-          <read-card
-            v-for="(item, index) in list"
-            :key="item.id"
-            :data="item"
-          >
+          <read-card v-for="(item, index) in list" :key="item.id" :data="item">
             <div class="rank-val">
               {{ index + 1 }}
             </div>

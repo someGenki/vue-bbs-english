@@ -81,7 +81,7 @@ const placeText = `回复${data.fromName}...`
 
 // 发送请求并回显评论
 const handleReply = () => {
-  if(!user.hadLogin) return
+  if (!user.hadLogin) return
   const raw = {
     parentId: parent ? parent.id : data.id,
     content: inputText.value,
