@@ -42,7 +42,7 @@ const settings = reactive(
     doubleTran: true,
     boldText: false,
     fontSize: 18,
-    fontFamily: 'system-ui',
+    fontFamily: 'BreeSerif',
     color: '#212121',
     backgroundColor: '#fff',
   }

@@ -1,6 +1,6 @@
 <template>
   <div :data-id="data.id" class="post-card">
-    <router-link target="_blank" :to="`/post/${data.id}`" class="post-card-box">
+    <router-link :to="`/post/${data.id}`" class="post-card-box">
       <app-avatar v-if="!noUser" show-card v-bind="data" />
       <slot />
       <img

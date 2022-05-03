@@ -12,7 +12,7 @@
     <user-info-card v-if="showCard && infos" :infos="infos" />
     <span v-else>加载中...</span>
     <template #reference>
-      <router-link class="app-avatar" :data-uid="uid" :to="$paths.space(uid)">
+      <router-link class="app-avatar" :data-uid="uid" :to="`/space/${uid}`">
         <img
           :style="{ width: size, height: size }"
           :class="{ rounded }"

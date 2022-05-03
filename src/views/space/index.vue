@@ -43,6 +43,7 @@ const placeText = '从这开始发表一条推文吧'
 const isSelf = uid === user.uid
 
 const handleReply = () => {
+  if(!user.hadLogin) return
   postTweet(inputText.value).then((res) => {
     ElNotification({ type: 'success', message: res.msg })
     inputText.value = ''

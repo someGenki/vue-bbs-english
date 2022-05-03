@@ -33,6 +33,4 @@ app.component('app-icon', AppIcon)
 app.component('app-link', AppLink)
 app.component('app-avatar', AppAvatar)
 
-app.config.globalProperties.$paths = { space: (uid) => `/space/${uid}` }
-
 app.mount('#app')

@@ -12,7 +12,7 @@ export function globalRegister(app, components, opts) {
     : Object.values(components)
   const { prefix, replace } = opts
 
-  compsArr.forEach((component) => {
+  for (const component of compsArr) {
     let name = component.name
     if (replace && replace.has(name)) {
       if (!replace.get(name)) return
@@ -22,5 +22,5 @@ export function globalRegister(app, components, opts) {
       name = prefix + name
     }
     app.component(name, component)
-  })
+  }
 }

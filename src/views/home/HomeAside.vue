@@ -57,52 +57,19 @@
       </div>
     </div>
     <!-- 导航集合 -->
-    <div class="nav-set">
-      <div>
-        <a class="more-item">关于</a>
-        <a class="more-item">用户协议</a>
-        <a class="more-item">隐私政策</a>
-        <a class="more-item">使用指南</a>
-      </div>
-      <div>
-        <a href="https://juejin.cn/" class="more-item">掘金</a>
-        <a class="more-item">工作</a>
-        <a class="more-item">出国</a>
-        <a class="more-item">升学</a>
-        <a class="more-item">交流</a>
-      </div>
-      <div>
-        <a class="more-item">联系邮箱: 1159140147@qq.com</a>
-      </div>
-      <div>
-        <a class="more-item" href="https://beian.miit.gov.cn"
-          >闽ICP备20010420号-1</a
-        >
-      </div>
-      <div>
-        <a
-          class="more-item"
-          href="https://www.shdf.gov.cn/shdf/channels/740.html"
-          >扫黄打非举报
-        </a>
-        <a class="more-item" href="https://www.12377.cn/">违法信息举报</a>
-      </div>
-      <div>
-        <a class="more-item">©2022 二元论坛&nbsp;(building🚧🚧)</a>
-      </div>
-    </div>
+    <nav-set/>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { getTopUser } from '../../api/search'
-import { doSignin, hasSignin } from '../../api/user'
 import { useUserStore } from '../../store/user'
-import { ElNotification } from 'element-plus'
+import { useSignin } from './useSignin'
+import NavSet from './NavSet.vue'
 import ActiveUserCard from '/src/components/UserCard/index.vue'
 
-function getGreeting(hour) {
+function getGreeting(hour = new Date().getHours()) {
   if (hour < 6) return '凌晨'
   if (hour < 9) return '早上'
   if (hour < 12) return '上午'
@@ -114,24 +81,11 @@ function getGreeting(hour) {
 }
 
 const user = useUserStore()
-const noSignin = ref(true) // true = 未签到过 false = 签到过了
-
-user.hadLogin && hasSignin().then((res) => (noSignin.value = res.data))
-
-const hour = new Date().getHours()
-const greeting = ref(getGreeting(hour) + '好!')
 const topUser = ref(null)
-getTopUser().then((res) => {
-  topUser.value = res.data.slice(0, 5)
-})
-const handleSignin = () => {
-  if (user.hadLogin) {
-    doSignin().then((res) => {
-      ElNotification({ type: 'success', message: res.msg + '✨', offset: 80 })
-      noSignin.value = false
-    })
-  }
-}
+const { noSignin, handleSignin } = useSignin()
+const greeting = ref(getGreeting() + '好!')
+
+getTopUser().then((res) => (topUser.value = res.data.slice(0, 5)))
 </script>
 
 <style lang="scss" scoped>
@@ -238,26 +192,5 @@ const handleSignin = () => {
     }
   }
 
-  // 底部导航集合
-  > .nav-set {
-    margin-bottom: 24px;
-    background-color: transparent;
-
-    .more-item {
-      font-size: 12px;
-      color: #909090;
-      cursor: pointer;
-    }
-
-    .more-item::after {
-      margin: 0 0.4rem;
-      color: #868b91;
-      content: '·';
-    }
-
-    .more-item:last-child::after {
-      content: '';
-    }
-  }
 }
 </style>
